@@ -36,6 +36,7 @@ export default function useSpotify(token: string) {
     return {
         results,
         isLoading,
+        setIsLoading,
         getSongs,
     }
   }

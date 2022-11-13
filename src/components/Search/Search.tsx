@@ -13,16 +13,17 @@ import { SearchProps } from "./Search.types";
 export default function Search({
     accessToken = "",
 }: SearchProps) {
-    const { results, isLoading, getSongs } = useSpotify(accessToken);
+    const { results, isLoading, setIsLoading, getSongs } = useSpotify(accessToken);
     const [selectedSong, setSelectedSong] = useState<any>(null);
     const [query, setQuery] = useState("");
     const [error, setError] = useState("");
 
-    const onSubmit = () => {
+    const onSubmit = async () => {
         if (!selectedSong) {
-            setError("Oops, je hebt nog geen lied gekozen.");
+            setError("Elaba, je hebt nog geen lied gekozen viezerik.");
         }
-        console.log(selectedSong);
+
+        // await notionapi fetch
     }
 
     useEffect(() => {
@@ -57,7 +58,7 @@ export default function Search({
 
                     <Suggestions
                         results={results}
-                        isLoading={isLoading}
+                        isLoading={isLoading || !query}
                     />
                 </div>
             </Combobox>

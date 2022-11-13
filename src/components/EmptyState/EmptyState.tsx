@@ -1,7 +1,7 @@
 import { EmptyStateProps } from "./EmptyState.types";
 
 export default function EmptyState({
-    title = "",
+    message = "",
 }: EmptyStateProps) {
     return (
         <div className="px-4 py-8 text-center flex flex-col items-center gap-y-3">
@@ -10,7 +10,7 @@ export default function EmptyState({
             </svg>
 
             <p className="text-sm text-neutral-500">
-                { title }
+                { message }
             </p>
         </div>
     );

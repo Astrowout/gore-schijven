@@ -1,6 +1,7 @@
 import { Combobox, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import EmptyState from "../EmptyState/EmptyState";
+import Loader from "../Loader/Loader";
 import Player from "../Player/Player";
 import Track from "../Track/Track";
 import { SuggestionsProps } from "./Suggestions.types";
@@ -16,11 +17,17 @@ export default function Suggestions({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
         >
-            <div className="absolute top-full mt-2 max-h-80 w-full overflow-y-auto rounded-xl bg-neutral-900 border border-neutral-600 shadow-xl divide-y divide-neutral-800">
-                {!results.length ? (
-                    <EmptyState title={isLoading ? "Bezig met zoeken..." : "Geen resultaten gevonden"} />
-                ) : (
-                    <Combobox.Options>
+            <div className="absolute top-full mt-2 max-h-80 w-full overflow-y-auto rounded-lg bg-neutral-900 border border-neutral-600 shadow-xl divide-y divide-neutral-800">
+                {isLoading && (
+                    <Loader message="Bezig met zoeken..." />
+                )}
+                
+                {(!isLoading && !results.length) && (
+                    <EmptyState message="Geen resultaten gevonden" />
+                )}
+            
+                {(!isLoading && !!results.length) && (
+                    <Combobox.Options static>
                         {results.map((item: any) => (
                             <Combobox.Option
                                 key={item.id}
