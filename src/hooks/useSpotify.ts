@@ -21,9 +21,11 @@ export default function useSpotify(token: string) {
 
             setResults(items);
         } catch (error) {
-            
+            console.error(error);
         } finally {
-            setIsLoading(false);
+            setTimeout(() => {
+                setIsLoading(false);
+            });
         }
     }, [token]);
 
@@ -36,7 +38,6 @@ export default function useSpotify(token: string) {
     return {
         results,
         isLoading,
-        setIsLoading,
         getSongs,
     }
   }

@@ -2,10 +2,11 @@
 
 import { Combobox } from "@headlessui/react"
 import { useEffect, useState } from "react";
-import { useSpotify } from "../../hooks";
+import { useSpotify, useNotion } from "../../hooks";
 
 import Button from "../Button/Button";
 import SearchInput from "../SearchInput/SearchInput";
+import Success from "../Success/Success";
 import Suggestions from "../Suggestions/Suggestions";
 
 import { SearchProps } from "./Search.types";
@@ -13,17 +14,23 @@ import { SearchProps } from "./Search.types";
 export default function Search({
     accessToken = "",
 }: SearchProps) {
-    const { results, isLoading, setIsLoading, getSongs } = useSpotify(accessToken);
+    const { results, isLoading: isSpotifyLoading, getSongs } = useSpotify(accessToken);
+    const { result, isLoading, postProposal } = useNotion();
     const [selectedSong, setSelectedSong] = useState<any>(null);
     const [query, setQuery] = useState("");
     const [error, setError] = useState("");
 
     const onSubmit = async () => {
         if (!selectedSong) {
-            setError("Elaba, je hebt nog geen lied gekozen viezerik.");
+            setError("Elaba viezerik, je hebt nog geen lied gekozen.");
+            return;
         }
 
-        // await notionapi fetch
+        try {
+            await postProposal(selectedSong);
+        } catch (error) {
+            setError("Oeps, er liep iets mis. Wees gerust, het ligt niet aan jou maar aan onze vuile code.");
+        }
     }
 
     useEffect(() => {
@@ -38,6 +45,12 @@ export default function Search({
         }
     }, [query]); // eslint-disable-line react-hooks/exhaustive-deps
 
+    if (result) {
+        return (
+            <Success message="We hebben jouw vieze drop goed ontvangen! Deze zullen we tussen de 5 en 27 werkdagen reviewen." />
+        )
+    }
+
     return (
         <div
             className="flex flex-col items-center gap-y-6 self-stretch mx-auto w-full max-w-md"
@@ -45,7 +58,7 @@ export default function Search({
             <Combobox onChange={setSelectedSong}>
                 <div className="relative self-stretch">
                     {error && (
-                        <p className="text-sm text-red-400 mb-2">
+                        <p className="text-sm text-red-400 mb-2 max-w-prose">
                             { error }
                         </p>
                     )}
@@ -58,7 +71,7 @@ export default function Search({
 
                     <Suggestions
                         results={results}
-                        isLoading={isLoading || !query}
+                        isLoading={isSpotifyLoading || !query}
                     />
                 </div>
             </Combobox>
@@ -66,6 +79,7 @@ export default function Search({
             <Button
                 type="submit"
                 onClick={onSubmit}
+                isLoading={isLoading}
             >
                 Versturen
             </Button>

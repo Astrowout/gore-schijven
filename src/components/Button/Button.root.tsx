@@ -3,6 +3,7 @@ import { ButtonProps } from "./Button.types";
 export default function ButtonRoot({
     link = "",
     type = "button",
+    isLoading = false,
     onClick = () => null,
     children = null,
 }: ButtonProps) {
@@ -23,6 +24,7 @@ export default function ButtonRoot({
         <button
             onClick={onClick}
             type={type}
+            disabled={isLoading}
         >
             { children }
         </button>
