@@ -7,7 +7,7 @@ export default function Proposal({
 }: ProposalProps) {
     return (
         <section className="flex flex-col items-center py-10 sm:py-12 px-5 gap-y-8">
-            <header className="text-center max-w-prose flex flex-col items-center gap-y-4">
+            <header className="text-center max-w-prose flex flex-col items-center gap-y-3">
                 <h1 className="text-2xl sm:text-3xl md:text-4xl text-white font-semibold">
                     { title }
                 </h1>

@@ -52,9 +52,7 @@ export default function Search({
     }
 
     return (
-        <div
-            className="flex flex-col items-center gap-y-6 self-stretch mx-auto w-full max-w-md"
-        >
+        <div className="flex flex-col items-center gap-y-6 self-stretch mx-auto w-full max-w-md">
             <Combobox onChange={setSelectedSong}>
                 <div className="relative self-stretch">
                     {error && (
