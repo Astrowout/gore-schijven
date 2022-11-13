@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    body {
+        background-image:  linear-gradient(#141414 1px, transparent 1px), linear-gradient(to right, #141414 1px, hsla(0, 0%, 9%, 0.2) 1px);
+        background-size: 30px 30px;
+    }
+
+    @font-face {
+        font-family: Newake;
+        src: url('/fonts/Newake/Newake.woff2') format('woff2'),
+            url('/fonts/Newake/Newake.woff') format('woff');
+    }
+}

@@ -1,0 +1,1 @@
+export type { AlbumType, ArtistType } from "./track";
