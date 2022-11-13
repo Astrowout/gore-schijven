@@ -47,7 +47,7 @@ export default function Search({
 
     if (result) {
         return (
-            <Success message="We hebben jouw vieze drop goed ontvangen! Deze zullen we tussen de 5 en 27 werkdagen reviewen." />
+            <Success message="We hebben jouw vieze drop goed ontvangen! Het ingezonden degoutant kabaal wordt binnen de 27 werkdagen gereviewd." />
         )
     }
 

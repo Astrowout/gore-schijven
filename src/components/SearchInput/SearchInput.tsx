@@ -6,7 +6,7 @@ import { SearchInputProps } from "./SearchInput.types";
 import Track from '../Track/Track';
 
 export default function SearchInput({
-    debounceTimeout = 1000,
+    debounceTimeout = 800,
     selectedSong = null,
     onChange = () => null,
     onRemoveSong = () => null,
