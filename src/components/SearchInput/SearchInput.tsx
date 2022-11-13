@@ -41,7 +41,7 @@ export default function SearchInput({
                     />
 
                     <button
-                        className="w-6 h-6 flex items-center justify-center text-neutral-600 transition hover:scale-110 hover:text-neutral-500"
+                        className="w-6 h-6 flex flex-shrink-0 items-center justify-center text-neutral-600 transition hover:scale-110 hover:text-neutral-500"
                         type="button"
                         onClick={handleRemoveSong}
                     >

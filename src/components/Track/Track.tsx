@@ -12,7 +12,7 @@ export default function Track({
     const artistsLine = getArtistsLine(artists);
 
     return (
-        <span className="flex items-center gap-x-3 text-sm text-left">
+        <span className="flex items-center gap-x-3 max-w-[90%] text-sm text-left">
             {album && (
                 <Image
                     src={album.images[2].url}
@@ -23,12 +23,12 @@ export default function Track({
                 />
             )}
     
-            <span className="flex flex-col">
-                <p className="text-white">
+            <span className="flex flex-col flex-grow truncate">
+                <p className="text-white truncate">
                     { name }
                 </p>
         
-                <p className="text-sm text-neutral-500">
+                <p className="text-sm text-neutral-500 truncate">
                     { artistsLine }
                 </p>
             </span>
