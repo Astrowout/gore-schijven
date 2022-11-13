@@ -70,7 +70,7 @@ export default function Progress({
                 r={normalizedRadius}
                 cx={size / 2}
                 cy={size / 2}
-                className="text-green-500"
+                className="text-purple-500"
             />
         </svg>
     );

@@ -17,7 +17,7 @@ export default function Suggestions({
             leave="transition-opacity duration-100"
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
-            className="absolute top-full mt-2 max-h-80 w-full overflow-y-auto rounded-lg bg-neutral-900 border border-neutral-600 shadow-xl divide-y divide-neutral-800"
+            className="absolute top-full mt-2 max-h-80 w-full overflow-y-auto rounded-lg bg-neutral-900 border border-neutral-600 shadow-xl"
         >
             {isLoading && (
                 <Loader message="Bezig met zoeken..." />
@@ -28,7 +28,7 @@ export default function Suggestions({
             )}
         
             {(!isLoading && !!results.length) && (
-                <Combobox.Options static>
+                <Combobox.Options className="divide-y divide-neutral-800">
                     {results.map((item: any) => (
                         <Combobox.Option
                             key={item.id}
