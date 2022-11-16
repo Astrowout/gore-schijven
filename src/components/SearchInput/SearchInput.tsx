@@ -26,7 +26,7 @@ export default function SearchInput({
         <div className="relative">
             <Combobox.Input
                 onChange={(e) => debounceFn(e.target.value)}
-                className={`${selectedTrack ? "pointer-events-none" : "pointer-events-auto"} w-full h-14 px-6 rounded-full border border-neutral-700 focus:border-purple-500 focus:outline-none text-white placeholder:text-neutral-600 bg-neutral-800 shadow-inner`}
+                className={`${selectedTrack ? "pointer-events-none" : "pointer-events-auto"} w-full appearance-none h-14 px-6 rounded-full border border-neutral-700 focus:border-purple-500 focus:outline-none text-white placeholder:text-neutral-600 bg-neutral-800 shadow-inner`}
                 placeholder={selectedTrack ? "" : "Zoek een gore schijf op titel, artiest..."}
                 ref={inputRef}
                 autoComplete="off"

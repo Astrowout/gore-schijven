@@ -1,6 +1,6 @@
 "use client";
 
-import { Combobox } from "@headlessui/react"
+import { Combobox, Transition } from "@headlessui/react"
 import { useEffect, useState } from "react";
 import { useSpotify, useNotion } from "../../hooks";
 
@@ -60,6 +60,7 @@ export default function Search({
     return (
         <div className="flex flex-col items-center gap-y-6 self-stretch mx-auto w-full max-w-md">
             <Combobox onChange={setSelectedTrack}>
+                {({ open }) => (
                 <div className="relative self-stretch">
                     {error && (
                         <p className="text-sm text-red-400 mb-2 max-w-prose">
@@ -73,8 +74,14 @@ export default function Search({
                         onRemoveTrack={() => setSelectedTrack(null)}
                     />
 
-                    <Suggestions results={tracks} />
+                    <Transition
+                        appear
+                        show={open}
+                    >
+                        <Suggestions results={tracks} />
+                    </Transition>
                 </div>
+                )}
             </Combobox>
 
             <Button

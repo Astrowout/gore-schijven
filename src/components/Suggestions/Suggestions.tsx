@@ -8,14 +8,14 @@ export default function Suggestions({
     results = [],
 }: SuggestionsProps) {
     return (
-        <Transition
-            enter="transition-opacity duration-150"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
+        <Transition.Child
+            enter="transition ease-out duration-200"
+            enterFrom="opacity-0 scale-95"
+            enterTo="opacity-100 scale-100"
             leave="transition-opacity duration-100"
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
-            className="absolute top-full mt-2 max-h-80 w-full overflow-y-auto rounded-lg bg-neutral-900 border border-neutral-600 shadow-xl"
+            className="absolute origin-top top-full mt-2 max-h-80 w-full overflow-y-auto rounded-lg bg-neutral-900 border border-neutral-600 shadow-xl"
         >
             {!results.length && (
                 <EmptyState message="Geen resultaten gevonden" />
@@ -46,6 +46,6 @@ export default function Suggestions({
                     ))}
                 </Combobox.Options>
             )}
-        </Transition>
+        </Transition.Child>
     );
 };
