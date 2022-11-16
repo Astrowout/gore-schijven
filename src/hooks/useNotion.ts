@@ -22,9 +22,7 @@ export default function useNotion() {
         } catch (error) {
             console.error(error);
         } finally {
-            setTimeout(() => {
-                setIsLoading(false);
-            });
+            setIsLoading(false);
         }
     }, []);
 
@@ -37,6 +35,7 @@ export default function useNotion() {
     return {
         result,
         isLoading,
+        resetResult: () => setResult(null),
         postProposal,
     }
   }

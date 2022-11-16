@@ -1,6 +1,6 @@
 export type SearchInputProps = {
     onChange: (value: string) => void;
-    onRemoveSong: () => void;
-    selectedSong?: any;
+    onRemoveTrack: () => void;
+    selectedTrack?: any;
     debounceTimeout?: number;
 }

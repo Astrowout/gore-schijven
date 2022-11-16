@@ -3,13 +3,10 @@ import { useCallback, useEffect, useState } from "react";
 const LIMIT = 30;
 
 export default function useSpotify(token: string) {
-    const [results, setResults] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
+    const [tracks, setTracks] = useState([]);
 
-    const getSongs = useCallback(async (query: string) => {
-        try {            
-            setIsLoading(true);
-        
+    const getTracks = useCallback(async (query: string) => {
+        try {
             const res = await fetch(`${process.env.NEXT_PUBLIC_SPOTIFY_API_URL}/search?q=${query}&type=track&limit=${LIMIT}`, {
                 cache: "no-store",
                 headers: {
@@ -19,25 +16,20 @@ export default function useSpotify(token: string) {
     
             const { tracks: { items } } = await res.json();
 
-            setResults(items);
+            setTracks(items);
         } catch (error) {
             console.error(error);
-        } finally {
-            setTimeout(() => {
-                setIsLoading(false);
-            });
         }
     }, [token]);
 
     useEffect(() => {
         return () => {
-            setResults([]);
+            setTracks([]);
         }
     }, []);
     
     return {
-        results,
-        isLoading,
-        getSongs,
+        tracks,
+        getTracks,
     }
   }

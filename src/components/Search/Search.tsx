@@ -14,46 +14,52 @@ import { SearchProps } from "./Search.types";
 export default function Search({
     accessToken = "",
 }: SearchProps) {
-    const { results, isLoading: isSpotifyLoading, getSongs } = useSpotify(accessToken);
-    const { result, isLoading, postProposal } = useNotion();
-    const [selectedSong, setSelectedSong] = useState<any>(null);
+    const { tracks, getTracks } = useSpotify(accessToken);
+    const { result, isLoading, resetResult, postProposal } = useNotion();
     const [query, setQuery] = useState("");
+    const [selectedTrack, setSelectedTrack] = useState<any>(null);
     const [error, setError] = useState("");
 
     const onSubmit = async () => {
-        if (!selectedSong) {
+        if (!selectedTrack) {
             setError("Elaba viezerik, je hebt nog geen lied gekozen.");
             return;
         }
 
         try {
-            await postProposal(selectedSong);
+            await postProposal(selectedTrack);
+
+            setSelectedTrack(null);
         } catch (error) {
             setError("Oeps, er liep iets mis. Wees gerust, het ligt niet aan jou maar aan onze vuile code.");
         }
     }
 
     useEffect(() => {
-        if (selectedSong) {
+        if (selectedTrack) {
             setError("");
         }
-    }, [selectedSong]);
+    }, [selectedTrack]);
 
     useEffect(() => {
-        if (query) {
-            getSongs(query);
+        if (!!query) {
+            getTracks(query);
         }
     }, [query]); // eslint-disable-line react-hooks/exhaustive-deps
 
     if (result) {
         return (
-            <Success message="We hebben jouw vieze drop goed ontvangen! Het ingezonden degoutant kabaal wordt binnen de 27 werkdagen gereviewd." />
+            <Success message="We hebben jouw vieze drop goed ontvangen! Het ingezonden degoutant kabaal wordt binnen de 27 werkdagen gereviewd.">
+                <Button onClick={resetResult}>
+                    Stel nog een vieze schijf voor
+                </Button>
+            </Success>
         )
     }
 
     return (
         <div className="flex flex-col items-center gap-y-6 self-stretch mx-auto w-full max-w-md">
-            <Combobox onChange={setSelectedSong}>
+            <Combobox onChange={setSelectedTrack}>
                 <div className="relative self-stretch">
                     {error && (
                         <p className="text-sm text-red-400 mb-2 max-w-prose">
@@ -62,20 +68,16 @@ export default function Search({
                     )}
 
                     <SearchInput
-                        selectedSong={selectedSong}
+                        selectedTrack={selectedTrack}
                         onChange={setQuery}
-                        onRemoveSong={() => setSelectedSong(null)}
+                        onRemoveTrack={() => setSelectedTrack(null)}
                     />
 
-                    <Suggestions
-                        results={results}
-                        isLoading={isSpotifyLoading || !query}
-                    />
+                    <Suggestions results={tracks} />
                 </div>
             </Combobox>
 
             <Button
-                type="submit"
                 onClick={onSubmit}
                 isLoading={isLoading}
             >

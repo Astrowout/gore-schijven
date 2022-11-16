@@ -7,15 +7,15 @@ import Track from '../Track/Track';
 
 export default function SearchInput({
     debounceTimeout = 800,
-    selectedSong = null,
+    selectedTrack = null,
     onChange = () => null,
-    onRemoveSong = () => null,
+    onRemoveTrack = () => null,
 }: SearchInputProps) {
     const inputRef = useRef<HTMLInputElement>(null);
     const debounceFn = useCallback(debounce(onChange, debounceTimeout), []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const handleRemoveSong = () => {
-        onRemoveSong();
+        onRemoveTrack();
 
         if (inputRef.current) {
             inputRef.current.focus();
@@ -26,18 +26,18 @@ export default function SearchInput({
         <div className="relative">
             <Combobox.Input
                 onChange={(e) => debounceFn(e.target.value)}
-                className={`${selectedSong ? "pointer-events-none" : "pointer-events-auto"} w-full h-14 px-6 rounded-full border border-neutral-700 focus:border-purple-500 focus:outline-none text-white placeholder:text-neutral-600 bg-neutral-800 shadow-inner`}
-                placeholder={selectedSong ? "" : "Zoek een gore schijf op titel, artiest..."}
+                className={`${selectedTrack ? "pointer-events-none" : "pointer-events-auto"} w-full h-14 px-6 rounded-full border border-neutral-700 focus:border-purple-500 focus:outline-none text-white placeholder:text-neutral-600 bg-neutral-800 shadow-inner`}
+                placeholder={selectedTrack ? "" : "Zoek een gore schijf op titel, artiest..."}
                 ref={inputRef}
                 autoComplete="off"
             />
 
-            {selectedSong && (
+            {selectedTrack && (
                 <span className="absolute top-1/2 -translate-y-1/2 inset-x-5 gap-x-3 flex items-center justify-between">
                     <Track
-                        album={selectedSong.album}
-                        name={selectedSong.name}
-                        artists={selectedSong.artists}
+                        album={selectedTrack.album}
+                        name={selectedTrack.name}
+                        artists={selectedTrack.artists}
                         coverSize="w-10 h-10"
                     />
 
