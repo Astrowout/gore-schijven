@@ -4,13 +4,16 @@ export default function useNotion() {
     const [result, setResult] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
-    const postProposal = useCallback(async (song: any) => {
+    const postProposal = useCallback(async (song: any, email: string) => {
         try {            
             setIsLoading(true);
 
             const res = await fetch("/api/notion/page", {
                 method: "POST",
-                body: JSON.stringify(song),
+                body: JSON.stringify({
+                    ...song,
+                    email,
+                }),
                 headers: {
                     "Content-Type": "application/json",
                 },

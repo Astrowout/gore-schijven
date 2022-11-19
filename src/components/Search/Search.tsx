@@ -2,9 +2,11 @@
 
 import { Combobox, Transition } from "@headlessui/react"
 import { useEffect, useState } from "react";
+import { validateEmail } from "../../helpers/validate";
 import { useSpotify, useNotion } from "../../hooks";
 
 import Button from "../Button/Button";
+import Input from "../Input/Input";
 import SearchInput from "../SearchInput/SearchInput";
 import Success from "../Success/Success";
 import Suggestions from "../Suggestions/Suggestions";
@@ -17,17 +19,30 @@ export default function Search({
     const { tracks, getTracks } = useSpotify(accessToken);
     const { result, isLoading, resetResult, postProposal } = useNotion();
     const [query, setQuery] = useState("");
+    const [email, setEmail] = useState("");
     const [selectedTrack, setSelectedTrack] = useState<any>(null);
     const [error, setError] = useState("");
 
     const onSubmit = async () => {
+        setError("");
+    
         if (!selectedTrack) {
             setError("Elaba viezerik, je hebt nog geen lied gekozen.");
             return;
         }
 
+        if (!email) {
+            setError("Elaba viezerik, je moet jouw e-mailadres nog invullen.");
+            return;
+        }
+
+        if (!validateEmail(email)) {
+            setError("Elaba viezerik, jouw e-mailadres lijkt niet te kloppen.");
+            return;
+        }
+
         try {
-            await postProposal(selectedTrack);
+            await postProposal(selectedTrack, email);
 
             setSelectedTrack(null);
         } catch (error) {
@@ -58,38 +73,47 @@ export default function Search({
     }
 
     return (
-        <div className="flex flex-col items-center gap-y-6 self-stretch mx-auto w-full max-w-md">
+        <div className="flex flex-col items-center self-stretch mx-auto w-full max-w-md p-4">
             <Combobox onChange={setSelectedTrack}>
                 {({ open }) => (
-                <div className="relative self-stretch">
-                    {error && (
-                        <p className="text-sm text-red-400 mb-2 max-w-prose">
-                            { error }
-                        </p>
-                    )}
+                    <div className="relative self-stretch">
+                        <SearchInput
+                            selectedTrack={selectedTrack}
+                            onChange={setQuery}
+                            onRemoveTrack={() => setSelectedTrack(null)}
+                        />
 
-                    <SearchInput
-                        selectedTrack={selectedTrack}
-                        onChange={setQuery}
-                        onRemoveTrack={() => setSelectedTrack(null)}
-                    />
-
-                    <Transition
-                        appear
-                        show={open}
-                    >
-                        <Suggestions results={tracks} />
-                    </Transition>
-                </div>
+                        <Transition
+                            appear
+                            show={open}
+                        >
+                            <Suggestions results={tracks} />
+                        </Transition>
+                    </div>
                 )}
             </Combobox>
+
+            <Input
+                name="email"
+                label="Jouw e-mailadres"
+                placeholder="viezevuilegore@gmail.com"
+                onChange={setEmail}
+                className="mt-6"
+            />
 
             <Button
                 onClick={onSubmit}
                 isLoading={isLoading}
+                className="mt-6"
             >
                 Versturen
             </Button>
+
+            {error && (
+                <p className="text-sm text-red-400 mt-4 max-w-prose">
+                    { error }
+                </p>
+            )}
         </div>
     );
 };

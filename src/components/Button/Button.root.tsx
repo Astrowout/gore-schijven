@@ -1,19 +1,22 @@
 import { ButtonProps } from "./Button.types";
 
 export default function ButtonRoot({
+    children = null,
+    className = "",
     link = "",
     type = "button",
     isLoading = false,
     onClick = () => null,
-    children = null,
 }: ButtonProps) {
+    const classes = `${className} inline-flex`;
+    
     if (link) {
         return (
             <a
                 href={link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex"
+                className={classes}
             >
                 { children }
             </a>
@@ -25,6 +28,7 @@ export default function ButtonRoot({
             onClick={onClick}
             type={type}
             disabled={isLoading}
+            className={classes}
         >
             { children }
         </button>

@@ -1,3 +1,3 @@
-export type HeroProps = {
+export type HeadingProps = {
     title: string;
 }

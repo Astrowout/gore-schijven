@@ -40,6 +40,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 "Spotify URL": {
                     "url": req.body.external_urls.spotify,
                 },
+                "Email contributor": {
+                    "email": req.body.email,
+                },
                 "Status": {
                     "status": {
                         "name": "To be reviewed"
