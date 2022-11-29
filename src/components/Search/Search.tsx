@@ -1,7 +1,9 @@
 "use client";
 
+import JSConfetti from "js-confetti";
 import { Combobox, Transition } from "@headlessui/react"
 import { useEffect, useState } from "react";
+
 import { validateEmail } from "../../helpers/validate";
 import { useSpotify, useNotion } from "../../hooks";
 
@@ -12,6 +14,8 @@ import Success from "../Success/Success";
 import Suggestions from "../Suggestions/Suggestions";
 
 import { SearchProps } from "./Search.types";
+
+let confetti: JSConfetti | null = null;
 
 export default function Search({
     accessToken = "",
@@ -62,6 +66,19 @@ export default function Search({
         }
     }, [query]); // eslint-disable-line react-hooks/exhaustive-deps
 
+    useEffect(() => {
+        if (result) {
+            confetti = new JSConfetti();
+            confetti.addConfetti({
+                emojis: ['💜'],
+                emojiSize: 69,
+                confettiNumber: 50,
+             });
+        } else if (confetti) {
+            confetti.clearCanvas();
+        }
+    }, [result]); // eslint-disable-line react-hooks/exhaustive-deps
+
     if (result) {
         return (
             <Success message="We hebben jouw vieze drop goed ontvangen! Het ingezonden degoutant kabaal wordt binnen de 27 werkdagen gereviewd.">
@@ -73,7 +90,7 @@ export default function Search({
     }
 
     return (
-        <div className="flex flex-col items-center self-stretch mx-auto w-full max-w-md p-4">
+        <div className="flex flex-col items-center self-stretch mx-auto w-full max-w-md">
             <Combobox onChange={setSelectedTrack}>
                 {({ open }) => (
                     <div className="relative self-stretch">
@@ -110,7 +127,7 @@ export default function Search({
             </Button>
 
             {error && (
-                <p className="text-sm text-red-400 mt-4 max-w-prose">
+                <p className="text-sm text-center text-red-400 mt-4 max-w-prose">
                     { error }
                 </p>
             )}

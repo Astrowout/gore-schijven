@@ -16,7 +16,7 @@ export default function RootLayout({
 }) {
   const madeBy = (
       <>
-        Made by the founding daddies: <a href="https://linkedin.com" target="_blank" className="hover:underline hover:text-neutral-500 text-neutral-600" rel="noopener noreferrer">Sjouwke</a>, <a href="https://linkedin.com" target="_blank" className="hover:underline hover:text-neutral-500 text-neutral-600" rel="noopener noreferrer">Lars</a> & <a href="https://woutvandesompele.be" target="_blank" className="hover:underline hover:text-neutral-500 text-neutral-600" rel="noopener noreferrer">Wout</a> in Belgium.
+        Made by the founding daddies: <a href="https://www.linkedin.com/in/sjouwkevanparys/" target="_blank" className="hover:underline hover:text-neutral-500 text-neutral-600" rel="noopener noreferrer">Sjouwke</a>, <a href="https://www.linkedin.com/in/lars-marginet-b07528215/" target="_blank" className="hover:underline hover:text-neutral-500 text-neutral-600" rel="noopener noreferrer">Lars</a> & <a href="https://woutvandesompele.be" target="_blank" className="hover:underline hover:text-neutral-500 text-neutral-600" rel="noopener noreferrer">Wout</a> in Belgium.
       </>
   )
 
