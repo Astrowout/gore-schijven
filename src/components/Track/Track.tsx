@@ -22,12 +22,12 @@ export default function Track({
 					className={`${coverSize} rounded`}
 				/>
 			)}
-    
+
 			<span className="flex flex-col flex-grow truncate">
 				<p className="text-white truncate">
 					{ name }
 				</p>
-        
+
 				<p className="text-sm text-neutral-500 truncate">
 					{ artistsLine }
 				</p>
