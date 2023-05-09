@@ -1,3 +1,11 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": "next/core-web-vitals",
+  "rules": {
+    "quotes": ["error", "single"],
+    "indent": ["error", "tab"],
+    "comma-dangle": ["error", "always-multiline"],
+    "semi": ["error", "always"],
+    "no-trailing-spaces": ["error"],
+    "react/jsx-max-props-per-line": ["error", { "maximum": 1, "when": "multiline" }]
+  }
 }

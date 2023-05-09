@@ -1,7 +1,7 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
 
 export type HeroProps = {
     children?: ReactNode;
     title: string;
-    description: string;
+    description?: string;
 }

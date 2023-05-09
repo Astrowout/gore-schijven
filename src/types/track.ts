@@ -1,14 +1,22 @@
-export type AlbumImageType = {
+export interface IAlbumImage {
     url: string;
     width: number;
     height: number;
-}
+};
 
-export type AlbumType = {
+export interface IAlbum {
     name: string;
-    images: AlbumImageType[];
-}
+    images: IAlbumImage[];
+};
 
-export type ArtistType = {
+export interface IArtist {};
 
+export type ITrack = {
+    id: string;
+    title: string;
+    artist: string;
+    likes: number;
+    spotifyUrl: string;
+    status: 'To be reviewed' | 'Approved' | 'Rejected';
+    createdTime: string;
 }

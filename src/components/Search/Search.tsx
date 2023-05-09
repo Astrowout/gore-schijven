@@ -1,136 +1,138 @@
-"use client";
+'use client';
 
-import JSConfetti from "js-confetti";
-import { Combobox, Transition } from "@headlessui/react"
-import { useEffect, useState } from "react";
+import JSConfetti from 'js-confetti';
+import { Combobox, Transition } from '@headlessui/react';
+import { useEffect, useState } from 'react';
 
-import { validateEmail } from "../../helpers/validate";
-import { useSpotify, useNotion } from "../../hooks";
+import { validateEmail } from '@/utils';
+import { useSpotify, useNotion } from '@/hooks';
 
-import Button from "../Button/Button";
-import Input from "../Input/Input";
-import SearchInput from "../SearchInput/SearchInput";
-import Success from "../Success/Success";
-import Suggestions from "../Suggestions/Suggestions";
+import {
+	Button,
+	Input,
+	SearchInput,
+	Success,
+	Suggestions,
+} from '@/components';
 
-import { SearchProps } from "./Search.types";
+import { SearchProps } from './Search.types';
 
 let confetti: JSConfetti | null = null;
 
 export default function Search({
-    accessToken = "",
+	accessToken = '',
 }: SearchProps) {
-    const { tracks, getTracks } = useSpotify(accessToken);
-    const { result, isLoading, resetResult, postProposal } = useNotion();
-    const [query, setQuery] = useState("");
-    const [email, setEmail] = useState("");
-    const [selectedTrack, setSelectedTrack] = useState<any>(null);
-    const [error, setError] = useState("");
+	const { tracks, getTracks } = useSpotify(accessToken);
+	const { result, isLoading, resetResult, postProposal } = useNotion();
+	const [query, setQuery] = useState('');
+	const [email, setEmail] = useState('');
+	const [selectedTrack, setSelectedTrack] = useState<any>(null);
+	const [error, setError] = useState('');
 
-    const onSubmit = async () => {
-        setError("");
-    
-        if (!selectedTrack) {
-            setError("Elaba viezerik, je hebt nog geen lied gekozen.");
-            return;
-        }
+	const onSubmit = async () => {
+		setError('');
 
-        if (!email) {
-            setError("Elaba viezerik, je moet jouw e-mailadres nog invullen.");
-            return;
-        }
+		if (!selectedTrack) {
+			setError('Elaba viezerik, je hebt nog geen lied gekozen.');
+			return;
+		}
 
-        if (!validateEmail(email)) {
-            setError("Elaba viezerik, jouw e-mailadres lijkt niet te kloppen.");
-            return;
-        }
+		if (!email) {
+			setError('Elaba viezerik, je moet jouw e-mailadres nog invullen.');
+			return;
+		}
 
-        try {
-            await postProposal(selectedTrack, email);
+		if (!validateEmail(email)) {
+			setError('Elaba viezerik, jouw e-mailadres lijkt niet te kloppen.');
+			return;
+		}
 
-            setSelectedTrack(null);
-        } catch (error) {
-            setError("Oeps, er liep iets mis. Wees gerust, het ligt niet aan jou maar aan onze vuile code.");
-        }
-    }
+		try {
+			await postProposal(selectedTrack, email);
 
-    useEffect(() => {
-        if (selectedTrack) {
-            setError("");
-        }
-    }, [selectedTrack]);
+			setSelectedTrack(null);
+		} catch (error) {
+			setError('Oeps, er liep iets mis. Wees gerust, het ligt niet aan jou maar aan onze vuile code.');
+		}
+	};
 
-    useEffect(() => {
-        if (!!query) {
-            getTracks(query);
-        }
-    }, [query]); // eslint-disable-line react-hooks/exhaustive-deps
+	useEffect(() => {
+		if (selectedTrack) {
+			setError('');
+		}
+	}, [selectedTrack]);
 
-    useEffect(() => {
-        if (result) {
-            confetti = new JSConfetti();
-            confetti.addConfetti({
-                emojis: ['💜'],
-                emojiSize: 69,
-                confettiNumber: 50,
-             });
-        } else if (confetti) {
-            confetti.clearCanvas();
-        }
-    }, [result]); // eslint-disable-line react-hooks/exhaustive-deps
+	useEffect(() => {
+		if (!!query) {
+			getTracks(query);
+		}
+	}, [query]); // eslint-disable-line react-hooks/exhaustive-deps
 
-    if (result) {
-        return (
-            <Success message="We hebben jouw vieze drop goed ontvangen! Het ingezonden degoutant kabaal wordt binnen de 27 werkdagen gereviewd.">
-                <Button onClick={resetResult}>
+	useEffect(() => {
+		if (result) {
+			confetti = new JSConfetti();
+			confetti.addConfetti({
+				emojis: ['💜'],
+				emojiSize: 69,
+				confettiNumber: 50,
+			});
+		} else if (confetti) {
+			confetti.clearCanvas();
+		}
+	}, [result]); // eslint-disable-line react-hooks/exhaustive-deps
+
+	if (result) {
+		return (
+			<Success message="We hebben jouw vieze drop goed ontvangen! Het ingezonden degoutant kabaal wordt binnen de 27 werkdagen gereviewd.">
+				<Button onClick={resetResult}>
                     Stel nog een vieze schijf voor
-                </Button>
-            </Success>
-        )
-    }
+				</Button>
+			</Success>
+		);
+	}
 
-    return (
-        <div className="flex flex-col items-center self-stretch mx-auto w-full max-w-md">
-            <Combobox onChange={setSelectedTrack}>
-                {({ open }) => (
-                    <div className="relative self-stretch">
-                        <SearchInput
-                            selectedTrack={selectedTrack}
-                            onChange={setQuery}
-                            onRemoveTrack={() => setSelectedTrack(null)}
-                        />
+	return (
+		<div className="flex flex-col items-center self-stretch mx-auto w-full max-w-md">
+			<Combobox onChange={setSelectedTrack}>
+				{({ open }) => (
+					<div className="relative self-stretch">
+						<SearchInput
+							selectedTrack={selectedTrack}
+							onChange={setQuery}
+							onRemoveTrack={() => setSelectedTrack(null)}
+						/>
 
-                        <Transition
-                            appear
-                            show={open}
-                        >
-                            <Suggestions results={tracks} />
-                        </Transition>
-                    </div>
-                )}
-            </Combobox>
+						<Transition
+							appear
+							show={open}
+						>
+							<Suggestions results={tracks} />
+						</Transition>
+					</div>
+				)}
+			</Combobox>
 
-            <Input
-                name="email"
-                label="Jouw e-mailadres"
-                placeholder="viezevuilegore@gmail.com"
-                onChange={setEmail}
-                className="mt-6"
-            />
+			<Input
+				name="email"
+				label="Jouw e-mailadres"
+				placeholder="viezevuilegore@gmail.com"
+				onChange={setEmail}
+				className="mt-6"
+			/>
 
-            <Button
-                onClick={onSubmit}
-                isLoading={isLoading}
-                className="mt-6"
-            >
+			<Button
+				onClick={onSubmit}
+				isLoading={isLoading}
+				className="mt-6"
+			>
                 Versturen
-            </Button>
+			</Button>
 
-            {error && (
-                <p className="text-sm text-center text-red-400 mt-4 max-w-prose">
-                    { error }
-                </p>
-            )}
-        </div>
-    );
+			{error && (
+				<p className="text-sm text-center text-red-400 mt-4 max-w-prose">
+					{ error }
+				</p>
+			)}
+		</div>
+	);
 };

@@ -1,7 +1,6 @@
-import { ReactNode } from "react";
-
 export type ProposalProps = {
-    title: string;
-    description: string;
-    children?: ReactNode;
+    likes: number;
+    url: string;
+    status: 'To be reviewed' | 'Approved' | 'Rejected';
+    createdTime: string;
 }

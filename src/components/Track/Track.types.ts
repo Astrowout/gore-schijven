@@ -1,8 +1,8 @@
-import { AlbumType, ArtistType } from "../../types";
+import { IAlbum, IArtist } from '@/types';
 
 export type TrackProps = {
     name: string;
-    album?: AlbumType;
-    artists?: ArtistType[];
+    album?: IAlbum;
+    artists?: IArtist[];
     coverSize?: string;
 }
