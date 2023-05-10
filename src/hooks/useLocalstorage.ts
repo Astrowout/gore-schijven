@@ -2,9 +2,8 @@ import { useEffect, useState } from 'react';
 
 const STORAGE_KEY = 'likes';
 
-const storedLikes = localStorage.getItem(STORAGE_KEY) || JSON.stringify([]);
-
 export default function useLocalStorage() {
+	const storedLikes = typeof window === 'undefined' ? JSON.stringify([]) : window.localStorage.getItem(STORAGE_KEY) as string;
 	const [likes, setLikes] = useState<string[]>(JSON.parse(storedLikes));
 	const [isFirstRender, setIsFirstRender] = useState(true);
 
@@ -31,7 +30,7 @@ export default function useLocalStorage() {
 			return;
 		}
 
-		localStorage.setItem(STORAGE_KEY, JSON.stringify(likes));
+		window.localStorage.setItem(STORAGE_KEY, JSON.stringify(likes));
 	}, [likes]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	return {
