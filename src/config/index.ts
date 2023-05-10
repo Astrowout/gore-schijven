@@ -1,3 +1,6 @@
-export default Object.freeze({
-	DATABASE_ID: '8af0f74f16a9410f84853222da14dce9',
-});
+export {
+	DATABASE_ID,
+	PAGE_IDS,
+	DatabaseProps,
+	PageProps,
+} from './notion';

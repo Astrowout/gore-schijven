@@ -5,3 +5,4 @@ export { getDatabase } from './database';
 export { formatDatabaseRow, getArtistsLine } from './format';
 export { getSpotifyAccessToken } from './spotify';
 export { getPlainText } from './page-props';
+export { getPageProps } from './page';

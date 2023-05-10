@@ -3,12 +3,12 @@ import { ProposalsProps } from './Proposals.types';
 import { Proposal } from '@/components';
 import { ITrack } from '@/types';
 import { getDatabase } from '@/utils';
-import config from '@/config';
+import { DATABASE_ID } from '@/config';
 
 export default async function Proposals({
 	title = '',
 }: ProposalsProps) {
-	const res = await getDatabase(config.DATABASE_ID);
+	const res = await getDatabase(DATABASE_ID);
 
 	let tracks: ITrack[] = [];
 

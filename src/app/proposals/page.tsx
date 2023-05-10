@@ -5,9 +5,8 @@ import {
 	Contribution,
 	Search,
 } from '@/components';
-import { PageProps, PAGE_IDS } from '@/config/notion';
-import { getPlainText, getSpotifyAccessToken } from '@/utils';
-import { getPageProps } from '@/utils/page';
+import { PageProps, PAGE_IDS } from '@/config';
+import { getPlainText, getSpotifyAccessToken, getPageProps } from '@/utils';
 
 export async function generateMetadata() {
 	const pageProps = await getPageProps(PAGE_IDS.PROPOSALS) as any;

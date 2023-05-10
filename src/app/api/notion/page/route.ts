@@ -2,8 +2,8 @@ import { NextResponse } from 'next/server';
 
 export const runtime = 'edge'; // 'nodejs' is the default
 
-import { getArtistsLine } from '@/utils';
-import { notion } from '@/utils';
+import { notion, getArtistsLine } from '@/utils';
+import { DATABASE_ID } from '@/config';
 
 export async function POST(request: Request) {
 	const body = await request.json();
@@ -12,7 +12,7 @@ export async function POST(request: Request) {
 		const res = await notion.pages.create({
 			'parent': {
 				'type': 'database_id',
-				'database_id': process.env.NOTION_DATABASE_ID as string,
+				'database_id': DATABASE_ID,
 			},
 			'properties': {
 				'Title': {
