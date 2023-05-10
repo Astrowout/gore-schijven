@@ -28,6 +28,7 @@ export default async function Proposals({
 				{tracks.map((track) => (
 					<li key={track.id}>
 						<Proposal
+							notionPageId={track.id}
 							likes={track.likes}
 							url={track.spotifyUrl}
 							status={track.status}

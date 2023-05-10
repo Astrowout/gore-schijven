@@ -1,15 +1,5 @@
-export interface IAlbumImage {
-    url: string;
-    width: number;
-    height: number;
-};
-
-export interface IAlbum {
-    name: string;
-    images: IAlbumImage[];
-};
-
-export interface IArtist {};
+import { IAlbum } from './album';
+import { IArtist } from './artist';
 
 export type ITrack = {
     id: string;
@@ -19,4 +9,12 @@ export type ITrack = {
     spotifyUrl: string;
     status: 'To be reviewed' | 'Approved' | 'Rejected';
     createdTime: string;
+}
+
+export type ITrackDto = {
+    id: string;
+    name: string;
+    artists: IArtist[];
+    album: IAlbum;
+    preview_url: string;
 }

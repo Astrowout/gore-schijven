@@ -1,11 +1,11 @@
 'use client';
 
 import JSConfetti from 'js-confetti';
-import { Combobox, Transition } from '@headlessui/react';
+import * as Popover from '@radix-ui/react-popover';
 import { useEffect, useState } from 'react';
 
 import { validateEmail } from '@/utils';
-import { useSpotify, useNotion } from '@/hooks';
+import { useNotion } from '@/hooks';
 
 import {
 	Button,
@@ -16,17 +16,19 @@ import {
 } from '@/components';
 
 import { SearchProps } from './Search.types';
+import { useSearchStore } from '@/store';
 
 let confetti: JSConfetti | null = null;
 
 export default function Search({
 	accessToken = '',
 }: SearchProps) {
-	const { tracks, getTracks } = useSpotify(accessToken);
+	const query = useSearchStore((state) => state.query);
+	const selectedTrack = useSearchStore((state) => state.selectedTrack);
+	const setSelectedTrack = useSearchStore((state) => state.setSelectedTrack);
 	const { result, isLoading, resetResult, postProposal } = useNotion();
-	const [query, setQuery] = useState('');
+
 	const [email, setEmail] = useState('');
-	const [selectedTrack, setSelectedTrack] = useState<any>(null);
 	const [error, setError] = useState('');
 
 	const onSubmit = async () => {
@@ -63,12 +65,6 @@ export default function Search({
 	}, [selectedTrack]);
 
 	useEffect(() => {
-		if (!!query) {
-			getTracks(query);
-		}
-	}, [query]); // eslint-disable-line react-hooks/exhaustive-deps
-
-	useEffect(() => {
 		if (result) {
 			confetti = new JSConfetti();
 			confetti.addConfetti({
@@ -93,24 +89,11 @@ export default function Search({
 
 	return (
 		<div className="flex flex-col items-center self-stretch mx-auto w-full max-w-md">
-			<Combobox onChange={setSelectedTrack}>
-				{({ open }) => (
-					<div className="relative self-stretch">
-						<SearchInput
-							selectedTrack={selectedTrack}
-							onChange={setQuery}
-							onRemoveTrack={() => setSelectedTrack(null)}
-						/>
+			<Popover.Root open={!!query && !selectedTrack}>
+				<SearchInput />
 
-						<Transition
-							appear
-							show={open}
-						>
-							<Suggestions results={tracks} />
-						</Transition>
-					</div>
-				)}
-			</Combobox>
+				<Suggestions accessToken={accessToken} />
+			</Popover.Root>
 
 			<Input
 				name="email"

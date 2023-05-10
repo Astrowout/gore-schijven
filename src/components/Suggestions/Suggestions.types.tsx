@@ -1,3 +1,3 @@
 export type SuggestionsProps = {
-    results: any[];
+    accessToken: string;
 }

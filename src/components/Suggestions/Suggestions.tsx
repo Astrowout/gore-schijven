@@ -1,4 +1,9 @@
-import { Combobox, Transition } from '@headlessui/react';
+'use client';
+
+import * as Popover from '@radix-ui/react-popover';
+import clsx from 'clsx';
+import { useCallback, useEffect } from 'react';
+import debounce from 'lodash/debounce';
 
 import {
 	EmptyState,
@@ -7,49 +12,69 @@ import {
 } from '@/components';
 
 import { SuggestionsProps } from './Suggestions.types';
+import { useSearchStore } from '@/store';
+import { useSpotify } from '@/hooks';
+import { ITrackDto } from '@/types';
 
 export default function Suggestions({
-	results = [],
+	accessToken = '',
 }: SuggestionsProps) {
+	const query = useSearchStore((state) => state.query);
+	const setQuery = useSearchStore((state) => state.setQuery);
+	const setSelectedTrack = useSearchStore((state) => state.setSelectedTrack);
+	const { tracks, getTracks } = useSpotify(accessToken);
+
+	const fetchTracks = useCallback(debounce((value) => { // eslint-disable-line react-hooks/exhaustive-deps
+		if (!!value) {
+			getTracks(value);
+		}
+	}, 300), []);
+
+	useEffect(() => {
+		fetchTracks(query);
+	}, [query]); // eslint-disable-line react-hooks/exhaustive-deps
+
+	const handleSelectTrack = (track: ITrackDto) => {
+		setSelectedTrack(track);
+		setQuery('');
+	};
+
 	return (
-		<Transition.Child
-			enter="transition ease-out duration-200"
-			enterFrom="opacity-0 scale-95"
-			enterTo="opacity-100 scale-100"
-			leave="transition-opacity duration-100"
-			leaveFrom="opacity-100"
-			leaveTo="opacity-0"
-			className="absolute z-20 origin-top top-full mt-2 max-h-80 w-full overflow-y-auto rounded-lg bg-neutral-900 border border-neutral-600 shadow-xl"
+		<Popover.Content
+			sideOffset={6}
+			align="start"
+			avoidCollisions={false}
+			onOpenAutoFocus={(e) => e.preventDefault()}
+			className="z-20 w-[var(--radix-popover-trigger-width)] max-h-80 overflow-y-auto rounded-lg bg-neutral-900 border border-neutral-600 shadow-xl"
 		>
-			{!results.length && (
+			{!tracks.length && (
 				<EmptyState message="Geen resultaten gevonden" />
 			)}
 
-			{!!results.length && (
-				<Combobox.Options
-					static
-					className="divide-y divide-neutral-800"
-				>
-					{results.map((item: any) => (
-						<Combobox.Option
-							key={item.id}
-							value={item}
-							className={({ active }) => `${active ? 'bg-purple-900 bg-opacity-30' : ''} flex w-full px-3 py-3 gap-x-3 items-center hover:bg-neutral-800 cursor-pointer`}
-						>
-							<Player
-								id={item.id}
-								preview={item.preview_url}
-							/>
+			{!!tracks.length && (
+				<ul className="divide-y divide-neutral-800">
+					{tracks.map((item: ITrackDto) => (
+						<li key={item.id}>
+							<div
+								className={clsx('flex w-full px-3 py-3 gap-x-3 items-center hover:bg-neutral-800 cursor-pointer focus:bg-purple-500/10')}
+								role="button"
+								onClick={() => handleSelectTrack(item)}
+							>
+								<Player
+									id={item.id}
+									preview={item.preview_url}
+								/>
 
-							<Track
-								album={item.album}
-								name={item.name}
-								artists={item.artists}
-							/>
-						</Combobox.Option>
+								<Track
+									album={item.album}
+									name={item.name}
+									artists={item.artists}
+								/>
+							</div>
+						</li>
 					))}
-				</Combobox.Options>
+				</ul>
 			)}
-		</Transition.Child>
+		</Popover.Content>
 	);
 };

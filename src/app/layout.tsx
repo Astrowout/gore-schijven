@@ -3,8 +3,6 @@ import '@/main.css';
 import { Kanit } from 'next/font/google';
 
 import { Footer } from '@/components';
-import { useSpotifyStore } from '@/store';
-import { getSpotifyAccessToken } from '@/utils';
 
 const kanitFont = Kanit({
 	variable: '--font-kanit',
@@ -29,7 +27,7 @@ export default function RootLayout({
 			lang="en"
 			className={`${kanitFont.variable} bg-black`}
 		>
-			<body className="bg-neutral-900 bg-opacity-50 min-h-screen flex flex-col 2xl:container">
+			<body className="bg-neutral-950 bg-opacity-50 min-h-screen flex flex-col 2xl:container">
 				{ children }
 
 				<Footer

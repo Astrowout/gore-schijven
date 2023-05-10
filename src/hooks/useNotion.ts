@@ -14,9 +14,6 @@ export default function useNotion() {
 					...song,
 					email,
 				}),
-				headers: {
-					'Content-Type': 'application/json',
-				},
 			});
 
 			const data = await res.json();
@@ -29,6 +26,40 @@ export default function useNotion() {
 		}
 	}, []);
 
+	const likeProposal = useCallback(async (pageId: string) => {
+		try {
+			const res = await fetch('/api/notion/like', {
+				method: 'POST',
+				body: JSON.stringify({
+					pageId,
+				}),
+			});
+
+			const data = await res.json();
+
+			return data;
+		} catch (error) {
+			console.error(error);
+		}
+	}, []);
+
+	const dislikeProposal = useCallback(async (pageId: string) => {
+		try {
+			const res = await fetch('/api/notion/dislike', {
+				method: 'POST',
+				body: JSON.stringify({
+					pageId,
+				}),
+			});
+
+			const data = await res.json();
+
+			return data;
+		} catch (error) {
+			console.error(error);
+		}
+	}, []);
+
 	useEffect(() => {
 		return () => {
 			setResult(null);
@@ -38,6 +69,8 @@ export default function useNotion() {
 	return {
 		result,
 		isLoading,
+		likeProposal,
+		dislikeProposal,
 		resetResult: () => setResult(null),
 		postProposal,
 	};

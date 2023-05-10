@@ -1,31 +1,58 @@
 'use client';
 
+import { useLocalstorage, useNotion } from '@/hooks';
+import clsx from 'clsx';
 import formatRelative from 'date-fns/formatRelative';
 import JSConfetti from 'js-confetti';
+import { useState } from 'react';
 
 import { ProposalProps } from './Proposal.types';
 
 let confetti: JSConfetti | null = null;
 
 export default function Proposal({
+	notionPageId = '',
 	likes = 0,
 	url = '',
 	status = 'To be reviewed',
 	createdTime = '',
 }: ProposalProps) {
 	const embedUrl = `${url.replace('https://open.spotify.com/track/', 'https://open.spotify.com/embed/track/')}?theme=0`;
+	const { likeProposal, dislikeProposal } = useNotion();
+	const { likes: savedLikes, saveLike, unsaveLike } = useLocalstorage();
+	const [optimisticLikes, setOptimisticLikes] = useState(likes);
 
-	const handleLike = () => {
-		// if (res) {
+	const hasUserLiked = savedLikes.includes(notionPageId);
+
+	const shootConfetti = () => {
 		confetti = new JSConfetti();
 		confetti.addConfetti({
 			emojis: ['💜', '🦐'],
 			emojiSize: 40,
 			confettiNumber: 20,
 		});
-		// } else if (confetti) {
-		// 	confetti.clearCanvas();
-		// }
+	};
+
+	const likeTrack = () => {
+		setOptimisticLikes(optimisticLikes + 1);
+		likeProposal(notionPageId);
+		saveLike(notionPageId);
+		shootConfetti();
+	};
+
+	const dislikeTrack = () => {
+		const newLikes = optimisticLikes > 0 ? optimisticLikes - 1 : 0;
+		setOptimisticLikes(newLikes);
+		dislikeProposal(notionPageId);
+		unsaveLike(notionPageId);
+	};
+
+	const toggleLike = () => {
+		if (hasUserLiked) {
+			dislikeTrack();
+		} else {
+			likeTrack();
+		}
 	};
 
 	return (
@@ -51,21 +78,43 @@ export default function Proposal({
 					</p>
 				</div>
 
-				<div className='flex items-center pr-4 rounded-full bg-neutral-950 border border-neutral-800 shadow-lg'>
+				<div className={clsx('flex items-center rounded-full bg-neutral-950 border shadow-lg', {
+					'border-purple-800': hasUserLiked,
+					'border-neutral-800': !hasUserLiked,
+				})}>
 					<button
-						className='flex items-center mr-4 justify-center rounded-full w-12 h-12 shadow-lg bg-neutral-950 border border-neutral-700 transition hover:border-purple-500 hover:shadow-xl hover:shadow-purple-500/10'
+						className={clsx('group flex items-center justify-center rounded-full w-12 h-12 shadow-lg bg-neutral-950 border transition hover:border-purple-500 hover:shadow-xl hover:shadow-purple-500/20', {
+							'border-purple-500': hasUserLiked,
+							'border-neutral-700': !hasUserLiked,
+						})}
 						type="button"
-						onClick={handleLike}
+						onClick={toggleLike}
 					>
-						💜
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							viewBox="0 0 24 24"
+							strokeWidth="1.5"
+							stroke="currentColor"
+							fill="currentColor"
+							className={clsx('w-6 h-6 mt-px text-purple-600 transition group-hover:scale-125', {
+								'fill-purple-600': hasUserLiked,
+								'fill-transparent': !hasUserLiked,
+							})}
+						>
+							<path
+								strokeLinecap="round"
+								strokeLinejoin="round"
+								d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
+							/>
+						</svg>
 
 						<span className='sr-only'>
-							Like song
+							{hasUserLiked ? 'Dislike song' : 'Like song'}
 						</span>
 					</button>
 
-					<span className='text-white font-bold'>
-						{likes}
+					<span className='block text-white font-bold min-w-[40px] text-center'>
+						{optimisticLikes}
 					</span>
 				</div>
 			</div>
