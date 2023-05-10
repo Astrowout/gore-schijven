@@ -1,16 +1,22 @@
+import { useEffect, useState } from 'react';
+import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
+
 import { createNotionPage, toggleLikeTrack } from '@/actions';
 import { ITrackDto } from '@/types';
-import { useEffect, useState } from 'react';
 
 export default function useNotion() {
-	const [result, setResult] = useState(null);
+	const [result, setResult] = useState<PageObjectResponse | null>(null);
 	const [isLoading, setIsLoading] = useState(false);
 
 	const createPage = async (track: ITrackDto, email: string) => {
 		try {
 			setIsLoading(true);
 
-			await createNotionPage(track, email);
+			const res = await createNotionPage(track, email);
+
+			if (res) {
+				setResult(res);
+			}
 		} catch (error) {
 			console.error(error);
 		} finally {

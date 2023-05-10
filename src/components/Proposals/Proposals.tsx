@@ -1,6 +1,6 @@
 import { ProposalsProps } from './Proposals.types';
 
-import { Proposal } from '@/components';
+import { Proposal, EmptyState } from '@/components';
 import { ITrack } from '@/types';
 import { getDatabase } from '@/utils';
 import { DATABASE_ID } from '@/config';
@@ -24,19 +24,25 @@ export default async function Proposals({
 				</h1>
 			</header>
 
-			<ul className='flex flex-col w-full max-w-2xl gap-y-8 lg:gap-y-10'>
-				{tracks.map((track) => (
-					<li key={track.id}>
-						<Proposal
-							notionPageId={track.id}
-							likes={track.likes}
-							url={track.spotifyUrl}
-							status={track.status}
-							createdTime={track.createdTime}
-						/>
-					</li>
-				))}
-			</ul>
+			{!tracks.length && (
+				<EmptyState message="Er zijn nog geen vadsige drops toegevoegd." />
+			)}
+
+			{!!tracks.length && (
+				<ul className='flex flex-col w-full max-w-2xl gap-y-8 lg:gap-y-10'>
+					{tracks.map((track) => (
+						<li key={track.id}>
+							<Proposal
+								notionPageId={track.id}
+								likes={track.likes}
+								url={track.spotifyUrl}
+								status={track.status}
+								createdTime={track.createdTime}
+							/>
+						</li>
+					))}
+				</ul>
+			)}
 		</section>
 	);
 };

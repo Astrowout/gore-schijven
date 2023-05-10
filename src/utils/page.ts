@@ -2,8 +2,9 @@ import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
 import notion, { handleNotionErrors } from './notion';
 import { isFullPage } from '@notionhq/client';
+import { cache } from 'react';
 
-export const getPageProps = async (
+export const getPageProps = cache(async (
 	pageId: string,
 ): Promise<PageObjectResponse['properties'] | undefined> => {
 	try {
@@ -19,4 +20,4 @@ export const getPageProps = async (
 	} catch (error) {
 		handleNotionErrors(error);
 	}
-};
+});

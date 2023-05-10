@@ -87,6 +87,7 @@ export default function Search({
 	useEffect(() => {
 		if (result) {
 			setSelectedTrack(null);
+			setEmail('');
 			shootConfetti();
 		}
 	}, [result]); // eslint-disable-line react-hooks/exhaustive-deps
