@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react';
 const STORAGE_KEY = 'likes';
 
 export default function useLocalStorage() {
-	const storedLikes = typeof window === 'undefined' ? JSON.stringify([]) : window.localStorage.getItem(STORAGE_KEY) as string;
-	const [likes, setLikes] = useState<string[]>(JSON.parse(storedLikes));
+	const storedLikes = typeof window === 'undefined' ? JSON.stringify([]) : window.localStorage.getItem(STORAGE_KEY);
+	const [likes, setLikes] = useState<string[]>(JSON.parse(storedLikes || '[]'));
 	const [isFirstRender, setIsFirstRender] = useState(true);
 
 	const saveLike = (id: string) => {
