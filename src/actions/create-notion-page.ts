@@ -1,13 +1,10 @@
-import { NextResponse } from 'next/server';
-
-export const runtime = 'edge'; // 'nodejs' is the default
+'use server';
 
 import { notion, getArtistsLine } from '@/utils';
 import { DATABASE_ID } from '@/config';
+import { ITrackDto } from '@/types';
 
-export async function POST(request: Request) {
-	const body = await request.json();
-
+export async function createNotionPage(track: ITrackDto, email: string) {
 	try {
 		const res = await notion.pages.create({
 			'parent': {
@@ -20,7 +17,7 @@ export async function POST(request: Request) {
 						{
 							'type': 'text',
 							'text': {
-								'content': body.name,
+								'content': track.name,
 							},
 						},
 					],
@@ -30,19 +27,19 @@ export async function POST(request: Request) {
 						{
 							'type': 'text',
 							'text': {
-								'content': getArtistsLine(body.artists),
+								'content': getArtistsLine(track.artists),
 							},
 						},
 					],
 				},
 				'Spotify URL': {
-					'url': body.external_urls.spotify,
+					'url': track.external_urls.spotify,
 				},
 				'Likes': {
 					'number': 0,
 				},
 				'Email contributor': {
-					'email': body.email,
+					'email': email,
 				},
 				'Status': {
 					'status': {
@@ -52,10 +49,8 @@ export async function POST(request: Request) {
 			},
 		});
 
-		return NextResponse.json(res);
-	} catch (error) {
-		console.log(error);
-
-		return NextResponse.json({ error });
+		return res;
+	} catch (error: any) {
+		throw new Error(error);
 	}
 }

@@ -13,9 +13,11 @@
     }
 
     @font-face {
-        font-family: Newake;
+        font-family: 'Newake';
         src: url('/fonts/Newake/Newake.woff2') format('woff2'),
             url('/fonts/Newake/Newake.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
     }
 }
 

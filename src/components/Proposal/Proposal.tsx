@@ -1,10 +1,12 @@
 'use client';
 
-import { useLocalstorage, useNotion } from '@/hooks';
+import { useState } from 'react';
 import clsx from 'clsx';
 import formatRelative from 'date-fns/formatRelative';
+import nl from 'date-fns/locale/nl';
 import JSConfetti from 'js-confetti';
-import { useState } from 'react';
+
+import { useLocalstorage, useNotion } from '@/hooks';
 
 import { ProposalProps } from './Proposal.types';
 
@@ -18,11 +20,11 @@ export default function Proposal({
 	createdTime = '',
 }: ProposalProps) {
 	const embedUrl = `${url.replace('https://open.spotify.com/track/', 'https://open.spotify.com/embed/track/')}?theme=0`;
-	const { likeProposal, dislikeProposal } = useNotion();
-	const { likes: savedLikes, saveLike, unsaveLike } = useLocalstorage();
+	const { toggleLike: saveLikeInDb } = useNotion();
+	const { userLikes, saveLike: saveLikeInLocalstorage } = useLocalstorage();
 	const [optimisticLikes, setOptimisticLikes] = useState(likes);
 
-	const hasUserLiked = savedLikes.includes(notionPageId);
+	const hasUserLiked = userLikes.includes(notionPageId);
 
 	const shootConfetti = () => {
 		confetti = new JSConfetti();
@@ -35,23 +37,26 @@ export default function Proposal({
 
 	const likeTrack = () => {
 		setOptimisticLikes(optimisticLikes + 1);
-		likeProposal(notionPageId);
-		saveLike(notionPageId);
+
+		saveLikeInDb(notionPageId, 'like');
+		saveLikeInLocalstorage(notionPageId, 'like');
+
 		shootConfetti();
 	};
 
 	const dislikeTrack = () => {
 		const newLikes = optimisticLikes > 0 ? optimisticLikes - 1 : 0;
 		setOptimisticLikes(newLikes);
-		dislikeProposal(notionPageId);
-		unsaveLike(notionPageId);
+
+		saveLikeInDb(notionPageId, 'dislike');
+		saveLikeInLocalstorage(notionPageId, 'dislike');
 	};
 
 	const toggleLike = () => {
-		if (hasUserLiked) {
-			dislikeTrack();
-		} else {
+		if (!hasUserLiked) {
 			likeTrack();
+		} else {
+			dislikeTrack();
 		}
 	};
 
@@ -74,7 +79,7 @@ export default function Proposal({
 					</p>
 
 					<p className='text-neutral-500 text-sm mt-2'>
-						{formatRelative(new Date(createdTime), new Date())}
+						{formatRelative(new Date(createdTime), new Date(), { locale: nl })}
 					</p>
 				</div>
 

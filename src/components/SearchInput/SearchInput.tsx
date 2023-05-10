@@ -1,13 +1,13 @@
 'use client';
 
 import { useRef } from 'react';
+import clsx from 'clsx';
 import * as Popover from '@radix-ui/react-popover';
-
-import { SearchInputProps } from './SearchInput.types';
 
 import { Track } from '@/components';
 import { useSearchStore } from '@/store';
-import clsx from 'clsx';
+
+import { SearchInputProps } from './SearchInput.types';
 
 export default function SearchInput({}: SearchInputProps) {
 	const query = useSearchStore((state) => state.query);

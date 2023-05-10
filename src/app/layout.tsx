@@ -1,5 +1,7 @@
 import '@/main.css';
 
+export const runtime = 'edge';
+
 import { Kanit } from 'next/font/google';
 
 import { Footer } from '@/components';

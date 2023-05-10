@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 
 import { validateEmail } from '@/utils';
 import { useNotion } from '@/hooks';
-
+import { useSearchStore } from '@/store';
 import {
 	Button,
 	Input,
@@ -16,7 +16,6 @@ import {
 } from '@/components';
 
 import { SearchProps } from './Search.types';
-import { useSearchStore } from '@/store';
 
 let confetti: JSConfetti | null = null;
 
@@ -26,36 +25,57 @@ export default function Search({
 	const query = useSearchStore((state) => state.query);
 	const selectedTrack = useSearchStore((state) => state.selectedTrack);
 	const setSelectedTrack = useSearchStore((state) => state.setSelectedTrack);
-	const { result, isLoading, resetResult, postProposal } = useNotion();
+	const { result, isLoading, resetResult, createPage } = useNotion();
 
 	const [email, setEmail] = useState('');
 	const [error, setError] = useState('');
 
-	const onSubmit = async () => {
+	const validateForm = () => {
 		setError('');
 
 		if (!selectedTrack) {
 			setError('Elaba viezerik, je hebt nog geen lied gekozen.');
-			return;
+			return false;
 		}
 
 		if (!email) {
 			setError('Elaba viezerik, je moet jouw e-mailadres nog invullen.');
-			return;
+			return false;
 		}
 
 		if (!validateEmail(email)) {
 			setError('Elaba viezerik, jouw e-mailadres lijkt niet te kloppen.');
+			return false;
+		}
+
+		return true;
+	};
+
+	const onSubmit = async () => {
+		const isValid = validateForm();
+
+		if (!isValid) {
 			return;
 		}
 
 		try {
-			await postProposal(selectedTrack, email);
-
-			setSelectedTrack(null);
+			await createPage(selectedTrack!, email);
 		} catch (error) {
 			setError('Oeps, er liep iets mis. Wees gerust, het ligt niet aan jou maar aan onze vuile code.');
 		}
+	};
+
+	const shootConfetti = () => {
+		if (confetti) {
+			confetti.clearCanvas();
+		}
+
+		confetti = new JSConfetti();
+		confetti.addConfetti({
+			emojis: ['💜'],
+			emojiSize: 69,
+			confettiNumber: 40,
+		});
 	};
 
 	useEffect(() => {
@@ -66,14 +86,8 @@ export default function Search({
 
 	useEffect(() => {
 		if (result) {
-			confetti = new JSConfetti();
-			confetti.addConfetti({
-				emojis: ['💜'],
-				emojiSize: 69,
-				confettiNumber: 40,
-			});
-		} else if (confetti) {
-			confetti.clearCanvas();
+			setSelectedTrack(null);
+			shootConfetti();
 		}
 	}, [result]); // eslint-disable-line react-hooks/exhaustive-deps
 

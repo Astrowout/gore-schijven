@@ -1,41 +1,50 @@
+import { useUserStore } from '@/store';
 import { useEffect, useState } from 'react';
 
 const STORAGE_KEY = 'likes';
 
 export default function useLocalStorage() {
-	const storedLikes = typeof window === 'undefined' ? JSON.stringify([]) : window.localStorage.getItem(STORAGE_KEY);
-	const [likes, setLikes] = useState<string[]>(JSON.parse(storedLikes || '[]'));
+	const userLikes = useUserStore((state) => state.likes);
+	const setUserLikes = useUserStore((state) => state.setLikes);
 	const [isFirstRender, setIsFirstRender] = useState(true);
 
-	const saveLike = (id: string) => {
-		setLikes([
-			...likes,
-			id,
-		]);
-	};
+	const saveLike = (id: string, type: 'like' | 'dislike') => {
+		const newLikes = [...userLikes];
 
-	const unsaveLike = (id: string) => {
-		const newLikes = [...likes];
-		const likeIndex = newLikes.indexOf(id);
+		if (type === 'like') {
+			newLikes.push(id);
+		} else if (type === 'dislike') {
+			const likeIndex = newLikes.indexOf(id);
 
-		if (likeIndex > -1) {
-			newLikes.splice(likeIndex, 1);
-			setLikes(newLikes);
+			if (likeIndex > -1) {
+				newLikes.splice(likeIndex, 1);
+			}
 		}
+
+		setUserLikes(newLikes);
 	};
 
 	useEffect(() => {
 		if (isFirstRender) {
+			const storedLikes = window.localStorage.getItem(STORAGE_KEY);
+			setUserLikes(storedLikes ? JSON.parse(storedLikes) : []);
+
+			return;
+		}
+	}, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+	useEffect(() => {
+		if (isFirstRender) {
 			setIsFirstRender(false);
+
 			return;
 		}
 
-		window.localStorage.setItem(STORAGE_KEY, JSON.stringify(likes));
-	}, [likes]); // eslint-disable-line react-hooks/exhaustive-deps
+		window.localStorage.setItem(STORAGE_KEY, JSON.stringify(userLikes));
+	}, [userLikes]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	return {
-		likes,
+		userLikes,
 		saveLike,
-		unsaveLike,
 	};
 }

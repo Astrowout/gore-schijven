@@ -1,7 +1,7 @@
 import { IAlbum } from './album';
 import { IArtist } from './artist';
 
-export type ITrack = {
+export interface ITrack {
     id: string;
     title: string;
     artist: string;
@@ -11,9 +11,14 @@ export type ITrack = {
     createdTime: string;
 }
 
-export type ITrackDto = {
+interface IExternalUrls {
+    spotify: string;
+}
+
+export interface ITrackDto {
     id: string;
     name: string;
+    external_urls: IExternalUrls;
     artists: IArtist[];
     album: IAlbum;
     preview_url: string;
