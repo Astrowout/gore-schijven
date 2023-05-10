@@ -1,8 +1,11 @@
 'use client';
 
 import formatRelative from 'date-fns/formatRelative';
+import JSConfetti from 'js-confetti';
 
 import { ProposalProps } from './Proposal.types';
+
+let confetti: JSConfetti | null = null;
 
 export default function Proposal({
 	likes = 0,
@@ -11,6 +14,19 @@ export default function Proposal({
 	createdTime = '',
 }: ProposalProps) {
 	const embedUrl = `${url.replace('https://open.spotify.com/track/', 'https://open.spotify.com/embed/track/')}?theme=0`;
+
+	const handleLike = () => {
+		// if (res) {
+		confetti = new JSConfetti();
+		confetti.addConfetti({
+			emojis: ['💜', '🦐'],
+			emojiSize: 40,
+			confettiNumber: 20,
+		});
+		// } else if (confetti) {
+		// 	confetti.clearCanvas();
+		// }
+	};
 
 	return (
 		<article className='flex flex-col'>
@@ -35,14 +51,11 @@ export default function Proposal({
 					</p>
 				</div>
 
-				<div className='flex items-center pl-4 rounded-full bg-neutral-950 border border-neutral-900 shadow-lg'>
-					<span className='text-white font-bold'>
-						{likes}
-					</span>
-
+				<div className='flex items-center pr-4 rounded-full bg-neutral-950 border border-neutral-800 shadow-lg'>
 					<button
-						className='flex items-center ml-4 justify-center rounded-full w-12 h-12 shadow-lg bg-neutral-950 border border-neutral-800 transition hover:border-purple-500 hover:shadow-xl hover:shadow-purple-500/10'
+						className='flex items-center mr-4 justify-center rounded-full w-12 h-12 shadow-lg bg-neutral-950 border border-neutral-700 transition hover:border-purple-500 hover:shadow-xl hover:shadow-purple-500/10'
 						type="button"
+						onClick={handleLike}
 					>
 						💜
 
@@ -50,6 +63,10 @@ export default function Proposal({
 							Like song
 						</span>
 					</button>
+
+					<span className='text-white font-bold'>
+						{likes}
+					</span>
 				</div>
 			</div>
 		</article>

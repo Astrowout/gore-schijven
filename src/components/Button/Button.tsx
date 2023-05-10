@@ -12,7 +12,7 @@ export default function Button({
 			{...props}
 			variant={variant}
 		>
-			<span className={clsx('absolute inset-0 w-full h-full shadow-lg rounded-full border-x transition duration-200 group-hover:scale-x-110 group-hover:shadow-purple-500/10 group-hover:shadow-xl', {
+			<span className={clsx('absolute inset-0 w-full h-full shadow-lg rounded-full border-x transition duration-200 group-hover:scale-x-110 group-hover:shadow-purple-500/20 group-hover:shadow-xl', {
 				'border-neutral-600 bg-neutral-900 group-hover:border-purple-500': variant === 'default',
 				'border-purple-800 bg-purple-600 group-hover:border-purple-900': variant === 'highlight',
 			})}

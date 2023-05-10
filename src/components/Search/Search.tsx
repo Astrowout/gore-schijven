@@ -74,7 +74,7 @@ export default function Search({
 			confetti.addConfetti({
 				emojis: ['💜'],
 				emojiSize: 69,
-				confettiNumber: 50,
+				confettiNumber: 40,
 			});
 		} else if (confetti) {
 			confetti.clearCanvas();

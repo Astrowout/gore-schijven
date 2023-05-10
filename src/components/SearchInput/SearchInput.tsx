@@ -1,5 +1,3 @@
-'use client';
-
 import { Combobox } from '@headlessui/react';
 import { useCallback, useRef } from 'react';
 import debounce from 'lodash/debounce';

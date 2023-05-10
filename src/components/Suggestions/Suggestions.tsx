@@ -1,5 +1,3 @@
-'use client';
-
 import { Combobox, Transition } from '@headlessui/react';
 
 import {
