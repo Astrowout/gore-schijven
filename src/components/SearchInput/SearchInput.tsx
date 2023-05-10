@@ -5,15 +5,15 @@ import clsx from 'clsx';
 import * as Popover from '@radix-ui/react-popover';
 
 import { Track } from '@/components';
-import { useSearchStore } from '@/store';
+import { SearchStore } from '@/store';
 
 import { SearchInputProps } from './SearchInput.types';
 
 export default function SearchInput({}: SearchInputProps) {
-	const query = useSearchStore((state) => state.query);
-	const setQuery = useSearchStore((state) => state.setQuery);
-	const selectedTrack = useSearchStore((state) => state.selectedTrack);
-	const setSelectedTrack = useSearchStore((state) => state.setSelectedTrack);
+	const query = SearchStore((state) => state.query);
+	const setQuery = SearchStore((state) => state.setQuery);
+	const selectedTrack = SearchStore((state) => state.selectedTrack);
+	const setSelectedTrack = SearchStore((state) => state.setSelectedTrack);
 	const inputRef = useRef<HTMLInputElement>(null);
 
 	const handleRemoveSong = () => {

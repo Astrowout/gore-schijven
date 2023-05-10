@@ -1,11 +1,11 @@
-import { useUserStore } from '@/store';
+import { UserStore } from '@/store';
 import { useEffect, useState } from 'react';
 
 const STORAGE_KEY = 'likes';
 
 export default function useLocalStorage() {
-	const userLikes = useUserStore((state) => state.likes);
-	const setUserLikes = useUserStore((state) => state.setLikes);
+	const userLikes = UserStore((state) => state.likes);
+	const setUserLikes = UserStore((state) => state.setLikes);
 	const [isFirstRender, setIsFirstRender] = useState(true);
 
 	const saveLike = (id: string, type: 'like' | 'dislike') => {

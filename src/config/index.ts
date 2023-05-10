@@ -1,6 +1,9 @@
 export {
-	DATABASE_ID,
+	DATABASE_IDS,
 	PAGE_IDS,
-	DatabaseProps,
-	PageProps,
-} from './notion';
+} from './notion-ids';
+
+export {
+	DATABASE_PROPS,
+	PAGE_PROPS,
+} from './notion-props';

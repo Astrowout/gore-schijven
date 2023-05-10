@@ -6,8 +6,8 @@ export default function Contribution({
 	children = null,
 }: ContributionProps) {
 	return (
-		<section className="flex flex-col items-center l-section gap-y-8">
-			<header className="text-center max-w-prose flex flex-col items-center gap-y-3">
+		<section className="flex flex-col items-center l-section gap-y-6">
+			<header className="text-center max-w-prose flex flex-col items-center gap-y-2">
 				<h1 className="text-2xl sm:text-3xl md:text-4xl text-white font-semibold">
 					{ title }
 				</h1>

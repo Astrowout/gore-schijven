@@ -12,16 +12,16 @@ import {
 } from '@/components';
 
 import { SuggestionsProps } from './Suggestions.types';
-import { useSearchStore } from '@/store';
+import { SearchStore } from '@/store';
 import { useSpotify } from '@/hooks';
 import { ITrackDto } from '@/types';
 
 export default function Suggestions({
 	accessToken = '',
 }: SuggestionsProps) {
-	const query = useSearchStore((state) => state.query);
-	const setQuery = useSearchStore((state) => state.setQuery);
-	const setSelectedTrack = useSearchStore((state) => state.setSelectedTrack);
+	const query = SearchStore((state) => state.query);
+	const setQuery = SearchStore((state) => state.setQuery);
+	const setSelectedTrack = SearchStore((state) => state.setSelectedTrack);
 	const { tracks, getTracks } = useSpotify(accessToken);
 
 	const fetchTracks = useCallback(debounce((value) => { // eslint-disable-line react-hooks/exhaustive-deps

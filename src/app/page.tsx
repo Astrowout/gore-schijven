@@ -5,15 +5,15 @@ import {
 	Contribution,
 	Search,
 } from '@/components';
-import { PageProps, PAGE_IDS } from '@/config';
+import { PAGE_PROPS, PAGE_IDS } from '@/config';
 import { getPlainText, getSpotifyAccessToken, getPageProps } from '@/utils';
 
 export async function generateMetadata() {
 	const pageProps = await getPageProps(PAGE_IDS.HOME) as any;
 
 	return {
-	  title: getPlainText(pageProps![PageProps.metaTitle].rich_text),
-	  description: getPlainText(pageProps![PageProps.metaDescription].rich_text),
+	  title: getPlainText(pageProps![PAGE_PROPS.metaTitle].rich_text),
+	  description: getPlainText(pageProps![PAGE_PROPS.metaDescription].rich_text),
 	};
 }
 

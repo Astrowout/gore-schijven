@@ -3,12 +3,12 @@ import { ProposalsProps } from './Proposals.types';
 import { Proposal, EmptyState } from '@/components';
 import { ITrack } from '@/types';
 import { getDatabase } from '@/utils';
-import { DATABASE_ID } from '@/config';
+import { DATABASE_IDS } from '@/config';
 
 export default async function Proposals({
 	title = '',
 }: ProposalsProps) {
-	const res = await getDatabase(DATABASE_ID);
+	const res = await getDatabase(DATABASE_IDS.PROPOSALS);
 
 	let tracks: ITrack[] = [];
 
@@ -17,7 +17,7 @@ export default async function Proposals({
 	}
 
 	return (
-		<section className="flex flex-col items-center gap-y-8">
+		<section className="flex flex-col items-center gap-y-3 sm:gap-y-6 my-4 lg:my-0">
 			<header className="text-center max-w-prose flex flex-col items-center">
 				<h1 className="text-2xl sm:text-3xl md:text-4xl text-white font-semibold">
 					{ title }

@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 
 import { validateEmail } from '@/utils';
 import { useNotion } from '@/hooks';
-import { useSearchStore } from '@/store';
+import { SearchStore } from '@/store';
 import {
 	Button,
 	Input,
@@ -22,9 +22,9 @@ let confetti: JSConfetti | null = null;
 export default function Search({
 	accessToken = '',
 }: SearchProps) {
-	const query = useSearchStore((state) => state.query);
-	const selectedTrack = useSearchStore((state) => state.selectedTrack);
-	const setSelectedTrack = useSearchStore((state) => state.setSelectedTrack);
+	const query = SearchStore((state) => state.query);
+	const selectedTrack = SearchStore((state) => state.selectedTrack);
+	const setSelectedTrack = SearchStore((state) => state.setSelectedTrack);
 	const { result, isLoading, resetResult, createPage } = useNotion();
 
 	const [email, setEmail] = useState('');

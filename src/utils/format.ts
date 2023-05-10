@@ -1,6 +1,6 @@
 import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
-import { DatabaseProps } from '@/config/notion';
+import { DATABASE_PROPS } from '@/config';
 import { IDatabaseRow } from '@/types';
 
 export const getArtistsLine = (artists: any[]) => {
@@ -24,12 +24,12 @@ export const formatDatabaseRow = (page: PageObjectResponse): IDatabaseRow => {
 
 	return {
 		id: page.id,
-		title: props[DatabaseProps.title].title[0].plain_text,
-		artist: props[DatabaseProps.artist].rich_text[0].plain_text,
-		spotifyUrl: props[DatabaseProps.spotifyUrl].url,
-		email: props[DatabaseProps.email].email,
-		likes: props[DatabaseProps.likes].number || 0,
-		status: props[DatabaseProps.status].status.name,
+		title: props[DATABASE_PROPS.title].title[0].plain_text,
+		artist: props[DATABASE_PROPS.artist].rich_text[0].plain_text,
+		spotifyUrl: props[DATABASE_PROPS.spotifyUrl].url,
+		email: props[DATABASE_PROPS.email].email,
+		likes: props[DATABASE_PROPS.likes].number || 0,
+		status: props[DATABASE_PROPS.status].status.name,
 		createdTime: page.created_time,
 	};
 };

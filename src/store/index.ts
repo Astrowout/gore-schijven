@@ -1,3 +1,3 @@
-export { default as usePlayerStore } from './player';
-export { default as useSearchStore } from './search';
-export { default as useUserStore } from './user';
+export { default as PlayerStore } from './player';
+export { default as SearchStore } from './search';
+export { default as UserStore } from './user';

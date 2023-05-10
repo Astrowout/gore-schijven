@@ -3,7 +3,7 @@
 import { revalidatePath } from 'next/cache';
 
 import { notion, getArtistsLine } from '@/utils';
-import { DATABASE_ID } from '@/config';
+import { DATABASE_IDS } from '@/config';
 import { ITrackDto } from '@/types';
 import { isFullPage } from '@notionhq/client';
 
@@ -12,7 +12,7 @@ export async function createNotionPage(track: ITrackDto, email: string) {
 		const res = await notion.pages.create({
 			'parent': {
 				'type': 'database_id',
-				'database_id': DATABASE_ID,
+				'database_id': DATABASE_IDS.PROPOSALS,
 			},
 			'properties': {
 				'Title': {

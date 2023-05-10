@@ -7,16 +7,16 @@ export default function Hero({
 	description = '',
 }: HeroProps) {
 	return (
-		<section className="flex flex-col items-center l-section">
+		<section className="flex flex-col items-center l-section gap-y-5 sm:gap-y-6 lg:gap-y-7">
 			<Heading title={title} />
 
 			{description && (
-				<p className="text-neutral-500 text-center max-w-prose mt-8">
+				<p className="text-neutral-500 text-center max-w-prose">
 					{description}
 				</p>
 			)}
 
-			<div className="mt-8 mx-auto flex justify-center flex-wrap gap-x-8 gap-y-4">
+			<div className="mx-auto flex justify-center flex-wrap gap-x-8 gap-y-3">
 				{children}
 			</div>
 		</section>

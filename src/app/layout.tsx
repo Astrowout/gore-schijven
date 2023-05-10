@@ -29,7 +29,7 @@ export default function RootLayout({
 			lang="en"
 			className={`${kanitFont.variable} bg-black`}
 		>
-			<body className="bg-neutral-950 bg-opacity-50 min-h-screen flex flex-col 2xl:container">
+			<body className="bg-neutral-950 bg-opacity-50 min-h-screen flex flex-col 2xl:container !max-w-none">
 				{ children }
 
 				<Footer

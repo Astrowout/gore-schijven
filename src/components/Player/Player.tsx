@@ -5,7 +5,7 @@ import { MouseEvent, useEffect } from 'react';
 import { PlayerProps } from './Player.types';
 
 import { Progress } from '@/components';
-import { usePlayerStore } from '@/store';
+import { PlayerStore } from '@/store';
 
 let sound: any = null;
 
@@ -13,8 +13,8 @@ export default function Player({
 	id = '',
 	preview = '',
 }: PlayerProps) {
-	const playingId = usePlayerStore((state) => state.playingId);
-	const setPlayingId = usePlayerStore((state) => state.setPlayingId);
+	const playingId = PlayerStore((state) => state.playingId);
+	const setPlayingId = PlayerStore((state) => state.setPlayingId);
 	const isPlaying = playingId === id;
 
 	const handleSound = (e: MouseEvent) => {
