@@ -10,4 +10,5 @@ export const DATABASE_PROPS = Object.freeze({
 export const PAGE_PROPS = Object.freeze({
 	metaTitle: 'Meta title',
 	metaDescription: 'Meta description',
+	ogTitle: 'og:title',
 });

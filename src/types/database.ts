@@ -1,3 +1,5 @@
+import { Status } from './status';
+
 export interface IDatabaseRow {
 	id: string;
 	title: string;
@@ -5,6 +7,6 @@ export interface IDatabaseRow {
 	spotifyUrl: string;
 	email: string;
 	likes: number;
-	status: 'To be reviewed' | 'Approved' | 'Rejected';
+	status: Status;
 	createdTime: string;
 };

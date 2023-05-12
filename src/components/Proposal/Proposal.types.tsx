@@ -1,7 +1,9 @@
+import { Status } from '@/types';
+
 export type ProposalProps = {
     notionPageId: string;
     likes: number;
     url: string;
-    status: 'To be reviewed' | 'Approved' | 'Rejected';
+    status: Status;
     createdTime: string;
 }

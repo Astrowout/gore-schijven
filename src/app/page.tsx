@@ -24,7 +24,7 @@ export async function generateMetadata() {
 		description: getPlainText(pageProps![PAGE_PROPS.metaDescription].rich_text),
 		openGraph: {
 			...openGraphImage,
-			title: getPlainText(pageProps![PAGE_PROPS.metaTitle].rich_text),
+			title: getPlainText(pageProps![PAGE_PROPS.ogTitle].rich_text),
 			description: getPlainText(pageProps![PAGE_PROPS.metaDescription].rich_text),
 		},
 	};

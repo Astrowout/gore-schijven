@@ -4,3 +4,4 @@ export type {
 export type { IAlbum } from './album';
 export type { IArtist } from './artist';
 export type { IDatabaseRow } from './database';
+export { Status } from './status';

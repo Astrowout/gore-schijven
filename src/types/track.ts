@@ -1,5 +1,6 @@
 import { IAlbum } from './album';
 import { IArtist } from './artist';
+import { Status } from './status';
 
 export interface ITrack {
     id: string;
@@ -7,7 +8,7 @@ export interface ITrack {
     artist: string;
     likes: number;
     spotifyUrl: string;
-    status: 'To be reviewed' | 'Approved' | 'Rejected';
+    status: Status;
     createdTime: string;
 }
 

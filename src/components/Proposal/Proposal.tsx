@@ -11,6 +11,7 @@ import {
 } from '@/hooks';
 
 import { ProposalProps } from './Proposal.types';
+import { Status } from '@/types';
 
 let confetti: JSConfetti | null = null;
 
@@ -18,7 +19,7 @@ export default function Proposal({
 	notionPageId = '',
 	likes = 0,
 	url = '',
-	status = 'To be reviewed',
+	status = Status.TO_BE_REVIEWED,
 	createdTime = '',
 }: ProposalProps) {
 	const embedUrl = `${url.replace('https://open.spotify.com/track/', 'https://open.spotify.com/embed/track/')}?theme=0`;
@@ -74,16 +75,17 @@ export default function Proposal({
 				allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
 				loading="lazy"
 				className="rounded-xl shadow-xl"
+				title="GORE SCHIJVEN™ Spotify track proposal"
 			></iframe>
 
 			<div className='mt-2 flex flex-wrap items-start justify-between gap-x-4 gap-y-2'>
 				<div className='flex flex-col items-start'>
-					<p className='mt-2 rounded-full border border-neutral-600 bg-neutral-900 px-2.5 py-0.5 text-sm text-neutral-400'>
-						{status}
+					<p className='text-sm text-neutral-500'>
+						{formatRelative(new Date(createdTime), new Date(), { locale: nl })}
 					</p>
 
-					<p className='mt-2 text-sm text-neutral-500'>
-						{formatRelative(new Date(createdTime), new Date(), { locale: nl })}
+					<p className='mt-2 rounded-full border border-neutral-600 bg-neutral-900 px-2.5 py-0.5 text-sm text-neutral-400'>
+						{status}
 					</p>
 				</div>
 

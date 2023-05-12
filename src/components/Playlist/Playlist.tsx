@@ -13,6 +13,7 @@ export default function Playlist({
 				allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
 				loading="lazy"
 				className="rounded-xl shadow-xl"
+				title="GORE SCHIJVEN™ Spotify playlist"
 			></iframe>
 		</section>
 	);

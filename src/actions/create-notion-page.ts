@@ -6,7 +6,9 @@ import {
 	notion, getArtistsLine,
 } from '@/utils';
 import { DATABASE_IDS } from '@/config';
-import { ITrackDto } from '@/types';
+import {
+	ITrackDto, Status,
+} from '@/types';
 import { isFullPage } from '@notionhq/client';
 
 export async function createNotionPage(track: ITrackDto, email: string) {
@@ -48,7 +50,7 @@ export async function createNotionPage(track: ITrackDto, email: string) {
 				},
 				'Status': {
 					'status': {
-						'name': 'To be reviewed',
+						'name': Status.TO_BE_REVIEWED,
 					},
 				},
 			},
