@@ -1,3 +1,5 @@
+export const revalidate = 3;
+
 import {
 	Hero,
 	Button,

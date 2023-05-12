@@ -9,7 +9,7 @@
     "lint": "next lint --fix"
   },
   "dependencies": {
-    "@notionhq/client": "^2.2.2",
+    "@notionhq/client": "^2.2.5",
     "@radix-ui/react-popover": "^1.0.5",
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.8",

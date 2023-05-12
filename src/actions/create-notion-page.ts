@@ -5,7 +5,6 @@ import { revalidatePath } from 'next/cache';
 import { notion, getArtistsLine } from '@/utils';
 import { DATABASE_IDS } from '@/config';
 import { ITrackDto } from '@/types';
-import { isFullPage } from '@notionhq/client';
 
 export async function createNotionPage(track: ITrackDto, email: string) {
 	try {
@@ -54,11 +53,7 @@ export async function createNotionPage(track: ITrackDto, email: string) {
 
 		revalidatePath('/proposals');
 
-		if (isFullPage(res)) {
-			return res;
-		} else {
-			throw new Error('Couldn\'t create page');
-		}
+		return res;
 	} catch (error: any) {
 		throw new Error(error);
 	}
