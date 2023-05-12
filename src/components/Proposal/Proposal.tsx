@@ -21,7 +21,7 @@ export default function Proposal({
 }: ProposalProps) {
 	const embedUrl = `${url.replace('https://open.spotify.com/track/', 'https://open.spotify.com/embed/track/')}?theme=0`;
 	const { toggleLike: saveLikeInDb } = useNotion();
-	const { userLikes, saveLike: saveLikeInLocalstorage } = useLocalstorage();
+	const { userLikes, toggleLike: saveLikeInLocalstorage } = useLocalstorage();
 	const [optimisticLikes, setOptimisticLikes] = useState(likes);
 
 	const hasUserLiked = userLikes.includes(notionPageId);
@@ -30,7 +30,7 @@ export default function Proposal({
 		confetti = new JSConfetti();
 		confetti.addConfetti({
 			emojis: ['💜', '🦐'],
-			emojiSize: 40,
+			emojiSize: 60,
 			confettiNumber: 20,
 		});
 	};

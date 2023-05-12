@@ -1,9 +1,11 @@
+import { revalidatePath } from 'next/cache';
+
 import {
 	Hero,
 	Playlist,
 	Button,
 	Contribution,
-	Search,
+	ContributionForm,
 } from '@/components';
 import { PAGE_PROPS, PAGE_IDS } from '@/config';
 import { getPlainText, getSpotifyAccessToken, getPageProps } from '@/utils';
@@ -19,6 +21,8 @@ export async function generateMetadata() {
 
 export default async function Home() {
 	const accessToken = await getSpotifyAccessToken();
+
+	revalidatePath('/proposals');
 
 	return (
 		<main>
@@ -44,7 +48,7 @@ export default async function Home() {
 				title="Ken je zelf een vieze drop?"
 				description="Stel jouw degoutantste lied voor en misschien kom je wel in de vuilste lijst van het land."
 			>
-				<Search accessToken={accessToken} />
+				<ContributionForm accessToken={accessToken} />
 			</Contribution>
 		</main>
 	);

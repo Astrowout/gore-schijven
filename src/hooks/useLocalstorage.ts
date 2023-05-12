@@ -8,7 +8,7 @@ export default function useLocalStorage() {
 	const setUserLikes = UserStore((state) => state.setLikes);
 	const [isFirstRender, setIsFirstRender] = useState(true);
 
-	const saveLike = (id: string, type: 'like' | 'dislike') => {
+	const toggleLike = (id: string, type: 'like' | 'dislike') => {
 		const newLikes = [...userLikes];
 
 		if (type === 'like') {
@@ -45,6 +45,6 @@ export default function useLocalStorage() {
 
 	return {
 		userLikes,
-		saveLike,
+		toggleLike,
 	};
 }

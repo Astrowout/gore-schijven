@@ -2,7 +2,7 @@ export { default as Hero } from './Hero';
 export { default as Footer } from './Footer';
 export { default as Button } from './Button';
 export { default as Proposal } from './Proposal';
-export { default as Search } from './Search';
+export { default as ContributionForm } from './ContributionForm';
 export { default as Heading } from './Heading';
 export { default as Playlist } from './Playlist';
 export { default as Input } from './Input';

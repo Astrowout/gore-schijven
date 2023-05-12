@@ -2,7 +2,7 @@
 
 import JSConfetti from 'js-confetti';
 import * as Popover from '@radix-ui/react-popover';
-import { useEffect, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 
 import { validateEmail } from '@/utils';
 import { useNotion } from '@/hooks';
@@ -15,13 +15,13 @@ import {
 	Suggestions,
 } from '@/components';
 
-import { SearchProps } from './Search.types';
+import { ContributionFormProps } from './ContributionForm.types';
 
 let confetti: JSConfetti | null = null;
 
-export default function Search({
+export default function ContributionForm({
 	accessToken = '',
-}: SearchProps) {
+}: ContributionFormProps) {
 	const query = SearchStore((state) => state.query);
 	const selectedTrack = SearchStore((state) => state.selectedTrack);
 	const setSelectedTrack = SearchStore((state) => state.setSelectedTrack);
@@ -51,7 +51,9 @@ export default function Search({
 		return true;
 	};
 
-	const onSubmit = async () => {
+	const onSubmit = async (e: FormEvent) => {
+		e.preventDefault();
+
 		const isValid = validateForm();
 
 		if (!isValid) {
@@ -103,7 +105,10 @@ export default function Search({
 	}
 
 	return (
-		<div className="flex flex-col items-center self-stretch mx-auto w-full max-w-md">
+		<form
+			onSubmit={onSubmit}
+			className="flex flex-col items-center self-stretch mx-auto w-full max-w-md"
+		>
 			<Popover.Root open={!!query && !selectedTrack}>
 				<SearchInput />
 
@@ -119,7 +124,7 @@ export default function Search({
 			/>
 
 			<Button
-				onClick={onSubmit}
+				type="submit"
 				isLoading={isLoading}
 				className="mt-6"
 			>
@@ -131,6 +136,6 @@ export default function Search({
 					{ error }
 				</p>
 			)}
-		</div>
+		</form>
 	);
 };
