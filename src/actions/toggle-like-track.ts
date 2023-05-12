@@ -1,7 +1,6 @@
 'use server';
 
 import { notion } from '@/utils';
-import { revalidatePath } from 'next/cache';
 
 export async function toggleLikeTrack(pageId: string, type: 'like' | 'dislike') {
 	try {
@@ -26,8 +25,6 @@ export async function toggleLikeTrack(pageId: string, type: 'like' | 'dislike') 
 				},
 			},
 		});
-
-		revalidatePath('/proposals');
 
 		return res;
 	} catch (error: any) {

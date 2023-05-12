@@ -1,7 +1,5 @@
 'use server';
 
-import { revalidatePath } from 'next/cache';
-
 import {
 	notion, getArtistsLine,
 } from '@/utils';
@@ -55,8 +53,6 @@ export async function createNotionPage(track: ITrackDto, email: string) {
 				},
 			},
 		});
-
-		revalidatePath('/proposals');
 
 		if (isFullPage(res)) {
 			return res;

@@ -1,5 +1,3 @@
-import { revalidatePath } from 'next/cache';
-
 import {
 	Hero,
 	Playlist,
@@ -32,8 +30,6 @@ export async function generateMetadata() {
 
 export default async function Home() {
 	const accessToken = await getSpotifyAccessToken();
-
-	revalidatePath('/proposals');
 
 	return (
 		<main>
