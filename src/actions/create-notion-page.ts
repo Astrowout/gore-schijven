@@ -2,7 +2,9 @@
 
 import { revalidatePath } from 'next/cache';
 
-import { notion, getArtistsLine } from '@/utils';
+import {
+	notion, getArtistsLine,
+} from '@/utils';
 import { DATABASE_IDS } from '@/config';
 import { ITrackDto } from '@/types';
 import { isFullPage } from '@notionhq/client';

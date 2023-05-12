@@ -1,4 +1,6 @@
-import { IAlbum, IArtist } from '@/types';
+import {
+	IAlbum, IArtist,
+} from '@/types';
 
 export type TrackProps = {
     name: string;

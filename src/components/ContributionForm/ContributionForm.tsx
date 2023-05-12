@@ -2,7 +2,9 @@
 
 import JSConfetti from 'js-confetti';
 import * as Popover from '@radix-ui/react-popover';
-import { FormEvent, useEffect, useState } from 'react';
+import {
+	FormEvent, useEffect, useState,
+} from 'react';
 
 import { validateEmail } from '@/utils';
 import { useNotion } from '@/hooks';
@@ -25,7 +27,9 @@ export default function ContributionForm({
 	const query = SearchStore((state) => state.query);
 	const selectedTrack = SearchStore((state) => state.selectedTrack);
 	const setSelectedTrack = SearchStore((state) => state.setSelectedTrack);
-	const { result, isLoading, resetResult, createPage } = useNotion();
+	const {
+		result, isLoading, resetResult, createPage,
+	} = useNotion();
 
 	const [email, setEmail] = useState('');
 	const [error, setError] = useState('');
@@ -35,16 +39,19 @@ export default function ContributionForm({
 
 		if (!selectedTrack) {
 			setError('Elaba viezerik, je hebt nog geen lied gekozen.');
+
 			return false;
 		}
 
 		if (!email) {
 			setError('Elaba viezerik, je moet jouw e-mailadres nog invullen.');
+
 			return false;
 		}
 
 		if (!validateEmail(email)) {
 			setError('Elaba viezerik, jouw e-mailadres lijkt niet te kloppen.');
+
 			return false;
 		}
 
@@ -107,7 +114,7 @@ export default function ContributionForm({
 	return (
 		<form
 			onSubmit={onSubmit}
-			className="flex flex-col items-center self-stretch mx-auto w-full max-w-md"
+			className="mx-auto flex w-full max-w-md flex-col items-center self-stretch"
 		>
 			<Popover.Root open={!!query && !selectedTrack}>
 				<SearchInput />
@@ -132,7 +139,7 @@ export default function ContributionForm({
 			</Button>
 
 			{error && (
-				<p className="text-sm text-center text-red-400 mt-4 max-w-prose">
+				<p className="mt-4 max-w-prose text-center text-sm text-red-400">
 					{ error }
 				</p>
 			)}

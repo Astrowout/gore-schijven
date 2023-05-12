@@ -1,4 +1,6 @@
-import { Client, APIErrorCode, ClientErrorCode, isNotionClientError } from '@notionhq/client';
+import {
+	Client, APIErrorCode, ClientErrorCode, isNotionClientError,
+} from '@notionhq/client';
 
 export const handleNotionErrors = (error: unknown) => {
 	if (isNotionClientError(error)) {

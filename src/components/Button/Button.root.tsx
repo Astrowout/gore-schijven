@@ -13,7 +13,7 @@ export default function ButtonRoot({
 	onClick = () => null,
 	variant = 'default',
 }: ButtonProps) {
-	const classes = clsx('group relative h-14 px-6 inline-flex justify-center items-center transition-colors', className, {
+	const classes = clsx('group relative inline-flex h-14 items-center justify-center px-6 transition-colors', className, {
 		'text-neutral-500 hover:text-purple-500': variant === 'default',
 		'text-purple-100 hover:text-white': variant === 'highlight',
 	});

@@ -7,12 +7,13 @@ export default function Footer({
 	const currentYear = new Date().getFullYear();
 
 	return (
-		<footer className="pt-28 pb-6 text-sm text-center flex flex-col items-center gap-y-4">
+		<footer className="flex flex-col items-center gap-y-4 pb-6 pt-28 text-center text-sm">
 			<p className="text-neutral-500">
 				{ madeBy }
 			</p>
 
 			<p className="text-neutral-700">
+				{/* eslint-disable-next-line react/jsx-newline */}
                 © { currentYear } { copyright }
 			</p>
 		</footer>

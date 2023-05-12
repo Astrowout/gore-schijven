@@ -1,21 +1,32 @@
 export const revalidate = 3;
 
 import {
-	Hero,
 	Button,
-	Proposals,
 	Contribution,
 	ContributionForm,
+	Hero,
+	Proposals,
 } from '@/components';
-import { PAGE_PROPS, PAGE_IDS } from '@/config';
-import { getPlainText, getSpotifyAccessToken, getPageProps } from '@/utils';
+import {
+	PAGE_IDS, PAGE_PROPS,
+} from '@/config';
+import {
+	getPageProps, getPlainText, getSpotifyAccessToken,
+} from '@/utils';
+
+import { openGraphImage } from '@/app/shared-metadata';
 
 export async function generateMetadata() {
 	const pageProps = await getPageProps(PAGE_IDS.PROPOSALS) as any;
 
 	return {
-	  title: getPlainText(pageProps![PAGE_PROPS.metaTitle].rich_text),
-	  description: getPlainText(pageProps![PAGE_PROPS.metaDescription].rich_text),
+		title: getPlainText(pageProps![PAGE_PROPS.metaTitle].rich_text),
+		description: getPlainText(pageProps![PAGE_PROPS.metaDescription].rich_text),
+		openGraph: {
+			...openGraphImage,
+			title: getPlainText(pageProps![PAGE_PROPS.metaTitle].rich_text),
+			description: getPlainText(pageProps![PAGE_PROPS.metaDescription].rich_text),
+		},
 	};
 }
 
@@ -31,6 +42,7 @@ export default async function ProposalsPage() {
 			</Hero>
 
 			{/* @ts-expect-error Async Server Component */}
+
 			<Proposals title="Gore drops van onze viezeriken" />
 
 			<Contribution

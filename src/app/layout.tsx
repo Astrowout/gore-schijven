@@ -20,7 +20,8 @@ export default function RootLayout({
 }) {
 	const madeBy = (
 		<>
-        	Made by the founding daddies: <a href="https://www.linkedin.com/in/sjouwkevanparys/" target="_blank" className="hover:underline hover:text-neutral-500 text-neutral-600" rel="noopener noreferrer">Sjouwke</a>, <a href="https://www.linkedin.com/in/lars-marginet-b07528215/" target="_blank" className="hover:underline hover:text-neutral-500 text-neutral-600" rel="noopener noreferrer">Lars</a> & <a href="https://woutvandesompele.be" target="_blank" className="hover:underline hover:text-neutral-500 text-neutral-600" rel="noopener noreferrer">Wout</a> in Belgium.
+			{/* eslint-disable-next-line react/jsx-newline */}
+        	Made by the founding daddies: <a href="https://www.linkedin.com/in/sjouwkevanparys/" target="_blank" className="text-neutral-600 hover:text-neutral-500 hover:underline" rel="noopener noreferrer">Sjouwke</a>, <a href="https://www.linkedin.com/in/lars-marginet-b07528215/" target="_blank" className="text-neutral-600 hover:text-neutral-500 hover:underline" rel="noopener noreferrer">Lars</a> & <a href="https://woutvandesompele.be" target="_blank" className="text-neutral-600 hover:text-neutral-500 hover:underline" rel="noopener noreferrer">Wout</a> in Belgium.
 		</>
 	);
 
@@ -29,7 +30,7 @@ export default function RootLayout({
 			lang="en"
 			className={`${kanitFont.variable} bg-black`}
 		>
-			<body className="bg-neutral-950 bg-opacity-50 min-h-screen flex flex-col 2xl:container !max-w-none">
+			<body className="flex min-h-screen !max-w-none flex-col bg-neutral-950/50 2xl:container">
 				{ children }
 
 				<Footer

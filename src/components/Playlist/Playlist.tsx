@@ -5,7 +5,7 @@ export default function Playlist({
 	className = '',
 }: PlaylistProps) {
 	return (
-		<section className={clsx('max-w-2xl mx-auto', className)}>
+		<section className={clsx('mx-auto max-w-2xl', className)}>
 			<iframe
 				src="https://open.spotify.com/embed/playlist/7yjwgXgsidaFS5vLGevbfn?theme=0"
 				width="100%"

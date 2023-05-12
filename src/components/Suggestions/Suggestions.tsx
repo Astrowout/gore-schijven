@@ -2,7 +2,9 @@
 
 import * as Popover from '@radix-ui/react-popover';
 import clsx from 'clsx';
-import { useCallback, useEffect } from 'react';
+import {
+	useCallback, useEffect,
+} from 'react';
 import debounce from 'lodash/debounce';
 
 import {
@@ -22,7 +24,9 @@ export default function Suggestions({
 	const query = SearchStore((state) => state.query);
 	const setQuery = SearchStore((state) => state.setQuery);
 	const setSelectedTrack = SearchStore((state) => state.setSelectedTrack);
-	const { tracks, getTracks } = useSpotify(accessToken);
+	const {
+		tracks, getTracks,
+	} = useSpotify(accessToken);
 
 	const fetchTracks = useCallback(debounce((value) => { // eslint-disable-line react-hooks/exhaustive-deps
 		if (!!value) {
@@ -45,7 +49,7 @@ export default function Suggestions({
 			align="start"
 			avoidCollisions={false}
 			onOpenAutoFocus={(e) => e.preventDefault()}
-			className="z-20 w-[var(--radix-popover-trigger-width)] max-h-80 overflow-y-auto rounded-lg bg-neutral-900 border border-neutral-600 shadow-xl"
+			className="z-20 max-h-80 w-[var(--radix-popover-trigger-width)] overflow-y-auto rounded-lg border border-neutral-600 bg-neutral-900 shadow-xl"
 		>
 			{!tracks.length && (
 				<EmptyState message="Geen resultaten gevonden" />
@@ -56,7 +60,7 @@ export default function Suggestions({
 					{tracks.map((item: ITrackDto) => (
 						<li key={item.id}>
 							<div
-								className={clsx('flex w-full px-3 py-3 gap-x-3 items-center hover:bg-neutral-800 cursor-pointer focus:bg-purple-500/10')}
+								className={clsx('flex w-full cursor-pointer items-center gap-x-3 p-3 hover:bg-neutral-800 focus:bg-purple-500/10')}
 								role="button"
 								onClick={() => handleSelectTrack(item)}
 							>

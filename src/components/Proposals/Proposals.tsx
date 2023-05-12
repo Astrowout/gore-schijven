@@ -1,6 +1,8 @@
 import { ProposalsProps } from './Proposals.types';
 
-import { Proposal, EmptyState } from '@/components';
+import {
+	Proposal, EmptyState,
+} from '@/components';
 import { ITrack } from '@/types';
 import { getDatabase } from '@/utils';
 import { DATABASE_IDS } from '@/config';
@@ -17,9 +19,9 @@ export default async function Proposals({
 	}
 
 	return (
-		<section className="flex flex-col items-center gap-y-3 sm:gap-y-6 my-4 lg:my-0">
-			<header className="text-center max-w-prose flex flex-col items-center">
-				<h1 className="text-2xl sm:text-3xl md:text-4xl text-white font-semibold">
+		<section className="my-4 flex flex-col items-center gap-y-3 sm:gap-y-6 lg:my-0">
+			<header className="flex max-w-prose flex-col items-center text-center">
+				<h1 className="text-2xl font-semibold text-white sm:text-3xl md:text-4xl">
 					{ title }
 				</h1>
 			</header>
@@ -29,7 +31,7 @@ export default async function Proposals({
 			)}
 
 			{!!tracks.length && (
-				<ul className='flex flex-col w-full max-w-2xl gap-y-8 lg:gap-y-10'>
+				<ul className='flex w-full max-w-2xl flex-col gap-y-8 lg:gap-y-10'>
 					{tracks.map((track) => (
 						<li key={track.id}>
 							<Proposal

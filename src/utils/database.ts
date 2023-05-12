@@ -2,7 +2,9 @@ import { cache } from 'react';
 import { isFullPage } from '@notionhq/client';
 import { QueryDatabaseParameters } from '@notionhq/client/build/src/api-endpoints';
 
-import { notion, handleNotionErrors, formatDatabaseRow } from '@/utils';
+import {
+	notion, handleNotionErrors, formatDatabaseRow,
+} from '@/utils';
 import { IDatabaseRow } from '@/types';
 
 export const getDatabase = cache(async (

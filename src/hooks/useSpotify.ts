@@ -1,4 +1,6 @@
-import { useCallback, useEffect, useState } from 'react';
+import {
+	useCallback, useEffect, useState,
+} from 'react';
 
 const LIMIT = 30;
 

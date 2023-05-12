@@ -1,5 +1,7 @@
 import { UserStore } from '@/store';
-import { useEffect, useState } from 'react';
+import {
+	useEffect, useState,
+} from 'react';
 
 const STORAGE_KEY = 'likes';
 

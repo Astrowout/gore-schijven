@@ -1,7 +1,11 @@
-import { useEffect, useState } from 'react';
+import {
+	useEffect, useState,
+} from 'react';
 import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
-import { createNotionPage, toggleLikeTrack } from '@/actions';
+import {
+	createNotionPage, toggleLikeTrack,
+} from '@/actions';
 import { ITrackDto } from '@/types';
 
 export default function useNotion() {

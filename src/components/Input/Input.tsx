@@ -8,7 +8,7 @@ export default function Input({
 	onChange = () => null,
 }: InputProps) {
 	return (
-		<div className={`${className} flex flex-col w-full`}>
+		<div className={`${className} flex w-full flex-col`}>
 			<label
 				htmlFor={name}
 				className="text-white"
@@ -18,7 +18,7 @@ export default function Input({
 
 			<input
 				onChange={(e) => onChange(e.target.value)}
-				className="w-full appearance-none h-14 px-6 mt-1.5 rounded-full border border-neutral-700 focus:border-purple-500 focus:outline-none text-white placeholder:text-neutral-600 bg-neutral-800 shadow-inner"
+				className="mt-1.5 h-14 w-full appearance-none rounded-full border border-neutral-700 bg-neutral-800 px-6 text-white shadow-inner placeholder:text-neutral-600 focus:border-purple-500 focus:outline-none"
 				placeholder={placeholder}
 				autoComplete="off"
 				type="email"

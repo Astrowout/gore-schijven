@@ -1,11 +1,24 @@
 {
-  "extends": "next/core-web-vitals",
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:tailwindcss/recommended"
+  ],
   "rules": {
     "quotes": ["error", "single"],
     "indent": ["error", "tab"],
     "comma-dangle": ["error", "always-multiline"],
     "semi": ["error", "always"],
     "no-trailing-spaces": ["error"],
-    "react/jsx-max-props-per-line": ["error", { "maximum": 1, "when": "multiline" }]
+    "object-curly-newline": ["error", {
+      "ObjectExpression": { "multiline": true, "minProperties": 2, "consistent": true },
+      "ObjectPattern": { "multiline": true, "minProperties": 2, "consistent": true },
+      "ImportDeclaration": { "multiline": true, "minProperties": 2, "consistent": true },
+      "ExportDeclaration": { "multiline": true, "minProperties": 2, "consistent": true }
+    }],
+    "object-property-newline": ["error", { "allowAllPropertiesOnSameLine": false }],
+    "object-curly-spacing": ["error", "always"],
+    "newline-before-return": ["error"],
+    "react/jsx-max-props-per-line": ["error", { "maximum": 1, "when": "multiline" }],
+    "react/jsx-newline": ["error", { "prevent": false }]
   }
 }

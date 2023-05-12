@@ -6,7 +6,9 @@ import formatRelative from 'date-fns/formatRelative';
 import nl from 'date-fns/locale/nl';
 import JSConfetti from 'js-confetti';
 
-import { useLocalstorage, useNotion } from '@/hooks';
+import {
+	useLocalstorage, useNotion,
+} from '@/hooks';
 
 import { ProposalProps } from './Proposal.types';
 
@@ -21,7 +23,9 @@ export default function Proposal({
 }: ProposalProps) {
 	const embedUrl = `${url.replace('https://open.spotify.com/track/', 'https://open.spotify.com/embed/track/')}?theme=0`;
 	const { toggleLike: saveLikeInDb } = useNotion();
-	const { userLikes, toggleLike: saveLikeInLocalstorage } = useLocalstorage();
+	const {
+		userLikes, toggleLike: saveLikeInLocalstorage,
+	} = useLocalstorage();
 	const [optimisticLikes, setOptimisticLikes] = useState(likes);
 
 	const hasUserLiked = userLikes.includes(notionPageId);
@@ -72,23 +76,23 @@ export default function Proposal({
 				className="rounded-xl shadow-xl"
 			></iframe>
 
-			<div className='flex items-start justify-between flex-wrap gap-x-4 gap-y-2 mt-2'>
+			<div className='mt-2 flex flex-wrap items-start justify-between gap-x-4 gap-y-2'>
 				<div className='flex flex-col items-start'>
-					<p className='text-neutral-400 text-sm mt-2 rounded-full py-0.5 px-2.5 border border-neutral-600 bg-neutral-900'>
+					<p className='mt-2 rounded-full border border-neutral-600 bg-neutral-900 px-2.5 py-0.5 text-sm text-neutral-400'>
 						{status}
 					</p>
 
-					<p className='text-neutral-500 text-sm mt-2'>
+					<p className='mt-2 text-sm text-neutral-500'>
 						{formatRelative(new Date(createdTime), new Date(), { locale: nl })}
 					</p>
 				</div>
 
-				<div className={clsx('flex items-center rounded-full bg-neutral-950 border shadow-lg', {
+				<div className={clsx('flex items-center rounded-full border bg-neutral-950 shadow-lg', {
 					'border-purple-800': hasUserLiked,
 					'border-neutral-800': !hasUserLiked,
 				})}>
 					<button
-						className={clsx('group flex items-center justify-center rounded-full w-12 h-12 shadow-lg bg-neutral-950 border transition hover:border-purple-500 hover:shadow-xl hover:shadow-purple-500/20', {
+						className={clsx('group flex h-12 w-12 items-center justify-center rounded-full border bg-neutral-950 shadow-lg transition hover:border-purple-500 hover:shadow-xl hover:shadow-purple-500/20', {
 							'border-purple-500': hasUserLiked,
 							'border-neutral-700': !hasUserLiked,
 						})}
@@ -101,7 +105,7 @@ export default function Proposal({
 							strokeWidth="1.5"
 							stroke="currentColor"
 							fill="currentColor"
-							className={clsx('w-6 h-6 mt-px text-purple-600 transition group-hover:scale-125', {
+							className={clsx('mt-px h-6 w-6 text-purple-600 transition group-hover:scale-125', {
 								'fill-purple-600': hasUserLiked,
 								'fill-transparent': !hasUserLiked,
 							})}
@@ -118,7 +122,7 @@ export default function Proposal({
 						</span>
 					</button>
 
-					<span className='block text-white font-bold min-w-[40px] text-center'>
+					<span className='block min-w-[40px] text-center font-bold text-white'>
 						{optimisticLikes}
 					</span>
 				</div>

@@ -1,4 +1,5 @@
 import { Heading } from '@/components';
+
 import { HeroProps } from './Hero.types';
 
 export default function Hero({
@@ -7,16 +8,16 @@ export default function Hero({
 	description = '',
 }: HeroProps) {
 	return (
-		<section className="flex flex-col items-center l-section gap-y-5 sm:gap-y-6 lg:gap-y-7">
+		<section className="l-section flex flex-col items-center gap-y-5 sm:gap-y-6 lg:gap-y-7">
 			<Heading title={title} />
 
 			{description && (
-				<p className="text-neutral-500 text-center max-w-prose">
+				<p className="max-w-prose text-center text-neutral-500">
 					{description}
 				</p>
 			)}
 
-			<div className="mx-auto flex justify-center flex-wrap gap-x-8 gap-y-3">
+			<div className="mx-auto flex flex-wrap justify-center gap-x-8 gap-y-3">
 				{children}
 			</div>
 		</section>
