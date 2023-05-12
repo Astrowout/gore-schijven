@@ -14,7 +14,7 @@ import {
 	getPlainText, getSpotifyAccessToken, getPageProps,
 } from '@/utils';
 
-import { openGraphImage } from '@/app/shared-metadata';
+import { openGraph } from '@/app/shared-metadata';
 
 export async function generateMetadata() {
 	const pageProps = await getPageProps(PAGE_IDS.HOME) as any;
@@ -23,7 +23,7 @@ export async function generateMetadata() {
 		title: getPlainText(pageProps![PAGE_PROPS.metaTitle].rich_text),
 		description: getPlainText(pageProps![PAGE_PROPS.metaDescription].rich_text),
 		openGraph: {
-			...openGraphImage,
+			...openGraph,
 			title: getPlainText(pageProps![PAGE_PROPS.ogTitle].rich_text),
 			description: getPlainText(pageProps![PAGE_PROPS.metaDescription].rich_text),
 		},
