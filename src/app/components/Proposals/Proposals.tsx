@@ -1,22 +1,16 @@
-import { ProposalsProps } from './Proposals.types';
-
 import {
 	Proposal, EmptyState,
-} from '@/components';
+} from '@/app/components';
 import { ITrack } from '@/types';
-import { getDatabase } from '@/utils';
+import { getDatabase } from '@/utils/database';
 import { DATABASE_IDS } from '@/config';
+
+import { ProposalsProps } from './Proposals.types';
 
 export default async function Proposals({
 	title = '',
 }: ProposalsProps) {
-	const res = await getDatabase(DATABASE_IDS.PROPOSALS);
-
-	let tracks: ITrack[] = [];
-
-	if (res) {
-		tracks = res;
-	}
+	const tracks: ITrack[] | undefined = await getDatabase(DATABASE_IDS.PROPOSALS);
 
 	return (
 		<section className="my-4 flex flex-col items-center gap-y-3 sm:gap-y-6 lg:my-0">
@@ -26,11 +20,11 @@ export default async function Proposals({
 				</h1>
 			</header>
 
-			{!tracks.length && (
+			{(!tracks || !tracks.length) && (
 				<EmptyState message="Er zijn nog geen vadsige drops toegevoegd." />
 			)}
 
-			{!!tracks.length && (
+			{(!!tracks && !!tracks.length) && (
 				<ul className='flex w-full max-w-2xl flex-col gap-y-8 lg:gap-y-10'>
 					{tracks.map((track) => (
 						<li key={track.id}>

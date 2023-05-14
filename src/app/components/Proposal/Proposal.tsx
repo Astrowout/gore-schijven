@@ -7,11 +7,12 @@ import nl from 'date-fns/locale/nl';
 import JSConfetti from 'js-confetti';
 
 import {
-	useLocalstorage, useNotion,
+	// useLocalstorage,
+	useNotion,
 } from '@/hooks';
+import { Status } from '@/types';
 
 import { ProposalProps } from './Proposal.types';
-import { Status } from '@/types';
 
 let confetti: JSConfetti | null = null;
 
@@ -24,12 +25,13 @@ export default function Proposal({
 }: ProposalProps) {
 	const embedUrl = `${url.replace('https://open.spotify.com/track/', 'https://open.spotify.com/embed/track/')}?theme=0`;
 	const { toggleLike: saveLikeInDb } = useNotion();
-	const {
-		userLikes, toggleLike: saveLikeInLocalstorage,
-	} = useLocalstorage();
+	// const {
+	// 	userLikes, toggleLike: saveLikeInLocalstorage,
+	// } = useLocalstorage();
 	const [optimisticLikes, setOptimisticLikes] = useState(likes);
 
-	const hasUserLiked = userLikes.includes(notionPageId);
+	// const hasUserLiked = userLikes.includes(notionPageId);
+	const hasUserLiked = false;
 
 	const shootConfetti = () => {
 		confetti = new JSConfetti();
@@ -44,7 +46,7 @@ export default function Proposal({
 		setOptimisticLikes(optimisticLikes + 1);
 
 		saveLikeInDb(notionPageId, 'like');
-		saveLikeInLocalstorage(notionPageId, 'like');
+		// saveLikeInLocalstorage(notionPageId, 'like');
 
 		shootConfetti();
 	};
@@ -54,7 +56,7 @@ export default function Proposal({
 		setOptimisticLikes(newLikes);
 
 		saveLikeInDb(notionPageId, 'dislike');
-		saveLikeInLocalstorage(notionPageId, 'dislike');
+		// saveLikeInLocalstorage(notionPageId, 'dislike');
 	};
 
 	const toggleLike = () => {

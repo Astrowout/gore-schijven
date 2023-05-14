@@ -4,7 +4,7 @@ import { useRef } from 'react';
 import clsx from 'clsx';
 import * as Popover from '@radix-ui/react-popover';
 
-import { Track } from '@/components';
+import { Track } from '@/app/components';
 import { SearchStore } from '@/store';
 
 import { SearchInputProps } from './SearchInput.types';

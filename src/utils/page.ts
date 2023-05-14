@@ -1,8 +1,9 @@
+import { cache } from 'react';
+import { isFullPage } from '@notionhq/client';
 import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
-import notion, { handleNotionErrors } from './notion';
-import { isFullPage } from '@notionhq/client';
-import { cache } from 'react';
+import { handleNotionErrors } from './errors';
+import { notion } from './notion';
 
 export const getPageProps = cache(async (
 	pageId: string,

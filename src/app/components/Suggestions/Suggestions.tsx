@@ -11,7 +11,7 @@ import {
 	EmptyState,
 	Player,
 	Track,
-} from '@/components';
+} from '@/app/components';
 
 import { SuggestionsProps } from './Suggestions.types';
 import { SearchStore } from '@/store';

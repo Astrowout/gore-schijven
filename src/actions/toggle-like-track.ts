@@ -1,6 +1,6 @@
 'use server';
 
-import { notion } from '@/utils';
+import { notion } from '@/utils/notion';
 
 export async function toggleLikeTrack(pageId: string, type: 'like' | 'dislike') {
 	try {

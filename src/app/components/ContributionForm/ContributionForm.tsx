@@ -3,7 +3,9 @@
 import JSConfetti from 'js-confetti';
 import * as Popover from '@radix-ui/react-popover';
 import {
-	FormEvent, useEffect, useState,
+	FormEvent,
+	useEffect,
+	useState,
 } from 'react';
 
 import { validateEmail } from '@/utils';
@@ -15,7 +17,7 @@ import {
 	SearchInput,
 	Success,
 	Suggestions,
-} from '@/components';
+} from '@/app/components';
 
 import { ContributionFormProps } from './ContributionForm.types';
 
@@ -68,7 +70,7 @@ export default function ContributionForm({
 		}
 
 		try {
-			await createPage(selectedTrack!, email);
+			// await createPage(selectedTrack!, email);
 		} catch (error) {
 			setError('Oeps, er liep iets mis. Wees gerust, het ligt niet aan jou maar aan onze vuile code.');
 		}
@@ -105,7 +107,7 @@ export default function ContributionForm({
 		return (
 			<Success message="We hebben jouw vieze drop goed ontvangen! Het ingezonden degoutant kabaal wordt binnen de 27 werkdagen gereviewd.">
 				<Button onClick={resetResult}>
-                    Stel nog een vieze schijf voor
+	                Stel nog een vieze schijf voor
 				</Button>
 			</Success>
 		);
@@ -132,7 +134,7 @@ export default function ContributionForm({
 
 			<Button
 				type="submit"
-				isLoading={isLoading}
+				isLoading={false}
 				className="mt-6"
 			>
                 Versturen

@@ -1,3 +1,5 @@
+// import 'server-only';
+
 export const getSpotifyAccessToken = async () => {
 	try {
 		const params = new URLSearchParams();

@@ -1,33 +1,21 @@
-export const dynamic = 'force-dynamic';
-
 import {
 	Button,
 	Contribution,
 	ContributionForm,
 	Hero,
 	Proposals,
-} from '@/components';
+} from '@/app/components';
+import { PAGE_IDS } from '@/config';
 import {
-	PAGE_IDS, PAGE_PROPS,
-} from '@/config';
-import {
-	getPageProps, getPlainText, getSpotifyAccessToken,
+	getMetadata,
+	getPageProps,
+	getSpotifyAccessToken,
 } from '@/utils';
 
-import { openGraph } from '@/app/shared-metadata';
-
 export async function generateMetadata() {
-	const pageProps = await getPageProps(PAGE_IDS.PROPOSALS) as any;
+	const pageProps = await getPageProps(PAGE_IDS.PROPOSALS);
 
-	return {
-		title: getPlainText(pageProps![PAGE_PROPS.metaTitle].rich_text),
-		description: getPlainText(pageProps![PAGE_PROPS.metaDescription].rich_text),
-		openGraph: {
-			...openGraph,
-			title: getPlainText(pageProps![PAGE_PROPS.metaTitle].rich_text),
-			description: getPlainText(pageProps![PAGE_PROPS.metaDescription].rich_text),
-		},
-	};
+	return getMetadata(pageProps);
 }
 
 export default async function ProposalsPage() {

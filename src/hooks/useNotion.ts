@@ -4,7 +4,8 @@ import {
 import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
 import {
-	createNotionPage, toggleLikeTrack,
+	createNotionPage,
+	toggleLikeTrack,
 } from '@/actions';
 import { ITrackDto } from '@/types';
 

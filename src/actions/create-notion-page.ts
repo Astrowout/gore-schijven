@@ -1,11 +1,13 @@
 'use server';
 
 import {
-	notion, getArtistsLine,
+	notion,
+	getArtistsLine,
 } from '@/utils';
 import { DATABASE_IDS } from '@/config';
 import {
-	ITrackDto, Status,
+	ITrackDto,
+	Status,
 } from '@/types';
 import { isFullPage } from '@notionhq/client';
 

@@ -1,8 +1,8 @@
 import Image from 'next/image';
 
-import { TrackProps } from './Track.types';
-
 import { getArtistsLine } from '@/utils';
+
+import { TrackProps } from './Track.types';
 
 export default function Track({
 	album,
