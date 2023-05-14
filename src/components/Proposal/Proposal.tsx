@@ -7,7 +7,7 @@ import nl from 'date-fns/locale/nl';
 import JSConfetti from 'js-confetti';
 
 import {
-	// useLocalstorage,
+	useLocalstorage,
 	useNotion,
 } from '@/hooks';
 import { Status } from '@/types';
@@ -25,13 +25,13 @@ export default function Proposal({
 }: ProposalProps) {
 	const embedUrl = `${url.replace('https://open.spotify.com/track/', 'https://open.spotify.com/embed/track/')}?theme=0`;
 	const { toggleLike: saveLikeInDb } = useNotion();
-	// const {
-	// 	userLikes, toggleLike: saveLikeInLocalstorage,
-	// } = useLocalstorage();
+	const {
+		userLikes,
+		toggleLike: saveLikeInLocalstorage,
+	} = useLocalstorage();
 	const [optimisticLikes, setOptimisticLikes] = useState(likes);
 
-	// const hasUserLiked = userLikes.includes(notionPageId);
-	const hasUserLiked = false;
+	const hasUserLiked = userLikes.includes(notionPageId);
 
 	const shootConfetti = () => {
 		confetti = new JSConfetti();
@@ -46,7 +46,7 @@ export default function Proposal({
 		setOptimisticLikes(optimisticLikes + 1);
 
 		saveLikeInDb(notionPageId, 'like');
-		// saveLikeInLocalstorage(notionPageId, 'like');
+		saveLikeInLocalstorage(notionPageId, 'like');
 
 		shootConfetti();
 	};
@@ -56,7 +56,7 @@ export default function Proposal({
 		setOptimisticLikes(newLikes);
 
 		saveLikeInDb(notionPageId, 'dislike');
-		// saveLikeInLocalstorage(notionPageId, 'dislike');
+		saveLikeInLocalstorage(notionPageId, 'dislike');
 	};
 
 	const toggleLike = () => {
@@ -82,7 +82,10 @@ export default function Proposal({
 
 			<div className='mt-2 flex flex-wrap items-start justify-between gap-x-4 gap-y-2'>
 				<div className='flex flex-col items-start'>
-					<p className='text-sm text-neutral-500'>
+					<p
+						className='text-sm text-neutral-500'
+						suppressHydrationWarning
+					>
 						{formatRelative(new Date(createdTime), new Date(), { locale: nl })}
 					</p>
 
@@ -94,7 +97,8 @@ export default function Proposal({
 				<div className={clsx('flex items-center rounded-full border bg-neutral-950 shadow-lg', {
 					'border-purple-800': hasUserLiked,
 					'border-neutral-800': !hasUserLiked,
-				})}>
+				})}
+				>
 					<button
 						className={clsx('group flex h-12 w-12 items-center justify-center rounded-full border bg-neutral-950 shadow-lg transition hover:border-purple-500 hover:shadow-xl hover:shadow-purple-500/20', {
 							'border-purple-500': hasUserLiked,

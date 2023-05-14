@@ -20,6 +20,7 @@
     "object-curly-spacing": ["error", "always"],
     "newline-before-return": ["error"],
     "react/jsx-max-props-per-line": ["error", { "maximum": 1, "when": "multiline" }],
-    "react/jsx-newline": ["error", { "prevent": false }]
+    "react/jsx-newline": ["error", { "prevent": false }],
+    "react/jsx-closing-bracket-location": ["error", "tag-aligned"]
   }
 }
