@@ -31,7 +31,7 @@ export default function RootLayout({
 
 	return (
 		<html
-			lang="en"
+			lang="nl"
 			className={`${kanitFont.variable} bg-black`}
 		>
 			<body className="flex min-h-screen !max-w-none flex-col bg-neutral-950/50 2xl:container">

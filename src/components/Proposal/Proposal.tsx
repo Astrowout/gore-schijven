@@ -1,6 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import {
+	useState,
+	useEffect,
+} from 'react';
 import clsx from 'clsx';
 import formatRelative from 'date-fns/formatRelative';
 import nl from 'date-fns/locale/nl';
@@ -30,6 +33,7 @@ export default function Proposal({
 		toggleLike: saveLikeInLocalstorage,
 	} = useLocalstorage();
 	const [optimisticLikes, setOptimisticLikes] = useState(likes);
+	const [date, setDate] = useState(formatRelative(new Date(createdTime), new Date(), { locale: nl }));
 
 	const hasUserLiked = userLikes.includes(notionPageId);
 
@@ -67,6 +71,10 @@ export default function Proposal({
 		}
 	};
 
+	useEffect(() => {
+		setDate(formatRelative(new Date(createdTime), new Date(), { locale: nl }));
+	}, []); // eslint-disable-line react-hooks/exhaustive-deps
+
 	return (
 		<article className='flex flex-col'>
 			<iframe
@@ -82,12 +90,14 @@ export default function Proposal({
 
 			<div className='mt-2 flex flex-wrap items-start justify-between gap-x-4 gap-y-2'>
 				<div className='flex flex-col items-start'>
-					<p
-						className='text-sm text-neutral-500'
-						suppressHydrationWarning
-					>
-						{formatRelative(new Date(createdTime), new Date(), { locale: nl })}
-					</p>
+					{date && (
+						<p
+							className='text-sm text-neutral-500'
+							suppressHydrationWarning
+						>
+							{date}
+						</p>
+					)}
 
 					<p className='mt-2 rounded-full border border-neutral-600 bg-neutral-900 px-2.5 py-0.5 text-sm text-neutral-400'>
 						{status}
