@@ -1,7 +1,8 @@
 {
   "extends": [
     "next/core-web-vitals",
-    "plugin:tailwindcss/recommended"
+    "plugin:tailwindcss/recommended",
+    "prettier"
   ],
   "rules": {
     "quotes": ["error", "single"],
