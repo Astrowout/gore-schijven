@@ -4,7 +4,7 @@ import '@/main.css';
 
 import { Kanit } from 'next/font/google';
 
-import { Footer } from '@/app/components';
+import { Footer } from '@/components';
 
 const kanitFont = Kanit({
 	variable: '--font-kanit',

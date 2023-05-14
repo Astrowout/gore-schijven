@@ -1,6 +1,6 @@
 import {
 	Proposal, EmptyState,
-} from '@/app/components';
+} from '@/components';
 import { ITrack } from '@/types';
 import { getDatabase } from '@/utils/database';
 import { DATABASE_IDS } from '@/config';

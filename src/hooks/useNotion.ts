@@ -3,10 +3,10 @@ import {
 } from 'react';
 import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
-import {
-	createNotionPage,
-	toggleLikeTrack,
-} from '@/actions';
+// import {
+// 	createNotionPage,
+// 	toggleLikeTrack,
+// } from '@/actions';
 import { ITrackDto } from '@/types';
 
 export default function useNotion() {
@@ -15,13 +15,13 @@ export default function useNotion() {
 
 	const createPage = async (track: ITrackDto, email: string) => {
 		try {
-			setIsLoading(true);
+			// setIsLoading(true);
 
-			const res = await createNotionPage(track, email);
+			// const res = await createNotionPage(track, email);
 
-			if (res) {
-				setResult(res);
-			}
+			// if (res) {
+			// 	setResult(res);
+			// }
 		} catch (error) {
 			console.error(error);
 		} finally {
@@ -31,7 +31,7 @@ export default function useNotion() {
 
 	const toggleLike = async (pageId: string, type: 'like' | 'dislike') => {
 		try {
-			await toggleLikeTrack(pageId, type);
+			// await toggleLikeTrack(pageId, type);
 		} catch (error) {
 			console.error(error);
 		}
