@@ -1,5 +1,8 @@
 'use server';
 
+import { revalidateTag } from 'next/cache';
+import { isFullPage } from '@notionhq/client';
+
 import { DATABASE_IDS } from '@/config';
 import {
 	Status,
@@ -9,9 +12,6 @@ import {
 	notion,
 	getArtistsLine,
 } from '@/utils';
-import { isFullPage } from '@notionhq/client';
-import { revalidateTag } from 'next/cache';
-import { NextResponse } from 'next/server';
 
 export async function createNotionPage(track: ITrackDto, email: string) {
 	const res = await notion.pages.create({
