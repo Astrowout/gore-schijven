@@ -7,31 +7,27 @@ import { notion } from '@/utils';
 export async function POST(request: Request) {
 	const body = await request.json();
 
-	try {
-		const currentLikes = await notion.pages.properties.retrieve({
-			page_id: body.pageId,
-			property_id: 'Likes',
-		});
+	const currentLikes = await notion.pages.properties.retrieve({
+		page_id: body.pageId,
+		property_id: 'Likes',
+	});
 
-		let newLikes = currentLikes.type === 'number' && currentLikes.number ? currentLikes.number : 0;
+	let newLikes = currentLikes.type === 'number' && currentLikes.number ? currentLikes.number : 0;
 
-		if (body.type === 'like') {
-			newLikes = newLikes + 1;
-		} else if (body.type === 'dislike' && newLikes > 0) {
-			newLikes = newLikes - 1;
-		}
-
-		const res = await notion.pages.update({
-			'page_id': body.pageId,
-			'properties': {
-				'Likes': {
-					'number': newLikes,
-				},
-			},
-		});
-
-		return NextResponse.json(res);
-	} catch (error: any) {
-		throw new Error(error);
+	if (body.type === 'like') {
+		newLikes = newLikes + 1;
+	} else if (body.type === 'dislike' && newLikes > 0) {
+		newLikes = newLikes - 1;
 	}
+
+	const res = await notion.pages.update({
+		'page_id': body.pageId,
+		'properties': {
+			'Likes': {
+				'number': newLikes,
+			},
+		},
+	});
+
+	return NextResponse.json(res);
 };
