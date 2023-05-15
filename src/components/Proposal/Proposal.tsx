@@ -33,7 +33,7 @@ export default function Proposal({
 		toggleLike: saveLikeInLocalstorage,
 	} = useLocalstorage();
 	const [optimisticLikes, setOptimisticLikes] = useState(likes);
-	const [date, setDate] = useState(formatRelative(new Date(createdTime), new Date(), { locale: nl }));
+	const [date, setDate] = useState<string>('');
 
 	const hasUserLiked = userLikes.includes(notionPageId);
 
