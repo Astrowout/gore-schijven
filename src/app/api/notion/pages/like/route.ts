@@ -1,8 +1,8 @@
-export const runtime = 'edge';
-
 import { NextResponse } from 'next/server';
 
 import { notion } from '@/utils';
+
+export const runtime = 'edge';
 
 export async function POST(request: Request) {
 	const body = await request.json();

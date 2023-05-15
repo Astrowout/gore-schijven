@@ -1,5 +1,3 @@
-// import 'server-only';
-
 import { cache } from 'react';
 import { isFullPage } from '@notionhq/client';
 import { QueryDatabaseParameters } from '@notionhq/client/build/src/api-endpoints';

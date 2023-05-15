@@ -1,5 +1,4 @@
-export const runtime = 'edge';
-
+import { revalidatePath } from 'next/cache';
 import { NextResponse } from 'next/server';
 import { isFullPage } from '@notionhq/client';
 
@@ -9,7 +8,8 @@ import {
 } from '@/utils';
 import { DATABASE_IDS } from '@/config';
 import { Status } from '@/types';
-import { revalidatePath } from 'next/cache';
+
+export const runtime = 'edge';
 
 export async function POST(request: Request) {
 	const body = await request.json();
