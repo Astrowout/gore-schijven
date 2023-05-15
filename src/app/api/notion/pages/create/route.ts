@@ -1,17 +1,18 @@
-'use server';
+export const runtime = 'edge';
+
+import { NextResponse } from 'next/server';
+import { isFullPage } from '@notionhq/client';
 
 import {
 	notion,
 	getArtistsLine,
 } from '@/utils';
 import { DATABASE_IDS } from '@/config';
-import {
-	ITrackDto,
-	Status,
-} from '@/types';
-import { isFullPage } from '@notionhq/client';
+import { Status } from '@/types';
 
-export async function createNotionPage(track: ITrackDto, email: string) {
+export async function POST(request: Request) {
+	const body = await request.json();
+
 	try {
 		const res = await notion.pages.create({
 			'parent': {
@@ -24,7 +25,7 @@ export async function createNotionPage(track: ITrackDto, email: string) {
 						{
 							'type': 'text',
 							'text': {
-								'content': track.name,
+								'content': body.track.name,
 							},
 						},
 					],
@@ -34,19 +35,19 @@ export async function createNotionPage(track: ITrackDto, email: string) {
 						{
 							'type': 'text',
 							'text': {
-								'content': getArtistsLine(track.artists),
+								'content': getArtistsLine(body.track.artists),
 							},
 						},
 					],
 				},
 				'Spotify URL': {
-					'url': track.external_urls.spotify,
+					'url': body.track.external_urls.spotify,
 				},
 				'Likes': {
 					'number': 0,
 				},
 				'Email contributor': {
-					'email': email,
+					'email': body.email,
 				},
 				'Status': {
 					'status': {
@@ -57,11 +58,12 @@ export async function createNotionPage(track: ITrackDto, email: string) {
 		});
 
 		if (isFullPage(res)) {
-			return res;
+			return NextResponse.json(res);
 		} else {
 			throw new Error('Couldn\'t create page');
 		}
 	} catch (error: any) {
 		throw new Error(error);
 	}
+
 }

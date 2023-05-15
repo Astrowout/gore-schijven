@@ -14,7 +14,7 @@ export default function Button({
 		>
 			<span className={clsx('absolute inset-0 h-full w-full rounded-full border-x shadow-lg transition duration-200 group-hover:scale-x-110 group-hover:shadow-xl group-hover:shadow-purple-500/20', {
 				'border-neutral-600 bg-neutral-900 group-hover:border-purple-500': variant === 'default',
-				'border-purple-400 bg-purple-800': variant === 'highlight',
+				'border-purple-500 bg-purple-800': variant === 'highlight',
 			})}
 			></span>
 

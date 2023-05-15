@@ -70,7 +70,7 @@ export default function ContributionForm({
 		}
 
 		try {
-			// await createPage(selectedTrack!, email);
+			await createPage(selectedTrack!, email);
 		} catch (error) {
 			setError('Oeps, er liep iets mis. Wees gerust, het ligt niet aan jou maar aan onze vuile code.');
 		}
@@ -134,7 +134,7 @@ export default function ContributionForm({
 
 			<Button
 				type="submit"
-				isLoading={false}
+				isLoading={isLoading}
 				className="mt-6"
 			>
                 Versturen

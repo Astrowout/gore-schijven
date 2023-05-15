@@ -1,12 +1,9 @@
 import {
-	useEffect, useState,
+	useEffect,
+	useState,
 } from 'react';
 import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
-import {
-	createNotionPage,
-	toggleLikeTrack,
-} from '@/actions';
 import { ITrackDto } from '@/types';
 
 export default function useNotion() {
@@ -17,7 +14,13 @@ export default function useNotion() {
 		try {
 			setIsLoading(true);
 
-			const res = await createNotionPage(track, email);
+			const res: any = await fetch('/api/notion/pages/create', {
+				method: 'POST',
+				body: JSON.stringify({
+					track,
+					email,
+				}),
+			});
 
 			if (res) {
 				setResult(res);
@@ -31,7 +34,13 @@ export default function useNotion() {
 
 	const toggleLike = async (pageId: string, type: 'like' | 'dislike') => {
 		try {
-			await toggleLikeTrack(pageId, type);
+			await fetch('/api/notion/pages/like', {
+				method: 'POST',
+				body: JSON.stringify({
+					pageId,
+					type,
+				}),
+			});
 		} catch (error) {
 			console.error(error);
 		}
