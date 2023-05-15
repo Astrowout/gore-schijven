@@ -9,6 +9,7 @@ import {
 } from '@/utils';
 import { DATABASE_IDS } from '@/config';
 import { Status } from '@/types';
+import { revalidatePath } from 'next/cache';
 
 export async function POST(request: Request) {
 	const body = await request.json();
@@ -57,6 +58,8 @@ export async function POST(request: Request) {
 	});
 
 	if (isFullPage(res)) {
+		revalidatePath('/proposals');
+
 		return NextResponse.json(res);
 	} else {
 		throw new Error('Couldn\'t create page');
