@@ -1,4 +1,4 @@
-import { Heading } from '@/components';
+import { Heading } from '@/app/_components';
 
 import { HeroProps } from './Hero.types';
 

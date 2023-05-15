@@ -5,6 +5,8 @@ import {
 import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
 import { ITrackDto } from '@/types';
+import { createNotionPage } from '@/app/_actions';
+import { likeNotionPage } from '@/app/_actions/like-notion-page';
 
 export default function useNotion() {
 	const [result, setResult] = useState<PageObjectResponse | null>(null);
@@ -14,19 +16,13 @@ export default function useNotion() {
 		try {
 			setIsLoading(true);
 
-			const res: any = await fetch('/api/notion/pages/create', {
-				method: 'POST',
-				body: JSON.stringify({
-					track,
-					email,
-				}),
-			});
+			const res = await createNotionPage(track, email);
 
 			if (res) {
 				setResult(res);
 			}
-		} catch (error) {
-			console.error(error);
+		} catch (error: any) {
+			throw new Error(error);
 		} finally {
 			setIsLoading(false);
 		}
@@ -34,13 +30,7 @@ export default function useNotion() {
 
 	const toggleLike = async (pageId: string, type: 'like' | 'dislike') => {
 		try {
-			await fetch('/api/notion/pages/like', {
-				method: 'POST',
-				body: JSON.stringify({
-					pageId,
-					type,
-				}),
-			});
+			await likeNotionPage(pageId, type);
 		} catch (error) {
 			console.error(error);
 		}

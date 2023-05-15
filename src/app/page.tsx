@@ -4,7 +4,7 @@ import {
 	Button,
 	Contribution,
 	ContributionForm,
-} from '@/components';
+} from '@/app/_components';
 import { PAGE_IDS } from '@/config';
 import {
 	getMetadata,

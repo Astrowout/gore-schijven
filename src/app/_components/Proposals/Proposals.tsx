@@ -1,16 +1,19 @@
 import {
-	Proposal, EmptyState,
-} from '@/components';
+	Proposal,
+	EmptyState,
+} from '@/app/_components';
 import { ITrack } from '@/types';
-import { getDatabase } from '@/utils/database';
-import { DATABASE_IDS } from '@/config';
 
 import { ProposalsProps } from './Proposals.types';
 
 export default async function Proposals({
 	title = '',
 }: ProposalsProps) {
-	const tracks: ITrack[] | undefined = await getDatabase(DATABASE_IDS.PROPOSALS);
+	const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/proposals`, {
+		next: { tags: ['proposals'] },
+	});
+
+	const { data: tracks }: { data: ITrack[] } = await res.json();
 
 	return (
 		<section className="my-4 flex flex-col items-center gap-y-3 sm:gap-y-6 lg:my-0">

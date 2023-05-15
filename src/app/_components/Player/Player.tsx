@@ -6,7 +6,7 @@ import {
 
 import { PlayerProps } from './Player.types';
 
-import { Progress } from '@/components';
+import { Progress } from '@/app/_components';
 import { PlayerStore } from '@/store';
 
 let sound: any = null;

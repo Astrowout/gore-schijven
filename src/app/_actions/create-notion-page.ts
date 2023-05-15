@@ -1,19 +1,19 @@
-import { revalidatePath } from 'next/cache';
-import { NextResponse } from 'next/server';
-import { isFullPage } from '@notionhq/client';
+'use server';
 
+import { DATABASE_IDS } from '@/config';
+import {
+	Status,
+	ITrackDto,
+} from '@/types';
 import {
 	notion,
 	getArtistsLine,
 } from '@/utils';
-import { DATABASE_IDS } from '@/config';
-import { Status } from '@/types';
+import { isFullPage } from '@notionhq/client';
+import { revalidateTag } from 'next/cache';
+import { NextResponse } from 'next/server';
 
-export const runtime = 'edge';
-
-export async function POST(request: Request) {
-	const body = await request.json();
-
+export async function createNotionPage(track: ITrackDto, email: string) {
 	const res = await notion.pages.create({
 		'parent': {
 			'type': 'database_id',
@@ -25,7 +25,7 @@ export async function POST(request: Request) {
 					{
 						'type': 'text',
 						'text': {
-							'content': body.track.name,
+							'content': track.name,
 						},
 					},
 				],
@@ -35,19 +35,19 @@ export async function POST(request: Request) {
 					{
 						'type': 'text',
 						'text': {
-							'content': getArtistsLine(body.track.artists),
+							'content': getArtistsLine(track.artists),
 						},
 					},
 				],
 			},
 			'Spotify URL': {
-				'url': body.track.external_urls.spotify,
+				'url': track.external_urls.spotify,
 			},
 			'Likes': {
 				'number': 0,
 			},
 			'Email contributor': {
-				'email': body.email,
+				'email': email,
 			},
 			'Status': {
 				'status': {
@@ -58,9 +58,9 @@ export async function POST(request: Request) {
 	});
 
 	if (isFullPage(res)) {
-		revalidatePath('/proposals');
+		revalidateTag('proposals');
 
-		return NextResponse.json(res);
+		return res;
 	} else {
 		throw new Error('Couldn\'t create page');
 	}
