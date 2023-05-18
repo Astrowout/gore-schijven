@@ -65,7 +65,7 @@ export default function RootLayout({
 			className={`${kanitFont.variable} bg-black`}
 			lang="nl"
 		>
-			<body className="flex min-h-screen !max-w-none flex-col bg-neutral-950/50 2xl:container">
+			<body className="flex min-h-screen !max-w-none flex-col bg-neutral-950/50 2xl:container selection:bg-purple-900">
 				{ children }
 
 				<Footer
