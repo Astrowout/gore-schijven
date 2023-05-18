@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server';
-import { revalidateTag } from 'next/cache';
 
 import {
 	notion,
@@ -31,8 +30,6 @@ export async function POST(request: Request) {
 			},
 		},
 	});
-
-	revalidateTag('proposals');
 
 	return NextResponse.json(res);
 };

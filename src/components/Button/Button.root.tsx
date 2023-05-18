@@ -9,7 +9,6 @@ export default function ButtonRoot({
 	className = '',
 	url = '',
 	type = 'button',
-	prefetch = false,
 	isLoading = false,
 	onClick = () => null,
 	variant = 'default',
@@ -37,7 +36,6 @@ export default function ButtonRoot({
 			<Link
 				className={classes}
 				href={url}
-				prefetch={prefetch}
 			>
 				{children}
 			</Link>

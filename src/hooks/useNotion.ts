@@ -1,3 +1,4 @@
+import { useRouter } from 'next/navigation';
 import {
 	useEffect,
 	useState,
@@ -7,6 +8,7 @@ import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 import { ITrackDto } from '@/types';
 
 export default function useNotion() {
+	const router = useRouter();
 	const [result, setResult] = useState<PageObjectResponse | null>(null);
 	const [isLoading, setIsLoading] = useState(false);
 
@@ -25,6 +27,8 @@ export default function useNotion() {
 
 			if (data) {
 				setResult(data);
+
+				router.refresh();
 			}
 		} catch (error: any) {
 			throw new Error(error);
@@ -42,6 +46,8 @@ export default function useNotion() {
 					type,
 				}),
 			});
+
+			router.refresh();
 		} catch (error) {
 			console.error(error);
 		}

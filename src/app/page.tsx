@@ -28,7 +28,6 @@ export default async function Home() {
 				title="GORE SCHIJVEN™"
 			>
 				<Button
-					prefetch={false}
 					url="/proposals"
 					variant="highlight"
 				>

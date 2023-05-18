@@ -7,7 +7,6 @@ import {
 } from '@/utils';
 import { Status } from '@/types';
 import { DATABASE_IDS } from '@/config';
-import { revalidateTag } from 'next/cache';
 
 export const runtime = 'edge';
 
@@ -58,8 +57,6 @@ export async function POST(request: Request) {
 	});
 
 	if (isFullPage(res)) {
-		revalidateTag('proposals');
-
 		return NextResponse.json(res);
 	} else {
 		throw new Error('Couldn\'t create page');

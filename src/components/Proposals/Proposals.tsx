@@ -9,11 +9,7 @@ import { ProposalsProps } from './Proposals.types';
 export default async function Proposals({
 	title = '',
 }: ProposalsProps) {
-	const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/proposals`, {
-		next: {
-			tags: ['proposals'],
-		},
-	});
+	const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/proposals`);
 
 	const { data: tracks }: { data: ITrack[] } = await res.json();
 
