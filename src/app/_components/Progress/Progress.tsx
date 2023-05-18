@@ -61,20 +61,20 @@ export default function Progress({
 
 	return (
 		<svg
+			className={`${className} -rotate-90`}
 			height={size}
 			width={size}
-			className={`${className} -rotate-90`}
 		>
 			<circle
-				stroke="currentColor"
-				fill="transparent"
-				strokeDasharray={circumference + ' ' + circumference}
-				style={{ strokeDashoffset }}
-				strokeWidth={stroke}
-				r={normalizedRadius}
+				className="text-purple-500"
 				cx={size / 2}
 				cy={size / 2}
-				className="text-purple-500"
+				fill="transparent"
+				r={normalizedRadius}
+				stroke="currentColor"
+				strokeDasharray={circumference + ' ' + circumference}
+				strokeWidth={stroke}
+				style={{ strokeDashoffset }}
 			/>
 		</svg>
 	);

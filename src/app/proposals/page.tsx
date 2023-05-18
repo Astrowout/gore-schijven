@@ -34,8 +34,8 @@ export default async function ProposalsPage() {
 			<Proposals title="Gore drops van onze viezeriken" />
 
 			<Contribution
-				title="Ken je zelf een vieze drop?"
 				description="Stel jouw degoutantste lied voor en misschien kom je wel in de vuilste lijst van het land."
+				title="Ken je zelf een vieze drop?"
 			>
 				<ContributionForm accessToken={accessToken} />
 			</Contribution>

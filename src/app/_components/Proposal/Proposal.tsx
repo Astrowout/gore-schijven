@@ -78,22 +78,23 @@ export default function Proposal({
 	return (
 		<article className='flex flex-col'>
 			<iframe
-				src={embedUrl}
-				width="100%"
-				height="152"
-				frameBorder="0"
 				allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-				loading="lazy"
 				className="rounded-xl shadow-xl"
+				frameBorder="0"
+				height="152"
+				loading="lazy"
+				src={embedUrl}
 				title="GORE SCHIJVEN™ Spotify track proposal"
-			></iframe>
+				width="100%"
+			>
+			</iframe>
 
 			<div className='mt-2 flex flex-wrap items-start justify-between gap-x-4 gap-y-2'>
 				<div className='flex flex-col items-start'>
 					{date && (
 						<p
-							className='text-sm text-neutral-500'
 							suppressHydrationWarning
+							className='text-sm text-neutral-500'
 						>
 							{date}
 						</p>
@@ -104,10 +105,11 @@ export default function Proposal({
 					</p>
 				</div>
 
-				<div className={clsx('flex items-center rounded-full border bg-neutral-950 shadow-lg', {
-					'border-purple-800': hasUserLiked,
-					'border-neutral-800': !hasUserLiked,
-				})}
+				<div
+					className={clsx('flex items-center rounded-full border bg-neutral-950 shadow-lg', {
+						'border-purple-800': hasUserLiked,
+						'border-neutral-800': !hasUserLiked,
+					})}
 				>
 					<button
 						className={clsx('group flex h-12 w-12 items-center justify-center rounded-full border bg-neutral-950 shadow-lg transition hover:border-purple-500 hover:shadow-xl hover:shadow-purple-500/20', {
@@ -118,20 +120,20 @@ export default function Proposal({
 						onClick={toggleLike}
 					>
 						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							viewBox="0 0 24 24"
-							strokeWidth="1.5"
-							stroke="currentColor"
-							fill="currentColor"
 							className={clsx('mt-px h-6 w-6 text-purple-600 transition group-hover:scale-125', {
 								'fill-purple-600': hasUserLiked,
 								'fill-transparent': !hasUserLiked,
 							})}
+							fill="currentColor"
+							stroke="currentColor"
+							strokeWidth="1.5"
+							viewBox="0 0 24 24"
+							xmlns="http://www.w3.org/2000/svg"
 						>
 							<path
+								d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
 								strokeLinecap="round"
 								strokeLinejoin="round"
-								d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
 							/>
 						</svg>
 

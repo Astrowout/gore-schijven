@@ -115,8 +115,8 @@ export default function ContributionForm({
 
 	return (
 		<form
-			onSubmit={onSubmit}
 			className="mx-auto flex w-full max-w-md flex-col items-center self-stretch"
+			onSubmit={onSubmit}
 		>
 			<Popover.Root open={!!query && !selectedTrack}>
 				<SearchInput />
@@ -125,17 +125,17 @@ export default function ContributionForm({
 			</Popover.Root>
 
 			<Input
-				name="email"
+				className="mt-6"
 				label="Jouw e-mailadres"
+				name="email"
 				placeholder="viezevuilegore@gmail.com"
 				onChange={setEmail}
-				className="mt-6"
 			/>
 
 			<Button
-				type="submit"
-				isLoading={isLoading}
 				className="mt-6"
+				isLoading={isLoading}
+				type="submit"
 			>
                 Versturen
 			</Button>

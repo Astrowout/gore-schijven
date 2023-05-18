@@ -21,10 +21,10 @@ export default function ButtonRoot({
 	if (url && isExternalUrl(url)) {
 		return (
 			<a
-				href={url}
-				target="_blank"
-				rel="noopener noreferrer"
 				className={classes}
+				href={url}
+				rel="noopener noreferrer"
+				target="_blank"
 			>
 				{children}
 			</a>
@@ -34,8 +34,8 @@ export default function ButtonRoot({
 	if (url && !isExternalUrl(url)) {
 		return (
 			<Link
-				href={url}
 				className={classes}
+				href={url}
 			>
 				{children}
 			</Link>
@@ -44,10 +44,10 @@ export default function ButtonRoot({
 
 	return (
 		<button
-			onClick={onClick}
-			type={type}
-			disabled={isLoading}
 			className={classes}
+			disabled={isLoading}
+			type={type}
+			onClick={onClick}
 		>
 			{children}
 		</button>

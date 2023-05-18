@@ -25,14 +25,45 @@ export default function RootLayout({
 	const madeBy = (
 		<>
 			{/* eslint-disable-next-line react/jsx-newline */}
-        	Made by the founding daddies: <a href="https://www.linkedin.com/in/sjouwkevanparys/" target="_blank" className="text-neutral-600 hover:text-neutral-500 hover:underline" rel="noopener noreferrer">Sjouwke</a>, <a href="https://www.linkedin.com/in/lars-marginet-b07528215/" target="_blank" className="text-neutral-600 hover:text-neutral-500 hover:underline" rel="noopener noreferrer">Lars</a> & <a href="https://woutvandesompele.be" target="_blank" className="text-neutral-600 hover:text-neutral-500 hover:underline" rel="noopener noreferrer">Wout</a> in Belgium.
+        	Made by the founding daddies:&nbsp;
+
+			<a
+				className="text-neutral-600 hover:text-neutral-500 hover:underline"
+				href="https://www.linkedin.com/in/sjouwkevanparys/"
+				rel="noopener noreferrer"
+				target="_blank"
+			>
+				Sjouwke&nbsp;
+			</a>,
+
+			<a
+				className="text-neutral-600 hover:text-neutral-500 hover:underline"
+				href="https://www.linkedin.com/in/lars-marginet-b07528215/"
+				rel="noopener noreferrer"
+				target="_blank"
+			>
+				Lars&nbsp;
+			</a>
+
+			&&nbsp;
+
+			<a
+				className="text-neutral-600 hover:text-neutral-500 hover:underline"
+				href="https://woutvandesompele.be"
+				rel="noopener noreferrer"
+				target="_blank"
+			>
+				Wout&nbsp;
+			</a>
+
+			in Belgium.
 		</>
 	);
 
 	return (
 		<html
-			lang="nl"
 			className={`${kanitFont.variable} bg-black`}
+			lang="nl"
 		>
 			<body className="flex min-h-screen !max-w-none flex-col bg-neutral-950/50 2xl:container">
 				{ children }

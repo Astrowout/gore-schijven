@@ -16,11 +16,11 @@ export default function Track({
 		<span className="flex max-w-[90%] items-center gap-x-3 text-left text-sm">
 			{album && (
 				<Image
-					src={album.images[2].url}
-					width={album.images[2].width}
-					height={album.images[2].height}
 					alt={album.name}
 					className={`${coverSize} rounded`}
+					height={album.images[2].height}
+					src={album.images[2].url}
+					width={album.images[2].width}
 				/>
 			)}
 

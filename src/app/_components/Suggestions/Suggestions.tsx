@@ -45,11 +45,11 @@ export default function Suggestions({
 
 	return (
 		<Popover.Content
-			sideOffset={6}
 			align="start"
 			avoidCollisions={false}
-			onOpenAutoFocus={(e) => e.preventDefault()}
 			className="z-20 max-h-80 w-[var(--radix-popover-trigger-width)] overflow-y-auto rounded-lg border border-neutral-600 bg-neutral-900 shadow-xl"
+			sideOffset={6}
+			onOpenAutoFocus={(e) => e.preventDefault()}
 		>
 			{!tracks.length && (
 				<EmptyState message="Geen resultaten gevonden" />
@@ -71,8 +71,8 @@ export default function Suggestions({
 
 								<Track
 									album={item.album}
-									name={item.name}
 									artists={item.artists}
+									name={item.name}
 								/>
 							</div>
 						</li>

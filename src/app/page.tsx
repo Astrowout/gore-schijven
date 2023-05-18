@@ -24,8 +24,8 @@ export default async function Home() {
 	return (
 		<main>
 			<Hero
-				title="GORE SCHIJVEN™"
 				description="Een ongewassen klets vieze build-ups, een wansmakelijke homp vadsig meeslepende drops en een allegaartje aan ander degoutant kabaal. Kortom: een open source playlist vol knallers die voldoen aan het Gore Schijven™ kwaliteitslabel."
+				title="GORE SCHIJVEN™"
 			>
 				<Button
 					url="/proposals"
@@ -42,8 +42,8 @@ export default async function Home() {
 			<Playlist className="my-4 lg:my-0" />
 
 			<Contribution
-				title="Ken je zelf een vieze drop?"
 				description="Stel jouw degoutantste lied voor en misschien kom je wel in de vuilste lijst van het land."
+				title="Ken je zelf een vieze drop?"
 			>
 				<ContributionForm accessToken={accessToken} />
 			</Contribution>
