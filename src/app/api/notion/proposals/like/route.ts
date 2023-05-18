@@ -1,26 +1,30 @@
+import { NextResponse } from 'next/server';
+
+import {
+	notion,
+} from '@/utils';
 import { revalidateTag } from 'next/cache';
 
-import { notion } from '@/utils';
+export const runtime = 'edge';
 
-export async function likeNotionPage(pageId: string, type: 'like' | 'dislike') {
+export async function POST(request: Request) {
+	const body = await request.json();
+
 	const currentLikes = await notion.pages.properties.retrieve({
-		page_id: pageId,
+		page_id: body.pageId,
 		property_id: 'Likes',
 	});
 
-	console.log(currentLikes);
-
-
 	let newLikes = currentLikes.type === 'number' && currentLikes.number ? currentLikes.number : 0;
 
-	if (type === 'like') {
+	if (body.type === 'like') {
 		newLikes = newLikes + 1;
-	} else if (type === 'dislike' && newLikes > 0) {
+	} else if (body.type === 'dislike' && newLikes > 0) {
 		newLikes = newLikes - 1;
 	}
 
 	const res = await notion.pages.update({
-		'page_id': pageId,
+		'page_id': body.pageId,
 		'properties': {
 			'Likes': {
 				'number': newLikes,
@@ -30,5 +34,5 @@ export async function likeNotionPage(pageId: string, type: 'like' | 'dislike') {
 
 	revalidateTag('proposals');
 
-	return res;
-}
+	return NextResponse.json(res);
+};

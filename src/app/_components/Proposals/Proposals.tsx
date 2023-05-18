@@ -11,6 +11,7 @@ export default async function Proposals({
 }: ProposalsProps) {
 	const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/proposals`, {
 		next: { tags: ['proposals'] },
+		cache: 'no-cache',
 	});
 
 	const { data: tracks }: { data: ITrack[] } = await res.json();
