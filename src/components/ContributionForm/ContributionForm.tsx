@@ -17,7 +17,7 @@ import {
 	SearchInput,
 	Success,
 	Suggestions,
-} from '@/app/_components';
+} from '@/components';
 
 import { ContributionFormProps } from './ContributionForm.types';
 

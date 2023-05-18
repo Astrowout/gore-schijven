@@ -8,7 +8,6 @@ import {
 import { DATABASE_IDS } from '@/config';
 
 export const runtime = 'edge';
-export const dynamic = 'force-dynamic';
 
 export async function GET() {
 	const res = await notion.databases.query({

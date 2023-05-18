@@ -4,7 +4,7 @@ import {
 	Button,
 	Contribution,
 	ContributionForm,
-} from '@/app/_components';
+} from '@/components';
 import { PAGE_IDS } from '@/config';
 import {
 	getMetadata,
@@ -28,6 +28,7 @@ export default async function Home() {
 				title="GORE SCHIJVEN™"
 			>
 				<Button
+					prefetch={false}
 					url="/proposals"
 					variant="highlight"
 				>

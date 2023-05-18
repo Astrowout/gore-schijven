@@ -4,7 +4,7 @@ import {
 	ContributionForm,
 	Hero,
 	Proposals,
-} from '@/app/_components';
+} from '@/components';
 import { PAGE_IDS } from '@/config';
 import {
 	getMetadata,

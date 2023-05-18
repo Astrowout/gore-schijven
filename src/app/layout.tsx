@@ -1,10 +1,14 @@
-export const runtime = 'edge';
-
 import '@/main.css';
 
 import { Kanit } from 'next/font/google';
 
-import { Footer } from '@/app/_components';
+import { Footer } from '@/components';
+
+export const runtime = 'edge';
+
+export const metadata = {
+	metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || `http://localhost:${process.env.PORT || 3000}`),
+};
 
 const kanitFont = Kanit({
 	variable: '--font-kanit',
@@ -12,10 +16,6 @@ const kanitFont = Kanit({
 	subsets: ['latin'],
 	display: 'swap',
 });
-
-export const metadata = {
-	metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || `http://localhost:${process.env.PORT || 3000}`),
-};
 
 export default function RootLayout({
 	children,

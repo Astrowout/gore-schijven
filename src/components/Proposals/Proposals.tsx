@@ -1,7 +1,7 @@
 import {
 	Proposal,
 	EmptyState,
-} from '@/app/_components';
+} from '@/components';
 import { ITrack } from '@/types';
 
 import { ProposalsProps } from './Proposals.types';
@@ -10,7 +10,6 @@ export default async function Proposals({
 	title = '',
 }: ProposalsProps) {
 	const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/proposals`, {
-		cache: 'no-store',
 		next: {
 			tags: ['proposals'],
 		},
