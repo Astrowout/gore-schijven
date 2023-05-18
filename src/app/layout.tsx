@@ -33,8 +33,8 @@ export default function RootLayout({
 				rel="noopener noreferrer"
 				target="_blank"
 			>
-				Sjouwke&nbsp;
-			</a>,
+				Sjouwke
+			</a>,&nbsp;
 
 			<a
 				className="text-neutral-600 hover:text-neutral-500 hover:underline"
