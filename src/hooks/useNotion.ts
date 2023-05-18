@@ -5,8 +5,10 @@ import {
 import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
 import { ITrackDto } from '@/types';
-import { createNotionPage } from '@/app/_actions';
-import { likeNotionPage } from '@/app/_actions/like-notion-page';
+import {
+	createNotionPage,
+	likeNotionPage,
+} from '@/services';
 
 export default function useNotion() {
 	const [result, setResult] = useState<PageObjectResponse | null>(null);
