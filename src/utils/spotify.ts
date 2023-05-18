@@ -1,5 +1,3 @@
-// import 'server-only';
-
 export const getSpotifyAccessToken = async () => {
 	try {
 		const params = new URLSearchParams();
@@ -13,7 +11,7 @@ export const getSpotifyAccessToken = async () => {
 				'Content-Type': 'application/x-www-form-urlencoded',
 				'Authorization': `Basic ${encodedData}`,
 			},
-			cache: 'no-store' as RequestCache,
+			cache: 'no-store',
 		};
 
 		// Create Checkout Sessions from body params.
