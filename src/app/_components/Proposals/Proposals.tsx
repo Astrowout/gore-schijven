@@ -13,7 +13,6 @@ export default async function Proposals({
 		cache: 'no-store',
 		next: {
 			tags: ['proposals'],
-			revalidate: 0,
 		},
 	});
 
