@@ -1,6 +1,7 @@
 import { useRouter } from 'next/navigation';
 import {
 	useEffect,
+	useRef,
 	useState,
 } from 'react';
 import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
@@ -8,6 +9,7 @@ import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 import { ITrackDto } from '@/types';
 
 export default function useNotion() {
+	const abortController = useRef<AbortController>();
 	const router = useRouter();
 	const [result, setResult] = useState<PageObjectResponse | null>(null);
 	const [isLoading, setIsLoading] = useState(false);
@@ -38,18 +40,32 @@ export default function useNotion() {
 	};
 
 	const toggleLike = async (pageId: string, type: 'like' | 'dislike') => {
+		if (abortController.current) {
+			 // abort pending requests when new one is fired
+			abortController.current.abort();
+		}
+
 		try {
-			await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/proposals/like`, {
+			setIsLoading(true);
+			abortController.current = new AbortController();
+
+			const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/proposals/like`, {
 				method: 'POST',
 				body: JSON.stringify({
 					pageId,
 					type,
 				}),
+				signal: abortController.current.signal,
 			});
+			const data = await res.json();
 
-			router.refresh();
+			if (data) {
+				router.refresh();
+			}
 		} catch (error) {
 			console.error(error);
+		} finally {
+			setIsLoading(false);
 		}
 	};
 

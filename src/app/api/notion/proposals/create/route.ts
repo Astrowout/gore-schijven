@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { isFullPage } from '@notionhq/client';
 
 import {
+	formatDatabaseRow,
 	getArtistsLine,
 	notion,
 } from '@/utils';
@@ -57,8 +58,8 @@ export async function POST(request: Request) {
 	});
 
 	if (isFullPage(res)) {
-		return NextResponse.json(res);
+		return NextResponse.json(formatDatabaseRow(res));
 	} else {
-		throw new Error('Couldn\'t create page');
+		throw new Error('Page created is not a full page');
 	}
 };

@@ -1,8 +1,10 @@
 import { NextResponse } from 'next/server';
 
 import {
+	formatDatabaseRow,
 	notion,
 } from '@/utils';
+import { isFullPage } from '@notionhq/client';
 
 export const runtime = 'edge';
 
@@ -31,5 +33,9 @@ export async function POST(request: Request) {
 		},
 	});
 
-	return NextResponse.json(res);
+	if (isFullPage(res)) {
+		return NextResponse.json(formatDatabaseRow(res));
+	} else {
+		throw new Error('Page updated is not a full page');
+	}
 };

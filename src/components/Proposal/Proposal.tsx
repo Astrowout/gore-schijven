@@ -3,14 +3,11 @@
 import {
 	useState,
 	useEffect,
-	useCallback,
-	useRef,
 } from 'react';
 import clsx from 'clsx';
 import formatRelative from 'date-fns/formatRelative';
 import nl from 'date-fns/locale/nl';
 import JSConfetti from 'js-confetti';
-import debounce from 'lodash/debounce';
 
 import {
 	useLocalstorage,
@@ -29,10 +26,12 @@ export default function Proposal({
 	status = Status.TO_BE_REVIEWED,
 	createdTime = '',
 }: ProposalProps) {
-	const isFirstRender = useRef(true);
 	const [optimisticLikes, setOptimisticLikes] = useState(likes);
 	const [date, setDate] = useState<string>('');
-	const { toggleLike: saveLikeInDb } = useNotion();
+	const {
+		isLoading,
+		toggleLike: saveLikeInDb,
+	} = useNotion();
 	const {
 		userLikes,
 		toggleLike: saveLikeInLocalstorage,
@@ -44,27 +43,27 @@ export default function Proposal({
 		confetti = new JSConfetti();
 		confetti.addConfetti({
 			emojis: ['💜', '🦐'],
-			emojiSize: 60,
+			emojiSize: 64,
 			confettiNumber: 20,
 		});
 	};
 
 	const likeTrack = () => {
 		setOptimisticLikes(optimisticLikes + 1);
+
 		saveLikeInLocalstorage(notionPageId, 'like');
+		saveLikeInDb(notionPageId, 'like');
 
 		shootConfetti();
 	};
 
-	const dislikeTrack = () => {
-		const newLikes = optimisticLikes > 0 ? optimisticLikes - 1 : 0;
-		setOptimisticLikes(newLikes);
-		saveLikeInLocalstorage(notionPageId, 'dislike');
-	};
+	const dislikeTrack = async () => {
+		const newOptimisticLikes = optimisticLikes > 0 ? optimisticLikes - 1 : 0;
+		setOptimisticLikes(newOptimisticLikes);
 
-	const saveLikeState = useCallback(debounce((hasLiked) => { // eslint-disable-line react-hooks/exhaustive-deps
-		saveLikeInDb(notionPageId, hasLiked ? 'like' : 'dislike');
-	}, 600), []);
+		saveLikeInLocalstorage(notionPageId, 'dislike');
+		saveLikeInDb(notionPageId, 'dislike');
+	};
 
 	const toggleLike = () => {
 		if (!hasUserLiked) {
@@ -77,16 +76,6 @@ export default function Proposal({
 	useEffect(() => {
 		setDate(formatRelative(new Date(createdTime), new Date(), { locale: nl }));
 	}, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-	useEffect(() => {
-		if (isFirstRender.current) {
-			isFirstRender.current = false;
-
-			return;
-		}
-
-		saveLikeState(hasUserLiked);
-	}, [hasUserLiked]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	const embedUrl = `${url.replace('https://open.spotify.com/track/', 'https://open.spotify.com/embed/track/')}?theme=0`;
 
@@ -131,6 +120,7 @@ export default function Proposal({
 							'border-purple-500': hasUserLiked,
 							'border-neutral-700': !hasUserLiked,
 						})}
+						disabled={isLoading}
 						type="button"
 						onClick={toggleLike}
 					>
