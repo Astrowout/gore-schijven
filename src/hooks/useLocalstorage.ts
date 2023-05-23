@@ -1,6 +1,7 @@
 import { UserStore } from '@/store';
 import {
-	useEffect, useState,
+	useEffect,
+	useRef,
 } from 'react';
 
 const STORAGE_KEY = 'likes';
@@ -8,7 +9,7 @@ const STORAGE_KEY = 'likes';
 export default function useLocalStorage() {
 	const userLikes = UserStore((state) => state.likes);
 	const setUserLikes = UserStore((state) => state.setLikes);
-	const [isFirstRender, setIsFirstRender] = useState(true);
+	const isFirstRender = useRef(true);
 
 	const toggleLike = (id: string, type: 'like' | 'dislike') => {
 		const newLikes = [...userLikes];
@@ -30,14 +31,12 @@ export default function useLocalStorage() {
 		if (isFirstRender) {
 			const storedLikes = window.localStorage.getItem(STORAGE_KEY);
 			setUserLikes(storedLikes ? JSON.parse(storedLikes) : []);
-
-			return;
 		}
 	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 	useEffect(() => {
-		if (isFirstRender) {
-			setIsFirstRender(false);
+		if (isFirstRender.current) {
+			isFirstRender.current = false;
 
 			return;
 		}
