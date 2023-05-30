@@ -4,12 +4,18 @@
     "plugin:tailwindcss/recommended",
     "prettier"
   ],
+  "plugins": [
+    "@typescript-eslint"
+  ],
+  "root": true,
   "rules": {
     "quotes": ["error", "single"],
     "indent": ["error", "tab"],
     "comma-dangle": ["error", "always-multiline"],
     "semi": ["error", "always"],
     "no-trailing-spaces": ["error"],
+    "no-unused-expressions": ["error"],
+    "@typescript-eslint/no-unused-vars": "error",
     "object-curly-newline": ["error", {
       "ObjectExpression": { "multiline": true, "minProperties": 2, "consistent": true },
       "ObjectPattern": { "multiline": true, "minProperties": 2, "consistent": true },
