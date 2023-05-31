@@ -1,8 +1,8 @@
 {
   "extends": [
-    "next/core-web-vitals",
     "plugin:tailwindcss/recommended",
-    "prettier"
+    "prettier",
+    "next/core-web-vitals"
   ],
   "plugins": [
     "@typescript-eslint"
@@ -24,6 +24,9 @@
     }],
     "object-property-newline": ["error", { "allowAllPropertiesOnSameLine": false }],
     "object-curly-spacing": ["error", "always"],
+    "no-restricted-imports": ["error", {
+      "patterns": ["../"]
+    }],
     "newline-before-return": ["error"],
     "react/jsx-max-props-per-line": ["error", { "maximum": 1, "when": "multiline" }],
     "react/jsx-newline": ["error", { "prevent": false }],
@@ -46,6 +49,10 @@
       "beforeClosing": "never"
     }],
     "react/jsx-no-useless-fragment": ["error"],
-    "react/jsx-first-prop-new-line": ["error", "multiline"]
+    "react/jsx-first-prop-new-line": ["error", "multiline"],
+    "react/self-closing-comp": ["error", {
+      "component": true,
+      "html": true
+    }]
   }
 }
