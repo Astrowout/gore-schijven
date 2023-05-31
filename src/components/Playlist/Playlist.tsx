@@ -14,8 +14,7 @@ export default function Playlist({
 				src="https://open.spotify.com/embed/playlist/7yjwgXgsidaFS5vLGevbfn?theme=0"
 				title="GORE SCHIJVEN™ Spotify playlist"
 				width="100%"
-			>
-			</iframe>
+			/>
 		</section>
 	);
 };

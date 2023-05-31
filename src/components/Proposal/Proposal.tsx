@@ -90,8 +90,7 @@ export default function Proposal({
 				src={embedUrl}
 				title="GORE SCHIJVEN™ Spotify track proposal"
 				width="100%"
-			>
-			</iframe>
+			/>
 
 			<div className='mt-2 flex flex-wrap items-start justify-between gap-x-4 gap-y-2'>
 				<div className='flex flex-col items-start'>
