@@ -14,6 +14,7 @@ import {
 	useNotion,
 } from '@/hooks';
 import { Status } from '@/types';
+import { StatusTag } from '@/components';
 
 import { ProposalProps } from './Proposal.types';
 
@@ -103,9 +104,12 @@ export default function Proposal({
 						</p>
 					)}
 
-					<p className='mt-2 rounded-full border border-neutral-600 bg-neutral-900 px-2.5 py-0.5 text-sm text-neutral-400'>
+					<StatusTag
+						className="mt-1.5"
+						status={status}
+					>
 						{status}
-					</p>
+					</StatusTag>
 				</div>
 
 				<div

@@ -1,5 +1,6 @@
 import '@/main.css';
 
+import { ReactNode } from 'react';
 import { Kanit } from 'next/font/google';
 
 import { Footer } from '@/components';
@@ -20,7 +21,7 @@ const kanitFont = Kanit({
 export default function RootLayout({
 	children,
 }: {
-  children: React.ReactNode
+  children: ReactNode
 }) {
 	const madeBy = (
 		<>

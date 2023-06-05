@@ -8,11 +8,16 @@ import { isFullPage } from '@notionhq/client';
 
 export const runtime = 'edge';
 
-export async function POST(request: Request) {
+export async function POST(request: Request, {
+	params,
+}: {
+    params: { pageId: string };
+}) {
+	const pageId = params.pageId;
 	const body = await request.json();
 
 	const currentLikes = await notion.pages.properties.retrieve({
-		page_id: body.pageId,
+		page_id: pageId,
 		property_id: 'Likes',
 	});
 
@@ -25,7 +30,7 @@ export async function POST(request: Request) {
 	}
 
 	const res = await notion.pages.update({
-		'page_id': body.pageId,
+		'page_id': pageId,
 		'properties': {
 			'Likes': {
 				'number': newLikes,

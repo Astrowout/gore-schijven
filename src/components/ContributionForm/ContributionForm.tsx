@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import JSConfetti from 'js-confetti';
 import * as Popover from '@radix-ui/react-popover';
 import {
@@ -22,10 +23,12 @@ import {
 import { ContributionFormProps } from './ContributionForm.types';
 
 let confetti: JSConfetti | null = null;
+const SECRET_PHRASE = 'I\'m a founding daddy!';
 
 export default function ContributionForm({
 	accessToken = '',
 }: ContributionFormProps) {
+	const router = useRouter();
 	const query = SearchStore((state) => state.query);
 	const selectedTrack = SearchStore((state) => state.selectedTrack);
 	const setSelectedTrack = SearchStore((state) => state.setSelectedTrack);
@@ -38,6 +41,12 @@ export default function ContributionForm({
 
 	const validateForm = () => {
 		setError('');
+
+		if (!selectedTrack && email === SECRET_PHRASE) {
+			router.push('/admin');
+
+			return false;
+		}
 
 		if (!selectedTrack) {
 			setError('Elaba viezerik, je hebt nog geen lied gekozen.');
@@ -115,6 +124,7 @@ export default function ContributionForm({
 
 	return (
 		<form
+			noValidate
 			className="mx-auto flex w-full max-w-md flex-col items-center self-stretch"
 			onSubmit={onSubmit}
 		>
