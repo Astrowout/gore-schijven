@@ -1,21 +1,38 @@
+import { jwtVerify } from 'jose';
 import {
 	NextRequest,
 	NextResponse,
 } from 'next/server';
 
-// This function can be marked `async` if using `await` inside
-export function middleware(request: NextRequest) {
-	const url = request.nextUrl;
-	const authCookie = request.cookies.get('authenticated');
-	const isLoggedIn = authCookie && authCookie.value === 'true';
+import { USER_TOKEN_KEY } from './config';
 
-	if (isLoggedIn) {
-		return NextResponse.next();
-	}
-
+const redirect = (url: URL) => {
 	url.pathname = '/admin/login';
 
 	return NextResponse.rewrite(url);
+};
+
+// This function can be marked `async` if using `await` inside
+export async function middleware(request: NextRequest) {
+	const url = request.nextUrl;
+	const token = request.cookies.get(USER_TOKEN_KEY)?.value;
+
+	if (!token) {
+		return redirect(url);
+	}
+
+	try {
+		await jwtVerify(
+			token,
+			new TextEncoder().encode(process.env.JWT_SECRET_KEY)
+	  	);
+
+		return NextResponse.next();
+	} catch (error) {
+		console.log(error);
+
+		return redirect(url);
+	}
 }
 
 // See "Matching Paths" below to learn more
