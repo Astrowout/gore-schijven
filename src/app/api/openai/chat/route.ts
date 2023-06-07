@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 
 export const runtime = 'edge';
 
-export const OPENAI_MODEL = 'gpt-3.5-turbo'; // Powerful but still cost-effective model
+const OPENAI_MODEL = 'gpt-3.5-turbo'; // Powerful but still cost-effective model
 
 export async function POST(request: Request) {
 	const body = await request.json();
