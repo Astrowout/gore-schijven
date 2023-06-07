@@ -46,20 +46,9 @@ export default function AdminProposal({
 				...metadata,
 				feedback,
 			});
-			await setStatus(notionPageId, status);
-
-			// if (metadata && feedback) {
-			// 	sendEmail(status, metadata);
-			// }
-
 		} catch (error: any) {
 			setError(error.message);
 		}
-		console.log(notionPageId);
-
-		// if (res) {
-		// 	setStatus(notionPageId, status);
-		// }
 	};
 
 	const selectStatus = (status: Status) => {
@@ -67,6 +56,7 @@ export default function AdminProposal({
 
 		if (status === Status.TO_BE_REVIEWED) {
 			setActiveStatus(status);
+			setStatus(notionPageId, status);
 
 			return;
 		}
@@ -74,6 +64,7 @@ export default function AdminProposal({
 		if (window.confirm('Are you sure you want to change the status of this proposal? This will send an email to the user who proposed this track with feedback.')) {
 			setActiveStatus(status);
 			sendFeedback(status);
+			setStatus(notionPageId, status);
 		}
 	};
 
