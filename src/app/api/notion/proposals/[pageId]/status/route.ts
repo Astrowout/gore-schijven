@@ -17,8 +17,8 @@ export async function POST(request: Request, {
 	const pageId = params.pageId;
 	const body = await request.json();
 
-	if (body.status !== Status.APPROVED || body.status !== Status.REJECTED) {
-		throw new Error('Invalid status given in body.');
+	if (body.status !== Status.APPROVED && body.status !== Status.REJECTED) {
+		return NextResponse.json({ error: 'Invalid status given in body.' }, { status: 400 });
 	}
 
 	const currentStatus = await notion.pages.properties.retrieve({
@@ -27,17 +27,15 @@ export async function POST(request: Request, {
 	});
 
 	if (currentStatus.type === 'status' && currentStatus.status?.name !== Status.TO_BE_REVIEWED) {
-		throw new Error(`This proposal has already been reviewed as the current status is '${currentStatus.status?.name}'.`);
+		return NextResponse.json({ error: `This proposal has already been reviewed as the current status is '${currentStatus.status?.name}'.` }, { status: 400 });
 	}
 
 	const res = await notion.pages.update({
 		'page_id': pageId,
 		'properties': {
-			'Review sent': {
-				'checkbox': true,
-			},
+			'Review sent': true,
 			'Status': {
-				'number': body.status,
+				'name': body.status,
 			},
 		},
 	});
@@ -45,6 +43,6 @@ export async function POST(request: Request, {
 	if (isFullPage(res)) {
 		return NextResponse.json(formatDatabaseRow(res));
 	} else {
-		throw new Error('Page updated is not a full page');
+		return NextResponse.json({ error: 'Page updated is not a full page' }, { status: 500 });
 	}
 };

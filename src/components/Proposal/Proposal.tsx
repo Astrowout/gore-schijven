@@ -10,7 +10,7 @@ import nl from 'date-fns/locale/nl';
 import JSConfetti from 'js-confetti';
 
 import {
-	useLocalstorage,
+	useLocalStorage,
 	useNotion,
 } from '@/hooks';
 import { Status } from '@/types';
@@ -36,7 +36,7 @@ export default function Proposal({
 	const {
 		userLikes,
 		toggleLike: saveLikeInLocalstorage,
-	} = useLocalstorage();
+	} = useLocalStorage();
 
 	const hasUserLiked = userLikes.includes(notionPageId);
 

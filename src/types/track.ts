@@ -8,6 +8,7 @@ export interface ITrack {
     artist: string;
     likes: number;
     spotifyUrl: string;
+    email: string;
     status: Status;
     createdTime: string;
 }

@@ -2,7 +2,9 @@ import {
 	AdminProposal,
 	EmptyState,
 } from '@/components';
-import { ITrack } from '@/types';
+import {
+	IFeedbackEmailData, ITrack,
+} from '@/types';
 
 import { AdminProposalsProps } from './AdminProposals.types';
 
@@ -12,6 +14,12 @@ export default async function AdminProposals({
 	const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/proposals`);
 
 	const { data: tracks }: { data: ITrack[] } = await res.json();
+
+	const getMetadata = (track: ITrack): IFeedbackEmailData => ({
+		songTitle: track.title,
+		songArtist: track.artist,
+		user_email: track.email,
+	});
 
 	return (
 		<section className="my-4 flex flex-col items-center gap-y-3 sm:gap-y-6 lg:my-0">
@@ -50,6 +58,7 @@ export default async function AdminProposals({
 							<AdminProposal
 								createdTime={track.createdTime}
 								likes={track.likes}
+								metadata={getMetadata(track)}
 								notionPageId={track.id}
 								status={track.status}
 								url={track.spotifyUrl}

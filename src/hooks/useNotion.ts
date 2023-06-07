@@ -21,7 +21,7 @@ export default function useNotion() {
 		try {
 			setIsLoading(true);
 
-			const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/proposals/${notionId}`, {
+			const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/proposals/${notionId}/status`, {
 				method: 'POST',
 				body: JSON.stringify({
 					status,
@@ -29,8 +29,10 @@ export default function useNotion() {
 			});
 			const data = await res.json();
 
-			if (data) {
+			if (data.id) {
 				router.refresh();
+			} else if (data.error) {
+				throw new Error(data.error);
 			}
 		} catch (error: any) {
 			throw new Error(error);

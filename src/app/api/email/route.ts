@@ -8,6 +8,9 @@ export async function POST(request: Request) {
 
 	const res = await fetch(`${process.env.SPARKPOST_API_URL}/transmissions`, {
 		method: 'POST',
+		headers: {
+			'Authorization': process.env.SPARKPOST_API_KEY!,
+		},
 		body: JSON.stringify({
 			'content': {
 				'template_id': body.status === Status.APPROVED ? 'proposal-approved' : 'proposal-rejected',
@@ -22,8 +25,11 @@ export async function POST(request: Request) {
 			],
 		}),
 	});
+	const data = await res.json();
 
-	console.log(res);
+	if (data.errors) {
+		return NextResponse.json({ error: data.errors[0].message }, { status: 500 });
+	}
 
-	return NextResponse.json(res);
+	return NextResponse.json({ success: true }, { status: 200 });
 };

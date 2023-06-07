@@ -6,13 +6,18 @@ import {
 } from 'react';
 import formatRelative from 'date-fns/formatRelative';
 import nl from 'date-fns/locale/nl';
+import clsx from 'clsx';
 
 import { Status } from '@/types';
 import { Select } from '@/components';
+import { getStatusSelectClasses } from '@/utils';
+import {
+	useEmail,
+	useNotion,
+	useOpenAi,
+} from '@/hooks';
 
 import { AdminProposalProps } from './AdminProposal.types';
-import clsx from 'clsx';
-import { getStatusSelectClasses } from '@/utils';
 
 export default function AdminProposal({
 	notionPageId = '',
@@ -20,19 +25,55 @@ export default function AdminProposal({
 	url = '',
 	status = Status.TO_BE_REVIEWED,
 	createdTime = '',
+	metadata,
 }: AdminProposalProps) {
 	const [activeStatus, setActiveStatus] = useState(status);
 	const [date, setDate] = useState<string>('');
+	const [error, setError] = useState<string>('');
+
+	const { generateFeedback } = useOpenAi();
+	const { sendEmail } = useEmail();
+	const { setStatus } = useNotion();
 
 	useEffect(() => {
 		setDate(formatRelative(new Date(createdTime), new Date(), { locale: nl }));
 	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+	const sendFeedback = async (status: Status) => {
+		try {
+			const feedback = await generateFeedback(status);
+			await sendEmail(status, {
+				...metadata,
+				feedback,
+			});
+			await setStatus(notionPageId, status);
+
+			// if (metadata && feedback) {
+			// 	sendEmail(status, metadata);
+			// }
+
+		} catch (error: any) {
+			setError(error.message);
+		}
+		console.log(notionPageId);
+
+		// if (res) {
+		// 	setStatus(notionPageId, status);
+		// }
+	};
+
 	const selectStatus = (status: Status) => {
-		if (window.confirm('Are you sure you want to change the status of this proposal? This will send an email to the user who proposed this track with feedback.')) {
-			console.log(status);
-			console.log(notionPageId);
+		setError('');
+
+		if (status === Status.TO_BE_REVIEWED) {
 			setActiveStatus(status);
+
+			return;
+		}
+
+		if (window.confirm('Are you sure you want to change the status of this proposal? This will send an email to the user who proposed this track with feedback.')) {
+			setActiveStatus(status);
+			sendFeedback(status);
 		}
 	};
 
@@ -69,6 +110,12 @@ export default function AdminProposal({
 						value={activeStatus}
 						onValueChange={selectStatus}
 					/>
+
+					{error && (
+						<p className="mt-2 max-w-prose text-sm text-red-400">
+							{ error }
+						</p>
+					)}
 				</div>
 
 				<p>
