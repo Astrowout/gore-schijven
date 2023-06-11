@@ -1,18 +1,15 @@
-import {
-	useState,
-} from 'react';
-
+import { LoaderStore } from '@/store';
 import {
 	IFeedbackEmailData,
 	Status,
 } from '@/types';
 
 export default function useEmail() {
-	const [isLoading, setIsLoading] = useState(false);
+	const setEmailLoading = LoaderStore((state) => state.setEmailLoading);
 
 	const sendEmail = async (status: Status, body: IFeedbackEmailData) => {
 		try {
-			setIsLoading(true);
+			setEmailLoading(true);
 
 			const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/email`, {
 				method: 'POST',
@@ -31,12 +28,11 @@ export default function useEmail() {
 		} catch (error: any) {
 			throw new Error(error);
 		} finally {
-			setIsLoading(false);
+			setEmailLoading(false);
 		}
 	};
 
 	return {
-		isLoading,
 		sendEmail,
 	};
 }

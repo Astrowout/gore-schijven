@@ -10,16 +10,18 @@ import {
 	ITrackDto,
 	Status,
 } from '@/types';
+import { LoaderStore } from '@/store';
 
 export default function useNotion() {
 	const abortController = useRef<AbortController>();
 	const router = useRouter();
 	const [result, setResult] = useState<PageObjectResponse | null>(null);
 	const [isLoading, setIsLoading] = useState(false);
+	const setNotionLoading = LoaderStore((state) => state.setNotionLoading);
 
 	const setStatus = async (notionId: string, status: Status) => {
 		try {
-			setIsLoading(true);
+			setNotionLoading(true);
 
 			const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/proposals/${notionId}/status`, {
 				method: 'POST',
@@ -30,14 +32,14 @@ export default function useNotion() {
 			const data = await res.json();
 
 			if (data.id) {
-				router.refresh();
+				return data;
 			} else if (data.error) {
 				throw new Error(data.error);
 			}
 		} catch (error: any) {
 			throw new Error(error);
 		} finally {
-			setIsLoading(false);
+			setNotionLoading(false);
 		}
 	};
 

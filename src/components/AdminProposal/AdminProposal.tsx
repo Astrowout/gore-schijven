@@ -9,7 +9,9 @@ import nl from 'date-fns/locale/nl';
 import clsx from 'clsx';
 
 import { Status } from '@/types';
-import { Select } from '@/components';
+import {
+	Select,
+} from '@/components';
 import { getStatusSelectClasses } from '@/utils';
 import {
 	useEmail,
@@ -46,25 +48,19 @@ export default function AdminProposal({
 				...metadata,
 				feedback,
 			});
+
+			setActiveStatus(status);
 		} catch (error: any) {
 			setError(error.message);
 		}
 	};
 
-	const selectStatus = (status: Status) => {
+	const selectStatus = async (status: Status) => {
 		setError('');
 
-		if (status === Status.TO_BE_REVIEWED) {
-			setActiveStatus(status);
-			setStatus(notionPageId, status);
-
-			return;
-		}
-
 		if (window.confirm('Are you sure you want to change the status of this proposal? This will send an email to the user who proposed this track with feedback.')) {
-			setActiveStatus(status);
-			sendFeedback(status);
-			setStatus(notionPageId, status);
+			await sendFeedback(status);
+			await setStatus(notionPageId, status);
 		}
 	};
 
@@ -96,6 +92,7 @@ export default function AdminProposal({
 
 					<Select
 						className={clsx('mt-1.5', getStatusSelectClasses(activeStatus))}
+						disabled={activeStatus !== Status.TO_BE_REVIEWED}
 						name="status"
 						options={Object.values(Status)}
 						value={activeStatus}

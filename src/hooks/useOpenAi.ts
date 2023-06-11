@@ -1,18 +1,15 @@
 import {
-	useState,
-} from 'react';
-
-import {
 	Status,
 } from '@/types';
 import { PROMPTS } from '@/config';
+import { LoaderStore } from '@/store';
 
 export default function useOpenAi() {
-	const [isLoading, setIsLoading] = useState(false);
+	const setFeedbackLoading = LoaderStore((state) => state.setFeedbackLoading);
 
 	const generateFeedback = async (status: Status) => {
 		try {
-			setIsLoading(true);
+			setFeedbackLoading(true);
 
 			const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/openai/chat`, {
 				method: 'POST',
@@ -30,12 +27,11 @@ export default function useOpenAi() {
 		} catch (error: any) {
 			throw new Error(error);
 		} finally {
-			setIsLoading(false);
+			setFeedbackLoading(false);
 		}
 	};
 
 	return {
-		isLoading,
 		generateFeedback,
 	};
 }

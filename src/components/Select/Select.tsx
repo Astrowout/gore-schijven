@@ -13,18 +13,26 @@ export default function Select({
 }: SelectProps) {
 	return (
 		<RadixSelect.Root {...props}>
-			<RadixSelect.Trigger
-				aria-label={name}
-				className={clsx('inline-flex items-center justify-center gap-x-2 rounded-full border py-1.5 pl-5 pr-4 outline-none transition-colors focus:shadow-[0_0_0_2px] focus:shadow-black', className)}
-			>
-				<RadixSelect.Value placeholder="Select a status..." />
+			<div className='flex flex-col items-start'>
+				<RadixSelect.Trigger
+					aria-label={name}
+					className={clsx('peer inline-flex items-center justify-center gap-x-2 rounded-full border py-1.5 pl-5 pr-4 outline-none transition-colors focus:shadow-[0_0_0_2px] focus:shadow-black disabled:cursor-not-allowed', className)}
+				>
+					<RadixSelect.Value placeholder="Select a status..." />
 
-				<RadixSelect.Icon>
-					<svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-						<path clipRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" fillRule="evenodd" />
-					</svg>
-				</RadixSelect.Icon>
-			</RadixSelect.Trigger>
+					<RadixSelect.Icon>
+						<svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+							<path clipRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" fillRule="evenodd" />
+						</svg>
+					</RadixSelect.Icon>
+				</RadixSelect.Trigger>
+
+				{props.disabled && (
+					<p className='mt-2 text-neutral-600 opacity-0 transition-opacity peer-hover:opacity-100 peer-focus:opacity-100'>
+						You can&apos;t change the status of a proposal that already has been reviewed.
+					</p>
+				)}
+			</div>
 
 			<RadixSelect.Content className="overflow-hidden rounded-lg bg-white shadow-lg">
 				<RadixSelect.Viewport className="flex flex-col gap-y-1 p-2">
