@@ -10,7 +10,7 @@ export default function AdminPage() {
 
 			<AdminProposals title="Gore drops van onze viezeriken" />
 
-			<Loader />
+			<Loader text="Sending feedback" />
 		</>
 	);
 }

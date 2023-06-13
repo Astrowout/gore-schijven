@@ -7,7 +7,10 @@ import {
 	getArtistsLine,
 } from '@/utils';
 import { Status } from '@/types';
-import { DATABASE_IDS } from '@/config';
+import {
+	DATABASE_IDS,
+	DATABASE_PROPS,
+} from '@/config';
 
 export const runtime = 'edge';
 
@@ -38,7 +41,7 @@ export async function POST(request: Request) {
 			'database_id': DATABASE_IDS.PROPOSALS,
 		},
 		'properties': {
-			'Title': {
+			[DATABASE_PROPS.title]: {
 				'title': [
 					{
 						'type': 'text',
@@ -48,7 +51,7 @@ export async function POST(request: Request) {
 					},
 				],
 			},
-			'Artist': {
+			[DATABASE_PROPS.artist]: {
 				'rich_text': [
 					{
 						'type': 'text',
@@ -58,16 +61,16 @@ export async function POST(request: Request) {
 					},
 				],
 			},
-			'Spotify URL': {
+			[DATABASE_PROPS.spotifyUrl]: {
 				'url': body.track.external_urls.spotify,
 			},
-			'Likes': {
+			[DATABASE_PROPS.likes]: {
 				'number': 0,
 			},
-			'Email contributor': {
+			[DATABASE_PROPS.email]: {
 				'email': body.email,
 			},
-			'Status': {
+			[DATABASE_PROPS.status]: {
 				'status': {
 					'name': Status.TO_BE_REVIEWED,
 				},

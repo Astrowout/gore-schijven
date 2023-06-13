@@ -19,10 +19,10 @@ export default function useAuth() {
 			});
 			const data = await res.json();
 
-			if (data.error) {
-				throw new Error('Elaba viezerik, je hebt een fout paswoord ingevuld.');
-			} else if (data.success) {
+			if (data.success) {
 				router.push('/admin');
+			} else if (data.error) {
+				throw new Error('Elaba viezerik, je hebt een fout paswoord ingevuld.');
 			}
 		} finally {
 			setIsLoading(false);

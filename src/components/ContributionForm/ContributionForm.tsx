@@ -1,7 +1,6 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import JSConfetti from 'js-confetti';
 import * as Popover from '@radix-ui/react-popover';
 import {
 	FormEvent,
@@ -9,7 +8,11 @@ import {
 	useState,
 } from 'react';
 
-import { validateEmail } from '@/utils';
+import {
+	ConfettiTypes,
+	shootConfetti,
+	validateEmail,
+} from '@/utils';
 import { useNotion } from '@/hooks';
 import { SearchStore } from '@/store';
 import {
@@ -22,7 +25,6 @@ import {
 
 import { ContributionFormProps } from './ContributionForm.types';
 
-let confetti: JSConfetti | null = null;
 const SECRET_PHRASE = 'I\'m a founding daddy!';
 
 export default function ContributionForm({
@@ -85,19 +87,6 @@ export default function ContributionForm({
 		}
 	};
 
-	const shootConfetti = () => {
-		if (confetti) {
-			confetti.clearCanvas();
-		}
-
-		confetti = new JSConfetti();
-		confetti.addConfetti({
-			emojis: ['💜'],
-			emojiSize: 69,
-			confettiNumber: 40,
-		});
-	};
-
 	useEffect(() => {
 		if (selectedTrack) {
 			setError('');
@@ -108,7 +97,7 @@ export default function ContributionForm({
 		if (result) {
 			setSelectedTrack(null);
 			setEmail('');
-			shootConfetti();
+			shootConfetti(ConfettiTypes.HEARTS);
 		}
 	}, [result]); // eslint-disable-line react-hooks/exhaustive-deps
 

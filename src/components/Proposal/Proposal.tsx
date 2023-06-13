@@ -7,7 +7,6 @@ import {
 import clsx from 'clsx';
 import formatRelative from 'date-fns/formatRelative';
 import nl from 'date-fns/locale/nl';
-import JSConfetti from 'js-confetti';
 
 import {
 	useLocalStorage,
@@ -17,8 +16,10 @@ import { Status } from '@/types';
 import { StatusTag } from '@/components';
 
 import { ProposalProps } from './Proposal.types';
-
-let confetti: JSConfetti | null = null;
+import {
+	ConfettiTypes,
+	shootConfetti,
+} from '@/utils';
 
 export default function Proposal({
 	notionPageId = '',
@@ -40,22 +41,13 @@ export default function Proposal({
 
 	const hasUserLiked = userLikes.includes(notionPageId);
 
-	const shootConfetti = () => {
-		confetti = new JSConfetti();
-		confetti.addConfetti({
-			emojis: ['💜', '🦐'],
-			emojiSize: 64,
-			confettiNumber: 20,
-		});
-	};
-
 	const likeTrack = () => {
 		setOptimisticLikes(optimisticLikes + 1);
 
 		saveLikeInLocalstorage(notionPageId, 'like');
 		saveLikeInDb(notionPageId, 'like');
 
-		shootConfetti();
+		shootConfetti(ConfettiTypes.MIXED);
 	};
 
 	const dislikeTrack = async () => {

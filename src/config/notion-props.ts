@@ -5,6 +5,7 @@ export const DATABASE_PROPS = Object.freeze({
 	likes: 'Likes',
 	email: 'Email contributor',
 	status: 'Status',
+	reviewSent: 'Review sent',
 });
 
 export const PAGE_PROPS = Object.freeze({

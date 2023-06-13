@@ -11,13 +11,15 @@ import clsx from 'clsx';
 import { Status } from '@/types';
 import {
 	Select,
+	Tooltip,
 } from '@/components';
-import { getStatusSelectClasses } from '@/utils';
 import {
-	useEmail,
-	useNotion,
-	useOpenAi,
-} from '@/hooks';
+	getStatusSelectClasses,
+	ConfettiTypes,
+	shootConfetti,
+	ConditionalWrapper,
+} from '@/utils';
+import { useNotion } from '@/hooks';
 
 import { AdminProposalProps } from './AdminProposal.types';
 
@@ -33,9 +35,7 @@ export default function AdminProposal({
 	const [date, setDate] = useState<string>('');
 	const [error, setError] = useState<string>('');
 
-	const { generateFeedback } = useOpenAi();
-	const { sendEmail } = useEmail();
-	const { setStatus } = useNotion();
+	const { updateStatus } = useNotion();
 
 	useEffect(() => {
 		setDate(formatRelative(new Date(createdTime), new Date(), { locale: nl }));
@@ -43,24 +43,23 @@ export default function AdminProposal({
 
 	const sendFeedback = async (status: Status) => {
 		try {
-			const feedback = await generateFeedback(status);
-			await sendEmail(status, {
-				...metadata,
-				feedback,
+			await updateStatus(notionPageId, {
+				status,
+				metadata,
 			});
 
 			setActiveStatus(status);
+			shootConfetti(ConfettiTypes.HEARTS);
 		} catch (error: any) {
 			setError(error.message);
 		}
 	};
 
-	const selectStatus = async (status: Status) => {
+	const selectStatus = (status: Status) => {
 		setError('');
 
-		if (window.confirm('Are you sure you want to change the status of this proposal? This will send an email to the user who proposed this track with feedback.')) {
-			await sendFeedback(status);
-			await setStatus(notionPageId, status);
+		if (window.confirm('Are you sure you want to change the status of this proposal? If the track is approved or rejected, the user will get an email with AI generated feedback.')) {
+			sendFeedback(status);
 		}
 	};
 
@@ -90,14 +89,23 @@ export default function AdminProposal({
 						</p>
 					)}
 
-					<Select
-						className={clsx('mt-1.5', getStatusSelectClasses(activeStatus))}
-						disabled={activeStatus !== Status.TO_BE_REVIEWED}
-						name="status"
-						options={Object.values(Status)}
-						value={activeStatus}
-						onValueChange={selectStatus}
-					/>
+					<ConditionalWrapper
+						condition={activeStatus !== Status.TO_BE_REVIEWED}
+						wrapper={children => (
+							<Tooltip content="You can&apos;t change the status of a proposal that has been reviewed in the past.">
+								{children}
+							</Tooltip>
+						)}
+					>
+						<Select
+							className={clsx('mt-1.5', getStatusSelectClasses(activeStatus))}
+							disabled={activeStatus !== Status.TO_BE_REVIEWED}
+							name="status"
+							options={Object.values(Status)}
+							value={activeStatus}
+							onValueChange={selectStatus}
+						/>
+					</ConditionalWrapper>
 
 					{error && (
 						<p className="mt-2 max-w-prose text-sm text-red-400">

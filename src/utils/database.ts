@@ -1,11 +1,10 @@
-import { cache } from 'react';
 import { isFullPage } from '@notionhq/client';
 import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
 import { handleNotionErrors } from './errors';
 import { notion } from './notion';
 
-export const getDatabase = cache(async (
+export const getDatabase = async (
 	pageId: string,
 ): Promise<PageObjectResponse['properties'] | undefined> => {
 	try {
@@ -21,4 +20,4 @@ export const getDatabase = cache(async (
 	} catch (error) {
 		handleNotionErrors(error);
 	}
-});
+};

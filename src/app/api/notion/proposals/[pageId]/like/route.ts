@@ -5,6 +5,7 @@ import {
 	notion,
 } from '@/utils';
 import { isFullPage } from '@notionhq/client';
+import { DATABASE_PROPS } from '@/config';
 
 export const runtime = 'edge';
 
@@ -18,7 +19,7 @@ export async function POST(request: Request, {
 
 	const currentLikes = await notion.pages.properties.retrieve({
 		page_id: pageId,
-		property_id: 'Likes',
+		property_id: DATABASE_PROPS.likes,
 	});
 
 	let newLikes = currentLikes.type === 'number' && currentLikes.number ? currentLikes.number : 0;
@@ -32,7 +33,7 @@ export async function POST(request: Request, {
 	const res = await notion.pages.update({
 		'page_id': pageId,
 		'properties': {
-			'Likes': {
+			[DATABASE_PROPS.likes]: {
 				'number': newLikes,
 			},
 		},

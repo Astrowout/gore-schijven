@@ -8,7 +8,7 @@ import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
 import {
 	ITrackDto,
-	Status,
+	IUpdateProposalStatusBody,
 } from '@/types';
 import { LoaderStore } from '@/store';
 
@@ -17,17 +17,15 @@ export default function useNotion() {
 	const router = useRouter();
 	const [result, setResult] = useState<PageObjectResponse | null>(null);
 	const [isLoading, setIsLoading] = useState(false);
-	const setNotionLoading = LoaderStore((state) => state.setNotionLoading);
+	const setLoadingState = LoaderStore((state) => state.setLoadingState);
 
-	const setStatus = async (notionId: string, status: Status) => {
+	const updateStatus = async (notionId: string, body: IUpdateProposalStatusBody) => {
 		try {
-			setNotionLoading(true);
+			setLoadingState(true);
 
 			const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/proposals/${notionId}/status`, {
 				method: 'POST',
-				body: JSON.stringify({
-					status,
-				}),
+				body: JSON.stringify(body),
 			});
 			const data = await res.json();
 
@@ -39,7 +37,7 @@ export default function useNotion() {
 		} catch (error: any) {
 			throw new Error(error);
 		} finally {
-			setNotionLoading(false);
+			setLoadingState(false);
 		}
 	};
 
@@ -106,7 +104,7 @@ export default function useNotion() {
 	return {
 		result,
 		isLoading,
-		setStatus,
+		updateStatus,
 		toggleLike,
 		resetResult: () => setResult(null),
 		createPage,

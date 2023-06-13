@@ -1,28 +1,20 @@
 'use client';
 
-import {
-	useEffect,
-	useState,
-} from 'react';
+import clsx from 'clsx';
 import * as Dialog from '@radix-ui/react-dialog';
 
 import { LoaderStore } from '@/store';
 
-export default function Loader() {
-	const [text, setText] = useState('Loading...');
-	const state =  LoaderStore();
+import { ILoaderProps } from './Loader.types';
 
-	useEffect(() => {
-		if (state.isFeedbackLoading) {
-			setText('Generating feedback...');
-		} else if (state.isNotionLoading) {
-			setText('Updating database...');
-		} else if (state.isEmailLoading) {
-			setText('Sending email...');
-		}
-	}, [state]);
+export default function Loader({
+	text = 'Loading',
+}: ILoaderProps) {
+	const isLoading =  LoaderStore((state) => state.isLoading);
 
-	const isLoading = state.isFeedbackLoading || state.isEmailLoading || state.isNotionLoading;
+	const renderDot = (delayClassName?: string) => (
+		<span className={clsx('mx-[2px] inline-block h-[2px] w-[2px] animate-ping rounded-full bg-neutral-400', delayClassName)} />
+	);
 
 	return (
 		<Dialog.Root open={isLoading}>
@@ -36,8 +28,8 @@ export default function Loader() {
 						<path className="opacity-75" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" fill="currentColor" />
 					</svg>
 
-					<Dialog.Title className="mt-3 text-center text-sm text-neutral-500">
-						{text}
+					<Dialog.Title className="mt-4 text-center text-base text-neutral-500">
+						{text}{renderDot()}{renderDot('[animation-delay:80ms]')}{renderDot('[animation-delay:160ms]')}
 					</Dialog.Title>
 				</Dialog.Content>
 			</Dialog.Portal>

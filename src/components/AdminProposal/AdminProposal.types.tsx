@@ -9,5 +9,5 @@ export type AdminProposalProps = {
     url: string;
     status: Status;
     createdTime: string;
-    metadata?: IFeedbackEmailData;
+    metadata: IFeedbackEmailData;
 }
