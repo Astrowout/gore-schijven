@@ -11,7 +11,9 @@ import { AdminProposalsProps } from './AdminProposals.types';
 export default async function AdminProposals({
 	title = '',
 }: AdminProposalsProps) {
-	const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/proposals`);
+	const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/proposals`, {
+		cache: 'no-store',
+	});
 
 	const { data: tracks }: { data: ITrack[] } = await res.json();
 
