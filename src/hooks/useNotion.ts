@@ -19,17 +19,25 @@ export default function useNotion() {
 	const [isLoading, setIsLoading] = useState(false);
 	const setLoadingState = LoaderStore((state) => state.setLoadingState);
 
-	const updateStatus = async (notionId: string, body: IUpdateProposalStatusBody) => {
+	const updateStatus = async (
+		notionId: string,
+		body: IUpdateProposalStatusBody,
+	) => {
 		try {
 			setLoadingState(true);
 
-			const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/proposals/${notionId}/status`, {
-				method: 'POST',
-				body: JSON.stringify(body),
-			});
+			const res = await fetch(
+				`${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/proposals/${notionId}/status`,
+				{
+					method: 'POST',
+					body: JSON.stringify(body),
+				},
+			);
 			const data = await res.json();
 
 			if (data.id) {
+				router.refresh();
+
 				return data;
 			} else if (data.error) {
 				throw new Error(data.error);
@@ -45,13 +53,16 @@ export default function useNotion() {
 		try {
 			setIsLoading(true);
 
-			const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/proposals`, {
-				method: 'POST',
-				body: JSON.stringify({
-					track,
-					email,
-				}),
-			});
+			const res = await fetch(
+				`${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/proposals`,
+				{
+					method: 'POST',
+					body: JSON.stringify({
+						track,
+						email,
+					}),
+				},
+			);
 			const data = await res.json();
 
 			if (data) {
@@ -68,7 +79,7 @@ export default function useNotion() {
 
 	const toggleLike = async (pageId: string, type: 'like' | 'dislike') => {
 		if (abortController.current) {
-			 // abort pending requests when new one is fired
+			// abort pending requests when new one is fired
 			abortController.current.abort();
 		}
 
@@ -76,13 +87,16 @@ export default function useNotion() {
 			setIsLoading(true);
 			abortController.current = new AbortController();
 
-			const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/proposals/${pageId}/like`, {
-				method: 'POST',
-				body: JSON.stringify({
-					type,
-				}),
-				signal: abortController.current.signal,
-			});
+			const res = await fetch(
+				`${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/proposals/${pageId}/like`,
+				{
+					method: 'POST',
+					body: JSON.stringify({
+						type,
+					}),
+					signal: abortController.current.signal,
+				},
+			);
 			const data = await res.json();
 
 			if (data) {
