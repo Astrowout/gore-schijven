@@ -48,6 +48,13 @@ export async function POST(request: Request, {
 			[DATABASE_PROPS.status]: {
 				'name': body.status,
 			},
+			[DATABASE_PROPS.feedback]: [
+				{
+					'text': {
+						'content': feedback,
+					},
+				},
+			],
 		},
 	});
 

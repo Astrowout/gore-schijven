@@ -37,8 +37,6 @@ export default function useNotion() {
 
 			if (data.id) {
 				router.refresh();
-
-				return data;
 			} else if (data.error) {
 				throw new Error(data.error);
 			}
