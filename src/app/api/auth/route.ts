@@ -6,7 +6,6 @@ import { SignJWT } from 'jose';
 import { nanoid } from 'nanoid';
 
 import { USER_TOKEN_KEY } from '@/config';
-import { redirect } from 'next/navigation';
 
 export const runtime = 'edge';
 
@@ -34,7 +33,7 @@ export async function POST(request: NextRequest) {
 
         response.cookies.set(USER_TOKEN_KEY, token);
 
-        redirect('/admin');
+        return response;
     } catch (error) {
         return NextResponse.json({ error: 'Something went wrong signing the user token.' }, { status: 500 });
     }
