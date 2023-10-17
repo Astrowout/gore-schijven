@@ -8,29 +8,29 @@ export enum ConfettiTypes {
 }
 
 const getConfettiConfig = (type: ConfettiTypes) => {
-	switch (type) {
-	case ConfettiTypes.HEARTS:
-		return {
-			emojis: ['💜'],
-			emojiSize: 69,
-			confettiNumber: 40,
-		};
-	case ConfettiTypes.MIXED:
-		return {
-			emojis: ['💜', '🦐'],
-			emojiSize: 64,
-			confettiNumber: 20,
-		};
-	}
+    switch (type) {
+    case ConfettiTypes.HEARTS:
+        return {
+            emojis: ['💜'],
+            emojiSize: 69,
+            confettiNumber: 40,
+        };
+    case ConfettiTypes.MIXED:
+        return {
+            emojis: ['💜', '🦐'],
+            emojiSize: 64,
+            confettiNumber: 20,
+        };
+    }
 };
 
 export const shootConfetti = (type: ConfettiTypes) => {
-	if (confetti) {
-		confetti.clearCanvas();
-	}
+    if (confetti) {
+        confetti.clearCanvas();
+    }
 
-	const config = getConfettiConfig(type);
+    const config = getConfettiConfig(type);
 
-	confetti = new JSConfetti();
-	confetti.addConfetti(config);
+    confetti = new JSConfetti();
+    confetti.addConfetti(config);
 };

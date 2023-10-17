@@ -1,16 +1,16 @@
 import {
-	AdminProposals,
-	Loader,
+    AdminProposals,
+    Loader,
 } from '@/components';
 
 export default function AdminPage() {
-	return (
-		<>
-			{/* @ts-expect-error Async Server Component */}
+    return (
+        <>
+            {/* @ts-expect-error Async Server Component */}
 
-			<AdminProposals title="Gore drops van onze viezeriken" />
+            <AdminProposals title="Gore drops van onze viezeriken" />
 
-			<Loader text="Sending feedback" />
-		</>
-	);
+            <Loader text="Sending feedback" />
+        </>
+    );
 }

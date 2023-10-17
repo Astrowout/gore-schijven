@@ -1,149 +1,139 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import * as Popover from '@radix-ui/react-popover';
 import {
-	FormEvent,
-	useEffect,
-	useState,
+    FormEvent,
+    useEffect,
+    useState,
 } from 'react';
 
 import {
-	ConfettiTypes,
-	shootConfetti,
-	validateEmail,
+    ConfettiTypes,
+    shootConfetti,
+    validateEmail,
 } from '@/utils';
 import { useNotion } from '@/hooks';
 import { SearchStore } from '@/store';
 import {
-	Button,
-	Input,
-	SearchInput,
-	Success,
-	Suggestions,
+    Button,
+    Input,
+    SearchInput,
+    Success,
+    Suggestions,
 } from '@/components';
 
 import { ContributionFormProps } from './ContributionForm.types';
 
-const SECRET_PHRASE = 'I\'m a founding daddy!';
-
 export default function ContributionForm({
-	accessToken = '',
+    accessToken = '',
 }: ContributionFormProps) {
-	const router = useRouter();
-	const query = SearchStore((state) => state.query);
-	const selectedTrack = SearchStore((state) => state.selectedTrack);
-	const setSelectedTrack = SearchStore((state) => state.setSelectedTrack);
-	const {
-		result, isLoading, resetResult, createPage,
-	} = useNotion();
+    const query = SearchStore((state) => state.query);
+    const selectedTrack = SearchStore((state) => state.selectedTrack);
+    const setSelectedTrack = SearchStore((state) => state.setSelectedTrack);
+    const {
+        result, isLoading, resetResult, createPage,
+    } = useNotion();
 
-	const [email, setEmail] = useState('');
-	const [error, setError] = useState('');
+    const [email, setEmail] = useState('');
+    const [error, setError] = useState('');
 
-	const validateForm = () => {
-		setError('');
+    const validateForm = () => {
+        setError('');
 
-		if (!selectedTrack && email === SECRET_PHRASE) {
-			router.push('/admin');
+        if (!selectedTrack) {
+            setError('Elaba viezerik, je hebt nog geen lied gekozen.');
 
-			return false;
-		}
+            return false;
+        }
 
-		if (!selectedTrack) {
-			setError('Elaba viezerik, je hebt nog geen lied gekozen.');
+        if (!email) {
+            setError('Elaba viezerik, je moet jouw e-mailadres nog invullen.');
 
-			return false;
-		}
+            return false;
+        }
 
-		if (!email) {
-			setError('Elaba viezerik, je moet jouw e-mailadres nog invullen.');
+        if (!validateEmail(email)) {
+            setError('Elaba viezerik, jouw e-mailadres lijkt niet te kloppen.');
 
-			return false;
-		}
+            return false;
+        }
 
-		if (!validateEmail(email)) {
-			setError('Elaba viezerik, jouw e-mailadres lijkt niet te kloppen.');
+        return true;
+    };
 
-			return false;
-		}
+    const onSubmit = async (e: FormEvent) => {
+        e.preventDefault();
 
-		return true;
-	};
+        const isValid = validateForm();
 
-	const onSubmit = async (e: FormEvent) => {
-		e.preventDefault();
+        if (!isValid) {
+            return;
+        }
 
-		const isValid = validateForm();
+        try {
+            await createPage(selectedTrack!, email);
+        } catch (error) {
+            setError('Oeps, er liep iets mis. Wees gerust, het ligt niet aan jou maar aan onze vuile code.');
+        }
+    };
 
-		if (!isValid) {
-			return;
-		}
+    useEffect(() => {
+        if (selectedTrack) {
+            setError('');
+        }
+    }, [selectedTrack]);
 
-		try {
-			await createPage(selectedTrack!, email);
-		} catch (error) {
-			setError('Oeps, er liep iets mis. Wees gerust, het ligt niet aan jou maar aan onze vuile code.');
-		}
-	};
+    useEffect(() => {
+        if (result) {
+            setSelectedTrack(null);
+            setEmail('');
+            shootConfetti(ConfettiTypes.HEARTS);
+        }
+    }, [result]); // eslint-disable-line react-hooks/exhaustive-deps
 
-	useEffect(() => {
-		if (selectedTrack) {
-			setError('');
-		}
-	}, [selectedTrack]);
+    if (result) {
+        return (
+            <Success message="We hebben jouw vieze drop goed ontvangen! Het ingezonden degoutant kabaal wordt binnen de 27 werkdagen gereviewd.">
+                <Button onClick={resetResult}>
+                    Stel nog een vieze schijf voor
+                </Button>
+            </Success>
+        );
+    }
 
-	useEffect(() => {
-		if (result) {
-			setSelectedTrack(null);
-			setEmail('');
-			shootConfetti(ConfettiTypes.HEARTS);
-		}
-	}, [result]); // eslint-disable-line react-hooks/exhaustive-deps
+    return (
+        <form
+            noValidate
+            className="mx-auto flex w-full max-w-md flex-col items-center self-stretch"
+            onSubmit={onSubmit}
+        >
+            <Popover.Root open={!!query && !selectedTrack}>
+                <SearchInput />
 
-	if (result) {
-		return (
-			<Success message="We hebben jouw vieze drop goed ontvangen! Het ingezonden degoutant kabaal wordt binnen de 27 werkdagen gereviewd.">
-				<Button onClick={resetResult}>
-	                Stel nog een vieze schijf voor
-				</Button>
-			</Success>
-		);
-	}
+                <Suggestions accessToken={accessToken} />
+            </Popover.Root>
 
-	return (
-		<form
-			noValidate
-			className="mx-auto flex w-full max-w-md flex-col items-center self-stretch"
-			onSubmit={onSubmit}
-		>
-			<Popover.Root open={!!query && !selectedTrack}>
-				<SearchInput />
+            <Input
+                className="mt-6"
+                label="Jouw e-mailadres"
+                name="email"
+                placeholder="viezevuilegore@gmail.com"
+                onChange={setEmail}
+            />
 
-				<Suggestions accessToken={accessToken} />
-			</Popover.Root>
-
-			<Input
-				className="mt-6"
-				label="Jouw e-mailadres"
-				name="email"
-				placeholder="viezevuilegore@gmail.com"
-				onChange={setEmail}
-			/>
-
-			<Button
-				className="mt-6"
-				isLoading={isLoading}
-				type="submit"
-			>
+            <Button
+                className="mt-6"
+                isLoading={isLoading}
+                type="submit"
+            >
                 Versturen
-			</Button>
+            </Button>
 
-			{error && (
-				<p className="mt-4 max-w-prose text-center text-sm text-red-400">
-					{ error }
-				</p>
-			)}
-		</form>
-	);
+            {error && (
+                <p className="mt-4 max-w-prose text-center text-sm text-red-400">
+                    {error}
+                </p>
+            )}
+        </form>
+    );
 };

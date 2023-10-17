@@ -1,5 +1,5 @@
 import {
-	IAlbum, IArtist,
+    IAlbum, IArtist,
 } from '@/types';
 
 export type TrackProps = {

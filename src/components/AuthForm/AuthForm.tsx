@@ -1,86 +1,86 @@
 'use client';
 
 import {
-	FormEvent,
-	useState,
+    FormEvent,
+    useState,
 } from 'react';
 
 import {
-	Button,
+    Button,
 } from '@/components';
 
 import { AuthFormProps } from './AuthForm.types';
 import { useAuth } from '@/hooks';
 
 export default function AuthForm({}: AuthFormProps) {
-	const {
-		isLoading,
-		handleLogin,
-	} = useAuth();
-	const [password, setPassword] = useState('');
-	const [error, setError] = useState('');
+    const {
+        isLoading,
+        handleLogin,
+    } = useAuth();
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
 
-	const validateForm = () => {
-		setError('');
+    const validateForm = () => {
+        setError('');
 
-		if (!password) {
-			setError('Elaba viezerik, je hebt geen paswoord ingevuld.');
+        if (!password) {
+            setError('Elaba viezerik, je hebt geen paswoord ingevuld.');
 
-			return false;
-		}
+            return false;
+        }
 
-		return true;
-	};
+        return true;
+    };
 
-	const onSubmit = async (e: FormEvent) => {
-		e.preventDefault();
+    const onSubmit = async (e: FormEvent) => {
+        e.preventDefault();
 
-		const isValid = validateForm();
+        const isValid = validateForm();
 
-		if (!isValid) {
-			return;
-		}
+        if (!isValid) {
+            return;
+        }
 
-		try {
-			await handleLogin(password);
-		} catch (error: any) {
-			setError(error.message);
-		}
-	};
+        try {
+            await handleLogin(password);
+        } catch (error: any) {
+            setError(error.message);
+        }
+    };
 
-	return (
-		<form
-			noValidate
-			className="mx-auto flex w-full max-w-sm flex-col"
-			onSubmit={onSubmit}
-		>
-			<label
-				className='text-center text-lg text-white'
-				htmlFor="password"
-			>
-				Vul jouw paswoord in
-			</label>
+    return (
+        <form
+            noValidate
+            className="mx-auto flex w-full max-w-sm flex-col"
+            onSubmit={onSubmit}
+        >
+            <label
+                className='text-center text-lg text-white'
+                htmlFor="password"
+            >
+                Vul jouw paswoord in
+            </label>
 
-			<input
-				className="mt-3 h-14 w-full appearance-none rounded-full border border-neutral-700 bg-neutral-800 px-6 text-center text-xl text-white shadow-inner placeholder:text-neutral-600 focus:border-purple-500 focus:outline-none"
-				name="password"
-				type="password"
-				onChange={(e) => setPassword(e.target.value)}
-			/>
+            <input
+                className="mt-3 h-14 w-full appearance-none rounded-full border border-neutral-700 bg-neutral-800 px-6 text-center text-xl text-white shadow-inner placeholder:text-neutral-600 focus:border-purple-500 focus:outline-none"
+                name="password"
+                type="password"
+                onChange={(e) => setPassword(e.target.value)}
+            />
 
-			<Button
-				className="mt-6"
-				isLoading={isLoading}
-				type="submit"
-			>
+            <Button
+                className="mt-6"
+                isLoading={isLoading}
+                type="submit"
+            >
                 Login
-			</Button>
+            </Button>
 
-			{error && (
-				<p className="mt-4 max-w-prose text-center text-sm text-red-400">
-					{ error }
-				</p>
-			)}
-		</form>
-	);
+            {error && (
+                <p className="mt-4 max-w-prose text-center text-sm text-red-400">
+                    {error}
+                </p>
+            )}
+        </form>
+    );
 };

@@ -1,0 +1,8 @@
+.vercel
+.next
+pnpm-lock.yaml
+node_modules
+frontend-app-dist
+public
+src/**/*.js
+src/**/*.jsx

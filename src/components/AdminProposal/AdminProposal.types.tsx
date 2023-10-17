@@ -1,6 +1,6 @@
 import {
-	IFeedbackEmailData,
-	Status,
+    IFeedbackEmailData,
+    Status,
 } from '@/types';
 
 export type AdminProposalProps = {
