@@ -51,7 +51,7 @@ export default function RootLayout({
 
             <a
                 className="text-neutral-600 hover:text-neutral-500 hover:underline"
-                href="https://woutvandesompele.be"
+                href="https://astrowout.space"
                 rel="noopener noreferrer"
                 target="_blank"
             >
