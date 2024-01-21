@@ -18,7 +18,7 @@ export default async function AdminLayout ({
 }) {
     return (
         <main className='flex grow flex-col'>
-            <Hero title="GORE SCHIJVEN™">
+            <Hero>
                 <Button url="/">
                     Terug naar home
                 </Button>
