@@ -53,7 +53,7 @@ export default async function Proposals ({
             )}
 
             {(!!tracks && !!tracks.length) && (
-                <ul className='flex w-full max-w-2xl flex-col gap-y-8 lg:gap-y-10'>
+                <ul className='flex w-full max-w-2xl flex-col gap-y-10'>
                     {tracks.map((track) => (
                         <li key={track.id}>
                             <Proposal

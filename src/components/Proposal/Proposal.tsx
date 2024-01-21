@@ -98,7 +98,7 @@ export default memo(function Proposal ({
                 spotifyUrl={spotifyUrl}
             />
 
-            <div className='mt-3 flex flex-wrap items-start justify-between gap-x-4 gap-y-3'>
+            <div className='mt-3 flex flex-col items-start justify-between gap-x-4 gap-y-3 sm:flex-row'>
                 <div className='flex flex-col items-start'>
                     <p
                         className={clsx("text-base text-gray-500 transition", {
@@ -109,7 +109,6 @@ export default memo(function Proposal ({
                     </p>
 
                     {variant === ProposalVariants.Base && (
-
                         <StatusTag
                             className="mt-1.5"
                             status={status}
