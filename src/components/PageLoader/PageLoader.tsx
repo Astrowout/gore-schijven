@@ -25,7 +25,7 @@ export default function PageLoader ({
     return (
         <div className="fixed inset-0 z-50 flex h-screen w-screen justify-center overflow-hidden bg-ui-dark">
             <div
-                className="absolute flex w-full max-w-3xl animate-loader flex-col overflow-hidden rounded-3xl shadow-2xl shadow-black"
+                className="absolute flex w-full max-w-3xl animate-loader flex-col overflow-hidden rounded-3xl opacity-80 shadow-2xl shadow-black"
                 style={{
                     transformStyle: "preserve-3d",
                     transformOrigin: "top",

@@ -70,7 +70,7 @@ export default memo(function TrackPreview ({
                         className="group relative flex grow flex-col"
                         data-atropos-offset="4"
                     >
-                        <p className="text-lg text-white md:text-xl lg:text-2xl">
+                        <p className="text-lg text-white md:text-xl">
                             <a
                                 className="u-clickable underline decoration-transparent decoration-1 underline-offset-2 transition-colors group-hover:decoration-white"
                                 href={spotifyUrl}
@@ -81,7 +81,7 @@ export default memo(function TrackPreview ({
                             </a>
                         </p>
 
-                        <p className="text-gray-400 md:text-lg lg:text-xl">
+                        <p className="text-base text-gray-400 md:text-lg">
                             {artistsLine}
                         </p>
                     </span>

@@ -101,8 +101,8 @@ export default memo(function Proposal ({
             <div className='mt-3 flex flex-wrap items-start justify-between gap-x-4 gap-y-3'>
                 <div className='flex flex-col items-start'>
                     <p
-                        className={clsx("text-base text-gray-500 transition-colors", {
-                            "text-gray-600": !date,
+                        className={clsx("text-base text-gray-500 transition", {
+                            "blur-sm": !date,
                         })}
                     >
                         {date || "Unknown date"}

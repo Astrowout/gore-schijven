@@ -1,30 +1,11 @@
-"use client";
-
 import clsx from "clsx";
-import { useInView } from "framer-motion";
 import Link from "next/link";
-import {
-    useEffect,
-    useRef,
-} from "react";
-
-import { MotionStore } from "@/store";
 
 import { HeadingProps } from "./Heading.types";
 
 export default function Heading ({
     title = "",
 }: HeadingProps) {
-    const {
-        setIsInView,
-    } = MotionStore();
-    const ref = useRef(null);
-    const isInView = useInView(ref, { amount: "some" });
-
-    useEffect(() => {
-        setIsInView(isInView);
-    }, [isInView]); // eslint-disable-line react-hooks/exhaustive-deps
-
     const renderTitle = () => (
         <span
             aria-hidden="true"
@@ -45,12 +26,12 @@ export default function Heading ({
     );
 
     return (
-        <header ref={ref}>
+        <header>
             <Link
-                className="relative flex -rotate-1 items-center justify-center overflow-hidden rounded bg-purple-800 text-center font-display text-3xl tracking-wide shadow-xl transition-colors hover:bg-purple-700 sm:text-5xl md:text-6xl"
+                className="relative flex -rotate-1 items-center justify-center overflow-hidden rounded bg-purple-800 px-4 pt-2 text-center font-display text-3xl tracking-wide shadow-xl transition-colors hover:bg-purple-700 sm:pt-3.5 sm:text-5xl md:text-6xl"
                 href="/"
             >
-                <h1 className="px-4 pt-2 opacity-0 sm:pt-3.5">
+                <h1 className="opacity-0">
                     {title}
                 </h1>
 
