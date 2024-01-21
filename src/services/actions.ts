@@ -5,7 +5,6 @@ import {
     eq,
 } from "drizzle-orm";
 import { MySqlInsert } from "drizzle-orm/mysql-core";
-import debounce from "lodash/debounce";
 
 import { Status } from "@/types";
 import { proposals } from "~/db/schema";
@@ -73,7 +72,7 @@ export async function updateProposalStatus (id: string, status: Status): Promise
     }
 };
 
-async function saveReactions (id: string, likes: number, dislikes: number) {
+export async function saveReactions (id: string, likes: number, dislikes: number) {
     try {
         const oldCount = await db.query.proposals.findFirst({
             columns: {
@@ -100,5 +99,3 @@ async function saveReactions (id: string, likes: number, dislikes: number) {
         }
     }
 };
-
-export const debouncedSaveReactions = debounce(saveReactions, 1000);

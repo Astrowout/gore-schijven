@@ -5,15 +5,18 @@ import {
     AnimatePresence,
     motion,
 } from "framer-motion";
+import debounce from "lodash/debounce";
 import { useState } from "react";
 
-import { debouncedSaveReactions } from "@/services/actions";
+import { saveReactions } from "@/services/actions";
 
 import {
     transition,
     variants,
 } from "./Feedback.motion";
 import { TFeedbackProps } from "./Feedback.types";
+
+const debouncedSaveReactions = debounce(saveReactions, 1500);
 
 export default function Feedback ({
     id = "",

@@ -54,7 +54,10 @@ export default function Heading ({
     );
 
     return (
-        <div ref={ref}>
+        <div
+            ref={ref}
+            className="min-h-12 md:min-h-20"
+        >
             <AnimatePresence>
                 {isInViewState && (
                     <motion.header
