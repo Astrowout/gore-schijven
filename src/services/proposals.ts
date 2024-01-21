@@ -20,8 +20,6 @@ import { TProposalDto } from "~/db/schema/proposals";
 import db from "./db";
 
 export const getProposals = async (page = INITIAL_PAGE): Promise<{ tracks: TProposal[], totalCount: number }> => {
-    console.log("getProposals", page);
-
     const promises = [
         getSpotifyAccessToken(),
         db.select({ value: countDistinct(dbProposals.spotifyId) }).from(dbProposals),
