@@ -16,14 +16,14 @@ export default function AlbumCover ({
 
     return (
         <div
-            className={clsx("relative h-32 w-32", className)}
+            className={clsx("relative h-32 w-20 shrink-0 sm:w-32", className)}
             data-atropos-offset="10"
         >
             <Image
                 fill
                 alt=""
                 blurDataURL={albumCoverPreviewUrl}
-                className={clsx("absolute inset-0 z-0 h-full w-full -translate-x-1 translate-y-1 overflow-hidden rounded-2xl opacity-60 blur-md", {
+                className={clsx("absolute inset-0 z-0 h-full w-full -translate-x-1 translate-y-1 overflow-hidden rounded-2xl object-cover opacity-60 blur-md", {
                     "animate-pulse": isPlaying,
                 })}
                 placeholder="blur"
@@ -33,7 +33,7 @@ export default function AlbumCover ({
 
             <Image
                 alt={alt}
-                className='relative z-10 h-full w-full overflow-hidden rounded-xl shadow-xl'
+                className='relative z-10 h-full w-32 overflow-hidden rounded-xl object-cover shadow-xl'
                 height={image.height}
                 sizes="20vw"
                 src={image.url}

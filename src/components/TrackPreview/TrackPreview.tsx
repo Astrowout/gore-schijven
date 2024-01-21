@@ -105,7 +105,7 @@ export default function TrackPreview ({
                     data-atropos-opacity={isPlaying ? null : "1;0.8"}
                 />
 
-                <span className="group relative flex gap-x-6 p-4">
+                <span className="group relative flex gap-x-4 p-4 sm:gap-x-6">
                     <AlbumCover
                         albumCoverPreviewUrl={albumCoverPreviewUrl}
                         alt="name"
@@ -114,7 +114,7 @@ export default function TrackPreview ({
                     />
 
                     <span
-                        className="flex grow flex-col truncate"
+                        className="flex grow flex-col"
                         data-atropos-offset="4"
                     >
                         <p className="text-lg text-white lg:text-xl">
