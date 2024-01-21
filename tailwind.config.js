@@ -9,7 +9,7 @@ module.exports = {
         },
         extend: {
             transitionTimingFunction: {
-                "out-expo": "cubic-bezier(0.19, 1, 0.22, 1)",
+                "expoOut": "cubic-bezier(0.19, 1, 0.22, 1)",
             },
             colors: {
                 brand: {
@@ -33,7 +33,7 @@ module.exports = {
             animation: {
                 marquee: "marquee 20s linear infinite",
                 marquee2: "marquee2 20s linear infinite",
-                loader: "loader 2500ms ease-in-out infinite",
+                loader: "loader 3s cubic-bezier(0.45, 0, 0.55, 1) infinite",
             },
             keyframes: {
                 marquee: {

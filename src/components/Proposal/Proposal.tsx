@@ -102,7 +102,7 @@ export default memo(function Proposal ({
                 <div className='flex flex-col items-start'>
                     <p
                         className={clsx("text-base text-gray-500 transition-colors", {
-                            "bg-gray-600": !date,
+                            "text-gray-600": !date,
                         })}
                     >
                         {date || "Unknown date"}

@@ -14,7 +14,7 @@ export default function HeadingBanner ({
 
     return (
         <div
-            className={clsx("fixed left-1/2 top-0 z-40 duration-500 ease-out-expo", {
+            className={clsx("fixed left-1/2 top-0 z-40 duration-500 ease-expoOut", {
                 "translate-y-0": !isInView,
                 "-translate-y-full": isInView,
             })}
