@@ -1,5 +1,5 @@
-import { IFeedbackEmailData } from './email';
-import { Status } from './status';
+import { IFeedbackEmailData } from "./email";
+import { Status } from "./status";
 
 export interface IUpdateProposalStatusBody {
     status: Status;

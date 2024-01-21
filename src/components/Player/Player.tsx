@@ -1,19 +1,20 @@
-'use client';
+"use client";
 
 import {
-    MouseEvent, useEffect,
-} from 'react';
+    MouseEvent,
+    useEffect,
+} from "react";
 
-import { PlayerProps } from './Player.types';
+import { Progress } from "@/components/Progress";
+import { PlayerStore } from "@/store";
 
-import { Progress } from '@/components';
-import { PlayerStore } from '@/store';
+import { PlayerProps } from "./Player.types";
 
 let sound: any = null;
 
-export default function Player({
-    id = '',
-    preview = '',
+export default function Player ({
+    id = "",
+    preview = "",
 }: PlayerProps) {
     const playingId = PlayerStore((state) => state.playingId);
     const setPlayingId = PlayerStore((state) => state.setPlayingId);
@@ -45,27 +46,27 @@ export default function Player({
     const handlePause = () => {
         sound.pause();
         sound = null;
-        setPlayingId('');
+        setPlayingId("");
     };
 
     const initSoundEvents = () => {
-        sound.addEventListener('ended', handlePause);
+        sound.addEventListener("ended", handlePause);
     };
 
     useEffect(() => {
         return () => {
             if (sound) {
-                sound.removeEventListener('ended', handlePause);
+                sound.removeEventListener("ended", handlePause);
                 handlePause();
             }
         };
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
-        <span className="h-6 w-6 shrink-0">
+        <span className="block h-6 w-6 shrink-0">
             {preview && (
                 <button
-                    className="flex h-full w-full items-center justify-center text-neutral-600 transition hover:scale-110 hover:text-neutral-500"
+                    className="flex h-full w-full items-center justify-center text-gray-600 transition hover:scale-110 hover:text-gray-500"
                     type="button"
                     onClick={handleSound}
                 >

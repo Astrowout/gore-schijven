@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import * as RadixTooltip from '@radix-ui/react-tooltip';
+import * as RadixTooltip from "@radix-ui/react-tooltip";
 
-import { ITooltipProps } from './Tooltip.types';
+import { ITooltipProps } from "./Tooltip.types";
 
-export default function Tooltip({
+export default function Tooltip ({
     children,
     content,
 }: ITooltipProps) {
     return (
-        <RadixTooltip.Provider delayDuration={150}>
+        <RadixTooltip.Provider delayDuration={0}>
             <RadixTooltip.Root>
                 <RadixTooltip.Trigger asChild>
                     <span tabIndex={0}>
@@ -20,7 +20,7 @@ export default function Tooltip({
                 <RadixTooltip.Portal>
                     <RadixTooltip.Content
                         align="start"
-                        className="w-[var(--radix-tooltip-content-available-width)] max-w-xs select-none rounded-lg bg-white px-4 py-2 text-sm text-neutral-600 shadow-lg"
+                        className="w-[var(--radix-tooltip-content-available-width)] max-w-xs select-none rounded-lg bg-white px-4 py-2 text-sm text-gray-600 shadow-lg"
                         side="bottom"
                         sideOffset={4}
                     >

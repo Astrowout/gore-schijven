@@ -1,10 +1,10 @@
-export interface IAlbumImage {
+export type TAlbumCover = {
     url: string;
     width: number;
     height: number;
 };
 
-export interface IAlbum {
+export type TAlbum = {
     name: string;
-    images: IAlbumImage[];
+    images: TAlbumCover[];
 };

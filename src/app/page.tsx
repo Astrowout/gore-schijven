@@ -1,24 +1,20 @@
-import {
-    Hero,
-    Playlist,
-    Button,
-    Contribution,
-    ContributionForm,
-} from '@/components';
-import { PAGE_IDS } from '@/config';
-import {
-    getMetadata,
-    getSpotifyAccessToken,
-    getPageProps,
-} from '@/utils';
+import { Button } from "@/components/Button";
+import { Contribution } from "@/components/Contribution";
+import { ContributionForm } from "@/components/ContributionForm";
+import { Hero } from "@/components/Hero";
+import { Playlist } from "@/components/Playlist";
+import { getSpotifyAccessToken } from "@/utils";
 
-export async function generateMetadata() {
-    const pageProps = await getPageProps(PAGE_IDS.HOME);
+export const metadata = {
+    title: "Welcome | GORE SCHIJVEN™️",
+    description: "Een ongewassen klets vieze build-ups, een wansmakelijke homp vadsig meeslepende drops en een allegaartje aan ander degoutant kabaal. Kortom: een open source playlist vol knallers die voldoen aan het Gore Schijven™ kwaliteitslabel.",
+    openGraph: {
+        title: "GORE SCHIJVEN™️",
+        description: "Een ongewassen klets vieze build-ups, een wansmakelijke homp vadsig meeslepende drops en een allegaartje aan ander degoutant kabaal. Kortom: een open source playlist vol knallers die voldoen aan het Gore Schijven™ kwaliteitslabel.",
+    },
+};
 
-    return getMetadata(pageProps);
-}
-
-export default async function Home() {
+export default async function Home () {
     const accessToken = await getSpotifyAccessToken();
 
     return (

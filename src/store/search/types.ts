@@ -1,8 +1,8 @@
-import { ITrackDto } from '@/types';
+import { TTrackDto } from "@/types";
 
 export interface ISearchStore {
     query: string;
-    selectedTrack: ITrackDto | null;
+    selectedTrack: TTrackDto | null;
     setQuery: (query: string) => void;
-    setSelectedTrack: (track: ITrackDto | null) => void;
+    setSelectedTrack: (track: TTrackDto | null) => void;
 }

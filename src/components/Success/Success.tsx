@@ -1,8 +1,8 @@
-import { SuccessProps } from './Success.types';
+import { SuccessProps } from "./Success.types";
 
-export default function Success({
+export default function Success ({
     children,
-    message = '',
+    message = "",
 }: SuccessProps) {
     return (
         <div className="flex max-w-md flex-col items-center py-4 text-center">

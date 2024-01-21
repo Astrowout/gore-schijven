@@ -1,24 +1,28 @@
-'use client';
+"use client";
 
 import {
-    useEffect, useState,
-} from 'react';
+    useEffect,
+    useState,
+} from "react";
 
-import { ProgressProps } from './Progress.types';
+import { ProgressProps } from "./Progress.types";
 
 const TOTAL_SECONDS = 30;
 const TOTAL_PROGRESS = 100;
 let startTime = new Date();
 
-export default function Progress({
+export default function Progress ({
     size = 32,
     stroke = 2,
     isPlaying = false,
-    className = '',
+    className = "",
 }: ProgressProps) {
-    const [progress, setProgress] = useState(0);
+    const [
+        progress,
+        setProgress,
+    ] = useState(0);
 
-    let interval: any = null;
+    let interval: NodeJS.Timeout;
 
     const handleProgress = () => {
         resetProgress();
@@ -72,7 +76,7 @@ export default function Progress({
                 fill="transparent"
                 r={normalizedRadius}
                 stroke="currentColor"
-                strokeDasharray={circumference + ' ' + circumference}
+                strokeDasharray={circumference + " " + circumference}
                 strokeWidth={stroke}
                 style={{ strokeDashoffset }}
             />

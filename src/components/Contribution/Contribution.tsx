@@ -1,8 +1,8 @@
-import { ContributionProps } from './Contribution.types';
+import { ContributionProps } from "./Contribution.types";
 
-export default function Contribution({
-    title = '',
-    description = '',
+export default function Contribution ({
+    title = "",
+    description = "",
     children = null,
 }: ContributionProps) {
     return (
@@ -12,7 +12,7 @@ export default function Contribution({
                     {title}
                 </h1>
 
-                <p className="text-neutral-500">
+                <p className="text-gray-500">
                     {description}
                 </p>
             </header>

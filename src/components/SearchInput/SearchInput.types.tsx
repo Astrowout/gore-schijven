@@ -1,1 +1,1 @@
-export type SearchInputProps = {}
+export type TSearchInputProps = object;

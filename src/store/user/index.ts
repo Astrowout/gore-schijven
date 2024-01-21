@@ -1,6 +1,6 @@
-import create from 'zustand';
+import { create } from "zustand";
 
-import { IUserStore } from './types';
+import { IUserStore } from "./types";
 
 export default create<IUserStore>((set) => ({
     likes: [],

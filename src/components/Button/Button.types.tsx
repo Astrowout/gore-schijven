@@ -1,11 +1,11 @@
-import { ReactNode } from 'react';
+import { LinkProps } from "next/link";
 
-export type ButtonProps = {
-    children: ReactNode;
-    className?: string;
+import { TComponent } from "@/types";
+
+export type TButtonProps = TComponent & Partial<Pick<LinkProps, "replace" | "scroll">> & {
     url?: string;
     isLoading?: boolean;
     onClick?: () => void;
-    type?: 'button' | 'submit' | 'reset';
-    variant?: 'default' | 'highlight';
+    type?: "button" | "submit" | "reset";
+    variant?: "default" | "highlight";
 }

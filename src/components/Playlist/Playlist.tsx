@@ -1,11 +1,12 @@
-import clsx from 'clsx';
-import { PlaylistProps } from './Playlist.types';
+import clsx from "clsx";
 
-export default function Playlist({
-    className = '',
+import { PlaylistProps } from "./Playlist.types";
+
+export default function Playlist ({
+    className = "",
 }: PlaylistProps) {
     return (
-        <section className={clsx('mx-auto max-w-2xl', className)}>
+        <section className={clsx("mx-auto max-w-2xl", className)}>
             <iframe
                 allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                 className="rounded-xl shadow-xl"

@@ -1,10 +1,10 @@
-import { InputProps } from './Input.types';
+import { InputProps } from "./Input.types";
 
-export default function Input({
-    className = '',
-    name = '',
-    label = '',
-    placeholder = '',
+export default function Input ({
+    className = "",
+    name = "",
+    label = "",
+    placeholder = "",
     onChange = () => null,
 }: InputProps) {
     return (
@@ -18,7 +18,7 @@ export default function Input({
 
             <input
                 autoComplete="off"
-                className="mt-1.5 h-14 w-full appearance-none rounded-full border border-neutral-700 bg-neutral-800 px-6 text-white shadow-inner placeholder:text-neutral-600 focus:border-purple-500 focus:outline-none"
+                className="mt-1.5 h-14 w-full appearance-none rounded-full border border-neutral-700 bg-gray-800 px-6 text-white shadow-inner placeholder:text-gray-600 focus:border-purple-500 focus:outline-none"
                 id={name}
                 name={name}
                 placeholder={placeholder}

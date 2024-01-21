@@ -1,1 +1,1 @@
-export { default } from './ContributionForm';
+export { default as ContributionForm } from "./ContributionForm";

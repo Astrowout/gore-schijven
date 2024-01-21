@@ -1,15 +1,13 @@
-'use client';
+"use client";
 
-import { useRef } from 'react';
-import clsx from 'clsx';
-import * as Popover from '@radix-ui/react-popover';
+import * as Popover from "@radix-ui/react-popover";
+import clsx from "clsx";
+import { useRef } from "react";
 
-import { Track } from '@/components';
-import { SearchStore } from '@/store';
+import { Track } from "@/components/Track";
+import { SearchStore } from "@/store";
 
-import { SearchInputProps } from './SearchInput.types';
-
-export default function SearchInput({}: SearchInputProps) {
+export default function SearchInput () {
     const query = SearchStore((state) => state.query);
     const setQuery = SearchStore((state) => state.setQuery);
     const selectedTrack = SearchStore((state) => state.selectedTrack);
@@ -30,11 +28,11 @@ export default function SearchInput({}: SearchInputProps) {
                 <input
                     ref={inputRef}
                     autoComplete="off"
-                    className={clsx('h-14 w-full appearance-none rounded-full border border-neutral-700 bg-neutral-800 px-6 text-white shadow-inner placeholder:text-neutral-600 focus:border-purple-500 focus:outline-none', {
-                        'pointer-events-none': !!selectedTrack,
-                        'pointer-events-auto': !selectedTrack,
+                    className={clsx("h-14 w-full appearance-none rounded-full border border-neutral-700 bg-gray-800 px-6 text-white shadow-inner placeholder:text-gray-600 focus:border-purple-500 focus:outline-none", {
+                        "pointer-events-none": !!selectedTrack,
+                        "pointer-events-auto": !selectedTrack,
                     })}
-                    placeholder={selectedTrack ? '' : 'Zoek een gore schijf op titel, artiest...'}
+                    placeholder={selectedTrack ? "" : "Zoek een gore schijf op titel, artiest..."}
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                 />
@@ -49,7 +47,7 @@ export default function SearchInput({}: SearchInputProps) {
                         />
 
                         <button
-                            className="flex h-6 w-6 shrink-0 items-center justify-center text-neutral-600 transition hover:scale-110 hover:text-neutral-500"
+                            className="flex h-6 w-6 shrink-0 items-center justify-center text-gray-600 transition hover:scale-110 hover:text-gray-500"
                             type="button"
                             onClick={handleRemoveSong}
                         >

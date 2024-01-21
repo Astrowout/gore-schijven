@@ -1,21 +1,21 @@
-'use client';
+"use client";
 
-import * as RadixSelect from '@radix-ui/react-select';
-import clsx from 'clsx';
+import * as RadixSelect from "@radix-ui/react-select";
+import clsx from "clsx";
 
-import { SelectProps } from './Select.types';
+import { SelectProps } from "./Select.types";
 
-export default function Select({
+export default function Select ({
     options = [],
-    name = '',
-    className = '',
+    name = "",
+    className = "",
     ...props
 }: SelectProps) {
     return (
         <RadixSelect.Root {...props}>
             <RadixSelect.Trigger
                 aria-label={name}
-                className={clsx('inline-flex items-center justify-center gap-x-2 rounded-full border py-1.5 pl-5 pr-4 outline-none transition-colors focus:shadow-[0_0_0_2px] focus:shadow-black disabled:pointer-events-none disabled:cursor-not-allowed', className)}
+                className={clsx("inline-flex items-center justify-center gap-x-2 rounded-full border py-1.5 pl-5 pr-4 outline-none transition-colors focus:shadow-[0_0_0_2px] focus:shadow-black disabled:pointer-events-none disabled:cursor-not-allowed", className)}
             >
                 <RadixSelect.Value placeholder="Select a status..." />
 
@@ -37,13 +37,13 @@ export default function Select({
 
             <RadixSelect.Content
                 align="start"
-                className="overflow-hidden rounded-lg bg-white shadow-lg"
+                className="relative z-40 overflow-hidden rounded-lg bg-white shadow-lg"
             >
                 <RadixSelect.Viewport className="flex flex-col gap-y-1 p-2">
                     {options.map((option) => (
                         <RadixSelect.Item
                             key={option}
-                            className="relative flex h-8 cursor-pointer items-center rounded-lg border border-transparent pl-8 pr-4 text-neutral-900 data-[highlighted]:border-purple-200 data-[highlighted]:bg-purple-100 data-[state=checked]:bg-purple-100 data-[highlighted]:outline-none"
+                            className="relative flex h-8 cursor-pointer items-center rounded-lg border border-transparent pl-8 pr-4 text-gray-900 data-[highlighted]:border-purple-200 data-[highlighted]:bg-purple-100 data-[state=checked]:bg-purple-100 data-[highlighted]:outline-none"
                             value={option}
                         >
                             <RadixSelect.ItemText>

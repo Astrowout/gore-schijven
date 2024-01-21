@@ -1,5 +1,6 @@
-import { ReactNode } from 'react';
-import { Status } from '@/types';
+import { ReactNode } from "react";
+
+import { Status } from "@/types";
 
 export type StatusTagProps = {
     children: ReactNode;

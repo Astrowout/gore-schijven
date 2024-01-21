@@ -1,10 +1,12 @@
-import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
+import {
+    Status,
+    TProposal,
+    TTrackDto,
+} from "@/types";
+import { TProposalDto } from "~/db/schema/proposals";
 
-import { DATABASE_PROPS } from '@/config';
-import { IDatabaseRow } from '@/types';
-
-export const getArtistsLine = (artists: any[]) => {
-    let line = '';
+export const getArtistsLine = (artists: TTrackDto["artists"]) => {
+    let line = "";
 
     for (let i = 0; i < artists.length; i++) {
         const artist = artists[i];
@@ -19,17 +21,30 @@ export const getArtistsLine = (artists: any[]) => {
     return line;
 };
 
-export const formatDatabaseRow = (page: PageObjectResponse): IDatabaseRow => {
-    const props = page.properties as any;
+export const formatProposal = (proposal: TProposalDto, track: TTrackDto): TProposal => {
+    const {
+        id,
+        name,
+        artists,
+        album,
+        external_urls,
+    } = track;
+
+    const previewImage = album.images[2] || album.images[1] || album.images[0];
 
     return {
-        id: page.id,
-        title: props[DATABASE_PROPS.title].title[0].plain_text,
-        artist: props[DATABASE_PROPS.artist].rich_text[0].plain_text,
-        spotifyUrl: props[DATABASE_PROPS.spotifyUrl].url,
-        email: props[DATABASE_PROPS.email].email,
-        likes: props[DATABASE_PROPS.likes].number || 0,
-        status: props[DATABASE_PROPS.status].status.name,
-        createdTime: page.created_time,
+        id,
+        title: name,
+        artist: getArtistsLine(artists),
+        albumCover: album.images[1] || album.images[0],
+        albumCoverPreviewUrl: previewImage.url,
+        spotifyUrl: external_urls.spotify,
+        likes: proposal.likes || 0,
+        feedback: proposal.feedback || "",
+        dislikes: proposal.dislikes || 0,
+        email: proposal.email,
+        status: proposal.status as Status || Status.TO_BE_REVIEWED,
+        createdTime: proposal.createdAt ? proposal.createdAt.toISOString() : new Date().toISOString(),
+        previewUrl: track.preview_url,
     };
 };

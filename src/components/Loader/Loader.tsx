@@ -1,25 +1,25 @@
-'use client';
+"use client";
 
-import clsx from 'clsx';
-import * as Dialog from '@radix-ui/react-dialog';
+import * as Dialog from "@radix-ui/react-dialog";
+import clsx from "clsx";
 
-import { LoaderStore } from '@/store';
+import { LoaderStore } from "@/store";
 
-import { ILoaderProps } from './Loader.types';
+import { ILoaderProps } from "./Loader.types";
 
-export default function Loader({
-    text = 'Loading',
+export default function Loader ({
+    text = "Loading",
 }: ILoaderProps) {
-    const isLoading =  LoaderStore((state) => state.isLoading);
+    const isLoading = LoaderStore((state) => state.isLoading);
 
     const renderDot = (delayClassName?: string) => (
-        <span className={clsx('mx-[2px] inline-block h-[2px] w-[2px] animate-ping rounded-full bg-neutral-400', delayClassName)} />
+        <span className={clsx("mx-[2px] inline-block h-[2px] w-[2px] animate-ping rounded-full bg-gray-400", delayClassName)} />
     );
 
     return (
         <Dialog.Root open={isLoading}>
             <Dialog.Portal>
-                <Dialog.Overlay className='fixed inset-0 z-40 bg-neutral-900/80 backdrop-blur' />
+                <Dialog.Overlay className='fixed inset-0 z-40 bg-gray-900/80 backdrop-blur' />
 
                 <Dialog.Content className='fixed left-1/2 top-1/2 z-50 flex max-w-[90vw] -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center focus:outline-none'>
                     <svg
@@ -44,14 +44,14 @@ export default function Loader({
                         />
                     </svg>
 
-                    <Dialog.Title className="mt-4 text-center text-base text-neutral-500">
+                    <Dialog.Title className="mt-4 text-center text-base text-gray-500">
                         {text}
 
                         {renderDot()}
 
-                        {renderDot('[animation-delay:80ms]')}
+                        {renderDot("[animation-delay:80ms]")}
 
-                        {renderDot('[animation-delay:160ms]')}
+                        {renderDot("[animation-delay:160ms]")}
                     </Dialog.Title>
                 </Dialog.Content>
             </Dialog.Portal>

@@ -1,19 +1,17 @@
-import { ReactNode } from 'react';
+import { ReactNode } from "react";
 
-import {
-    Button,
-    Hero,
-} from '@/components';
+import { Button } from "@/components/Button";
+import { Hero } from "@/components/Hero";
 
 export const metadata = {
-    title: 'Admin | GORE SCHIJVEN™',
+    title: "Admin | GORE SCHIJVEN™",
     robots: {
         index: false,
         follow: false,
     },
 };
 
-export default async function AdminLayout({
+export default async function AdminLayout ({
     children,
 }: {
     children: ReactNode

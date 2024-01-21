@@ -1,9 +1,9 @@
-import { Status } from '@/types';
+import {
+    ProposalVariants,
+    TComponent,
+    TProposal,
+} from "@/types";
 
-export type ProposalProps = {
-    notionPageId: string;
-    likes: number;
-    url: string;
-    status: Status;
-    createdTime: string;
-}
+export type ProposalProps = TComponent & TProposal & {
+    variant: ProposalVariants;
+};

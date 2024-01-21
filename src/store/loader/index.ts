@@ -1,8 +1,8 @@
-import create from 'zustand';
+import { create } from "zustand";
 
-import { ILoaderStore } from './types';
+import { TLoaderStore } from "./types";
 
-export default create<ILoaderStore>((set) => ({
+export default create<TLoaderStore>((set) => ({
     isLoading: false,
     setLoadingState: (state) => set({
         isLoading: state,

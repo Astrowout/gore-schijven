@@ -1,14 +1,14 @@
-import Image from 'next/image';
+import Image from "next/image";
 
-import { getArtistsLine } from '@/utils';
+import { getArtistsLine } from "@/utils";
 
-import { TrackProps } from './Track.types';
+import { TrackProps } from "./Track.types";
 
-export default function Track({
+export default function Track ({
     album,
-    name = '',
+    name = "",
     artists = [],
-    coverSize = 'w-12 h-12',
+    coverSize = "w-12 h-12",
 }: TrackProps) {
     const artistsLine = getArtistsLine(artists);
 
@@ -29,7 +29,7 @@ export default function Track({
                     {name}
                 </p>
 
-                <p className="truncate text-sm text-neutral-500">
+                <p className="truncate text-sm text-gray-500">
                     {artistsLine}
                 </p>
             </span>

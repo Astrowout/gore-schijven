@@ -1,5 +1,5 @@
-import { ReactNode } from 'react';
-import * as RadixTooltip from '@radix-ui/react-tooltip';
+import * as RadixTooltip from "@radix-ui/react-tooltip";
+import { ReactNode } from "react";
 
 export interface ITooltipProps extends RadixTooltip.TooltipProps {
     children: ReactNode;

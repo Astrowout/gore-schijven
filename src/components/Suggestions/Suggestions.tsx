@@ -1,31 +1,31 @@
-'use client';
+"use client";
 
-import * as Popover from '@radix-ui/react-popover';
-import clsx from 'clsx';
+import * as Popover from "@radix-ui/react-popover";
+import clsx from "clsx";
+import debounce from "lodash/debounce";
 import {
-    useCallback, useEffect,
-} from 'react';
-import debounce from 'lodash/debounce';
+    useCallback,
+    useEffect,
+} from "react";
 
-import {
-    EmptyState,
-    Player,
-    Track,
-} from '@/components';
+import { EmptyState } from "@/components/EmptyState";
+import { Player } from "@/components/Player";
+import { Track } from "@/components/Track";
+import { useSpotify } from "@/hooks";
+import { SearchStore } from "@/store";
+import { TTrackDto } from "@/types";
 
-import { SuggestionsProps } from './Suggestions.types';
-import { SearchStore } from '@/store';
-import { useSpotify } from '@/hooks';
-import { ITrackDto } from '@/types';
+import { SuggestionsProps } from "./Suggestions.types";
 
-export default function Suggestions({
-    accessToken = '',
+export default function Suggestions ({
+    accessToken = "",
 }: SuggestionsProps) {
     const query = SearchStore((state) => state.query);
     const setQuery = SearchStore((state) => state.setQuery);
     const setSelectedTrack = SearchStore((state) => state.setSelectedTrack);
     const {
-        tracks, getTracks,
+        tracks,
+        getTracks,
     } = useSpotify(accessToken);
 
     const fetchTracks = useCallback(debounce((value) => { // eslint-disable-line react-hooks/exhaustive-deps
@@ -38,16 +38,16 @@ export default function Suggestions({
         fetchTracks(query);
     }, [query]); // eslint-disable-line react-hooks/exhaustive-deps
 
-    const handleSelectTrack = (track: ITrackDto) => {
+    const handleSelectTrack = (track: TTrackDto) => {
         setSelectedTrack(track);
-        setQuery('');
+        setQuery("");
     };
 
     return (
         <Popover.Content
             align="start"
             avoidCollisions={false}
-            className="z-20 max-h-80 w-[var(--radix-popover-trigger-width)] overflow-y-auto rounded-lg border border-neutral-600 bg-neutral-900 shadow-xl"
+            className="z-20 max-h-80 w-[var(--radix-popover-trigger-width)] overflow-y-auto rounded-lg border border-gray-800 bg-gray-900 shadow-xl"
             sideOffset={6}
             onOpenAutoFocus={(e) => e.preventDefault()}
         >
@@ -56,11 +56,11 @@ export default function Suggestions({
             )}
 
             {!!tracks.length && (
-                <ul className="divide-y divide-neutral-800">
-                    {tracks.map((item: ITrackDto) => (
+                <ul className="divide-y divide-gray-800">
+                    {tracks.map((item: TTrackDto) => (
                         <li key={item.id}>
                             <div
-                                className={clsx('flex w-full cursor-pointer items-center gap-x-3 p-3 hover:bg-neutral-800 focus:bg-purple-500/10')}
+                                className={clsx("flex w-full cursor-pointer items-center gap-x-3 p-3 hover:bg-gray-800 focus:bg-purple-500/10")}
                                 role="button"
                                 onClick={() => handleSelectTrack(item)}
                             >

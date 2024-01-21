@@ -1,8 +1,8 @@
-import create from 'zustand';
+import { create } from "zustand";
 
-import { IPlayerStore } from './types';
+import { IPlayerStore } from "./types";
 
 export default create<IPlayerStore>((set) => ({
-    playingId: '',
+    playingId: "",
     setPlayingId: (id) => set({ playingId: id }),
 }));

@@ -1,14 +1,23 @@
+import { Loader } from "@/components/Loader";
+import { Proposals } from "@/components/Proposals";
+import { INITIAL_PAGE } from "@/config";
 import {
-    AdminProposals,
-    Loader,
-} from '@/components';
+    ProposalVariants,
+    TPageProps,
+} from "@/types";
 
-export default function AdminPage() {
+export default function AdminPage ({
+    searchParams: {
+        page = `${INITIAL_PAGE}`,
+    },
+}: TPageProps) {
     return (
         <>
-            {/* @ts-expect-error Async Server Component */}
-
-            <AdminProposals title="Gore drops van onze viezeriken" />
+            <Proposals
+                page={Number(page) || 0}
+                title="Gore drops van onze viezeriken"
+                variant={ProposalVariants.Admin}
+            />
 
             <Loader text="Sending feedback" />
         </>

@@ -5,7 +5,9 @@ interface IConditionalWrapperProps {
 }
 
 export const ConditionalWrapper = ({
-    condition, wrapper, children,
+    condition,
+    wrapper,
+    children,
 }: IConditionalWrapperProps) => {
     return condition ? wrapper(children) : children;
 };

@@ -1,30 +1,31 @@
-import clsx from 'clsx';
-import ButtonRoot from './Button.root';
-import { ButtonProps } from './Button.types';
+import clsx from "clsx";
 
-export default function Button({
-    children = null,
-    variant = 'default',
+import ButtonRoot from "./Button.root";
+import { TButtonProps } from "./Button.types";
+
+export default function Button ({
+    children,
+    variant = "default",
     ...props
-}: ButtonProps) {
+}: TButtonProps) {
     return (
         <ButtonRoot
             {...props}
             variant={variant}
         >
             <span
-                className={clsx('absolute inset-0 h-full w-full rounded-full border-x shadow-lg transition duration-200 sm:group-hover:scale-x-110 sm:group-hover:shadow-xl sm:group-hover:shadow-purple-500/20', {
-                    'border-neutral-600 bg-neutral-900 sm:group-hover:border-purple-500': variant === 'default',
-                    'border-purple-500 bg-purple-800': variant === 'highlight',
+                className={clsx("absolute inset-0 h-full w-full rounded-full border shadow-lg transition duration-500 sm:group-hover:scale-105 sm:group-hover:shadow-xl sm:group-hover:shadow-purple-500/20", {
+                    "border-neutral-700 bg-gray-900 sm:group-hover:border-brand-light": variant === "default",
+                    "border-brand-light bg-brand sm:group-hover:border-brand": variant === "highlight",
                 })}
             />
 
-            <span className="relative z-10 flex items-center gap-x-2">
+            <span className="relative z-10 flex items-center gap-x-2 transition-transform duration-300 sm:group-hover:scale-110">
                 {children}
 
                 {props.isLoading && (
                     <svg
-                        className="h-4 w-4 animate-spin text-neutral-500"
+                        className="h-4 w-4 animate-spin text-gray-500"
                         fill="none"
                         viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg"

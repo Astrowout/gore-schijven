@@ -1,7 +1,7 @@
-import { EmptyStateProps } from './EmptyState.types';
+import { EmptyStateProps } from "./EmptyState.types";
 
-export default function EmptyState({
-    message = '',
+export default function EmptyState ({
+    message = "",
     icon = null,
 }: EmptyStateProps) {
     return (
@@ -10,7 +10,7 @@ export default function EmptyState({
                 icon
             ) : (
                 <svg
-                    className="h-12 w-12 text-neutral-600"
+                    className="h-12 w-12 text-gray-600"
                     fill="none"
                     stroke="currentColor"
                     strokeWidth={1.5}
@@ -25,7 +25,7 @@ export default function EmptyState({
                 </svg>
             )}
 
-            <p className="text-sm text-neutral-500">
+            <p className="text-sm text-gray-500">
                 {message}
             </p>
         </div>

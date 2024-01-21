@@ -1,17 +1,26 @@
+import { EmptyState } from "@/components/EmptyState";
+import { Proposal } from "@/components/Proposal";
 import {
-    Proposal,
-    EmptyState,
-} from '@/components';
-import { ITrack } from '@/types';
+    DB_LIMIT,
+    INITIAL_PAGE,
+} from "@/config";
+import { getProposals } from "@/services/proposals";
+import { ProposalVariants } from "@/types";
 
-import { ProposalsProps } from './Proposals.types';
+import { MoreProposals } from "../MoreProposals";
+import { ProposalsProps } from "./Proposals.types";
 
-export default async function Proposals({
-    title = '',
+export default async function Proposals ({
+    title = "",
+    page = INITIAL_PAGE,
+    variant = ProposalVariants.Base,
 }: ProposalsProps) {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/proposals`);
+    const {
+        tracks,
+        totalCount,
+    } = await getProposals();
 
-    const { data: tracks }: { data: ITrack[] } = await res.json();
+    const count = (page + 1) * DB_LIMIT;
 
     return (
         <section className="my-4 flex flex-col items-center gap-y-3 sm:gap-y-6 lg:my-0">
@@ -25,7 +34,7 @@ export default async function Proposals({
                 <EmptyState
                     icon={
                         <svg
-                            className="h-16 w-16 text-neutral-600"
+                            className="h-16 w-16 text-gray-600"
                             fill="none"
                             stroke="currentColor"
                             strokeWidth="1.5"
@@ -48,14 +57,18 @@ export default async function Proposals({
                     {tracks.map((track) => (
                         <li key={track.id}>
                             <Proposal
-                                createdTime={track.createdTime}
-                                likes={track.likes}
-                                notionPageId={track.id}
-                                status={track.status}
-                                url={track.spotifyUrl}
+                                variant={variant}
+                                {...track}
                             />
                         </li>
                     ))}
+
+                    <MoreProposals
+                        count={count}
+                        page={page}
+                        totalCount={totalCount}
+                        variant={variant}
+                    />
                 </ul>
             )}
         </section>

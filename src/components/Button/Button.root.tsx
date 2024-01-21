@@ -1,21 +1,22 @@
-import Link from 'next/link';
-import clsx from 'clsx';
+import clsx from "clsx";
+import Link from "next/link";
 
-import { isExternalUrl } from '@/utils';
-import { ButtonProps } from './Button.types';
+import { isExternalUrl } from "@/utils";
 
-export default function ButtonRoot({
+import { TButtonProps } from "./Button.types";
+
+export default function ButtonRoot ({
     children = null,
-    className = '',
-    url = '',
-    type = 'button',
+    className = "",
+    url = "",
+    type = "button",
     isLoading = false,
-    onClick = () => null,
-    variant = 'default',
-}: ButtonProps) {
-    const classes = clsx('group relative inline-flex h-14 items-center justify-center px-6 transition-colors', className, {
-        'text-neutral-400 hover:text-purple-500': variant === 'default',
-        'text-purple-100 hover:text-white': variant === 'highlight',
+    variant = "default",
+    ...props
+}: TButtonProps) {
+    const classes = clsx("group relative inline-flex h-14 items-center justify-center rounded-full px-6 transition-colors duration-300", className, {
+        "text-gray-400 hover:text-brand-light": variant === "default",
+        "text-purple-200 hover:text-white": variant === "highlight",
     });
 
     if (url && isExternalUrl(url)) {
@@ -25,6 +26,7 @@ export default function ButtonRoot({
                 href={url}
                 rel="noopener noreferrer"
                 target="_blank"
+                {...props}
             >
                 {children}
             </a>
@@ -36,6 +38,7 @@ export default function ButtonRoot({
             <Link
                 className={classes}
                 href={url}
+                {...props}
             >
                 {children}
             </Link>
@@ -47,7 +50,7 @@ export default function ButtonRoot({
             className={classes}
             disabled={isLoading}
             type={type}
-            onClick={onClick}
+            {...props}
         >
             {children}
         </button>

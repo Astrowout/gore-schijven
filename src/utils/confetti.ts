@@ -1,30 +1,23 @@
-import JSConfetti from 'js-confetti';
+import JSConfetti from "js-confetti";
 
 let confetti: JSConfetti | null = null;
 
 export enum ConfettiTypes {
-    HEARTS = 'hearts',
-    MIXED = 'mixed',
+    HEARTS = "hearts",
 }
 
 const getConfettiConfig = (type: ConfettiTypes) => {
     switch (type) {
     case ConfettiTypes.HEARTS:
         return {
-            emojis: ['💜'],
+            emojis: ["💜"],
             emojiSize: 69,
             confettiNumber: 40,
-        };
-    case ConfettiTypes.MIXED:
-        return {
-            emojis: ['💜', '🦐'],
-            emojiSize: 64,
-            confettiNumber: 20,
         };
     }
 };
 
-export const shootConfetti = (type: ConfettiTypes) => {
+export const shootConfetti = async (type: ConfettiTypes) => {
     if (confetti) {
         confetti.clearCanvas();
     }
@@ -32,5 +25,6 @@ export const shootConfetti = (type: ConfettiTypes) => {
     const config = getConfettiConfig(type);
 
     confetti = new JSConfetti();
-    confetti.addConfetti(config);
+    await confetti.addConfetti(config);
+    confetti.clearCanvas();
 };
