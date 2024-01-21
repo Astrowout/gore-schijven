@@ -51,8 +51,6 @@ export default function MoreProposals ({
     };
 
     useEffect(() => {
-        const page = Number(searchParams.get("page") || INITIAL_PAGE) || INITIAL_PAGE;
-
         for (let i = INITIAL_PAGE + 1; i <= page; i++) {
             fetchTracks(i);
         }
@@ -72,6 +70,7 @@ export default function MoreProposals ({
             <div className="flex flex-col items-center gap-y-3">
                 {count < totalCount && (
                     <Button
+                        replace
                         isLoading={isLoading}
                         scroll={false}
                         url={`${activeRoute}?page=${page + 1}`}
