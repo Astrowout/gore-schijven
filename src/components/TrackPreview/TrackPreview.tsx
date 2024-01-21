@@ -77,6 +77,7 @@ export default function TrackPreview ({
             activeOffset={16}
             duration={500}
             innerClassName="cursor-pointer rounded-[20px] relative z-20"
+            rotateTouch={false}
             rotateXMax={8}
             rotateYMax={8}
             shadowScale={0}
