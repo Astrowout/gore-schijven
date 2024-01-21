@@ -28,8 +28,9 @@ module.exports = {
                 ],
             },
             animation: {
-				  marquee: "marquee 20s linear infinite",
-				  marquee2: "marquee2 20s linear infinite",
+                marquee: "marquee 20s linear infinite",
+                marquee2: "marquee2 20s linear infinite",
+                loader: "loader 3s ease-in-out infinite",
             },
             keyframes: {
                 marquee: {

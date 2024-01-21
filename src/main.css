@@ -98,3 +98,29 @@
         }
     }
 }
+
+/* Animations */
+@keyframes loader {
+    0% {
+        transform: translateX(-30%) rotateX(-45deg) rotateZ(-45deg) translateY(-20%);
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    60% {
+        opacity: 1;
+    }
+
+    80% {
+        opacity: 0;
+        transform: translateX(-30%) rotateX(-45deg) rotateZ(-45deg) translateY(-60%);
+    }
+
+    100% {
+        opacity: 0;
+        transform: rotateX(-45deg) rotateZ(-45deg) translateY(-70%);
+    }
+  }

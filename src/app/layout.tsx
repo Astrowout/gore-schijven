@@ -7,6 +7,7 @@ import { ReactNode } from "react";
 
 import { Footer } from "@/components/Footer";
 import { HeadingBanner } from "@/components/HeadingBanner";
+import { TITLE } from "@/config";
 
 export const runtime = "edge";
 
@@ -27,7 +28,7 @@ const kanitFont = Kanit({
 export default function RootLayout ({
     children,
 }: {
-  children: ReactNode
+  children: ReactNode;
 }) {
     const madeBy = (
         <>
@@ -73,12 +74,12 @@ export default function RootLayout ({
             lang="nl"
         >
             <body className="flex min-h-screen !max-w-none flex-col bg-gray-950/50 2xl:container selection:bg-purple-900 selection:text-white">
-                <HeadingBanner title="GORE SCHIJVEN™️" />
+                <HeadingBanner title={TITLE} />
 
                 {children}
 
                 <Footer
-                    copyright="GORE SCHIJVEN™"
+                    copyright={TITLE}
                     madeBy={madeBy}
                 />
 
