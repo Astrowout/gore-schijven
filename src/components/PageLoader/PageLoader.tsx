@@ -3,7 +3,6 @@
 import clsx from "clsx";
 import Image from "next/image";
 
-import { TITLE } from "@/config";
 import imageSrc from "~/public/playlist.jpg";
 
 import { TPageLoaderProps } from "./PageLoader.types";
@@ -37,10 +36,6 @@ export default function PageLoader ({
                 {renderDot("[animation-delay:80ms]")}
 
                 {renderDot("[animation-delay:160ms]")}
-            </p>
-
-            <p className="fixed left-1/2 top-0 -translate-x-1/2 overflow-hidden rounded-b bg-brand px-2 py-1 pb-px text-center font-display text-lg tracking-wide text-white shadow-xl shadow-gray-900/30">
-                {TITLE}
             </p>
         </div>
     );
