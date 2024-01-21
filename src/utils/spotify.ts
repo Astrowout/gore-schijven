@@ -1,4 +1,8 @@
+import { loaderTimeout } from "@/services/loader-timeout";
+
 export const getSpotifyAccessToken = async () => {
+    await loaderTimeout();
+
     try {
         const params = new URLSearchParams();
         params.append("grant_type", "client_credentials");
