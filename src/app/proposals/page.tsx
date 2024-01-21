@@ -3,11 +3,7 @@ import { Contribution } from "@/components/Contribution";
 import { ContributionForm } from "@/components/ContributionForm";
 import { Hero } from "@/components/Hero";
 import { Proposals } from "@/components/Proposals";
-import { INITIAL_PAGE } from "@/config";
-import {
-    Routes,
-    TPageProps,
-} from "@/types";
+import { Routes } from "@/types";
 
 export const metadata = {
     title: "Proposals | GORE SCHIJVEN™️",
@@ -18,11 +14,7 @@ export const metadata = {
     },
 };
 
-export default function ProposalsPage ({
-    searchParams: {
-        page = `${INITIAL_PAGE}`,
-    },
-}: TPageProps) {
+export default function ProposalsPage () {
     return (
         <main>
             <Hero>
@@ -31,10 +23,7 @@ export default function ProposalsPage ({
                 </Button>
             </Hero>
 
-            <Proposals
-                page={Number(page) || 0}
-                title="Gore drops van onze viezeriken"
-            />
+            <Proposals title="Gore drops van onze viezeriken" />
 
             <Contribution
                 description="Stel jouw degoutantste lied voor en misschien kom je wel in de vuilste lijst van het land."

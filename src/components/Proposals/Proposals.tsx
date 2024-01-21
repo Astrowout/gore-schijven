@@ -1,9 +1,5 @@
 import { EmptyState } from "@/components/EmptyState";
 import { Proposal } from "@/components/Proposal";
-import {
-    DB_LIMIT,
-    INITIAL_PAGE,
-} from "@/config";
 import { loaderTimeout } from "@/services/loader-timeout";
 import { getProposals } from "@/services/proposals";
 import { ProposalVariants } from "@/types";
@@ -13,7 +9,6 @@ import { ProposalsProps } from "./Proposals.types";
 
 export default async function Proposals ({
     title = "",
-    page = INITIAL_PAGE,
     variant = ProposalVariants.Base,
 }: ProposalsProps) {
     const promises: [ReturnType<typeof getProposals>, ReturnType<typeof loaderTimeout>] = [
@@ -27,8 +22,6 @@ export default async function Proposals ({
             totalCount,
         },
     ] = await Promise.all(promises);
-
-    const count = (page + 1) * DB_LIMIT;
 
     return (
         <section className="my-4 flex flex-col items-center gap-y-5 sm:gap-y-8 lg:my-0">
@@ -72,8 +65,6 @@ export default async function Proposals ({
                     ))}
 
                     <MoreProposals
-                        count={count}
-                        page={page}
                         totalCount={totalCount}
                         variant={variant}
                     />

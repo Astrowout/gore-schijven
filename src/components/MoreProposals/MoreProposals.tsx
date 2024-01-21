@@ -1,13 +1,16 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import {
     useEffect,
     useState,
 } from "react";
 
 import { Proposal } from "@/components/Proposal";
-import { INITIAL_PAGE } from "@/config";
+import {
+    DB_LIMIT,
+    INITIAL_PAGE,
+} from "@/config";
 import { getProposals } from "@/services/proposals";
 import {
     ProposalVariants,
@@ -20,8 +23,6 @@ import { ProposalCount } from "../ProposalCount";
 import { TMoreProposalsProps } from "./MoreProposals.types";
 
 export default function MoreProposals ({
-    page = INITIAL_PAGE,
-    count = 0,
     totalCount = 0,
     variant = ProposalVariants.Base,
 }: TMoreProposalsProps) {
@@ -33,25 +34,27 @@ export default function MoreProposals ({
         isLoading,
         setIsLoading,
     ] = useState(false);
-    const router = useRouter();
+    const searchParams = useSearchParams();
+    const page = Number(searchParams.get("page") || INITIAL_PAGE) || INITIAL_PAGE;
+    const count = (page + 1) * DB_LIMIT;
     const activeRoute = variant === ProposalVariants.Base ? Routes.Proposals : Routes.Admin;
 
-    const loadMoreTracks = async () => {
+    const fetchTracks = async (page: number) => {
         setIsLoading(true);
-        const { tracks: newTracks } = await getProposals(page + 1);
+        const { tracks: newTracks } = await getProposals(page);
         setIsLoading(false);
 
         setTracks([
             ...tracks,
             ...newTracks,
         ]);
-
-        router.replace(`${activeRoute}?page=${page + 1}`, { scroll: false });
     };
 
     useEffect(() => {
-        if (page > INITIAL_PAGE) {
-            router.replace(activeRoute);
+        const page = Number(searchParams.get("page") || INITIAL_PAGE) || INITIAL_PAGE;
+
+        for (let i = INITIAL_PAGE + 1; i <= page; i++) {
+            fetchTracks(i);
         }
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -70,7 +73,9 @@ export default function MoreProposals ({
                 {count < totalCount && (
                     <Button
                         isLoading={isLoading}
-                        onClick={loadMoreTracks}
+                        scroll={false}
+                        url={`${activeRoute}?page=${page + 1}`}
+                        onClick={() => fetchTracks(page + 1)}
                     >
                         Meer vuile ranketank
                     </Button>
