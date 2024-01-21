@@ -1,6 +1,7 @@
 import "@/main.css";
 import "atropos/atropos.min.css";
 
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Kanit } from "next/font/google";
 import { ReactNode } from "react";
 
@@ -80,6 +81,8 @@ export default function RootLayout ({
                     copyright="GORE SCHIJVEN™"
                     madeBy={madeBy}
                 />
+
+                <SpeedInsights />
             </body>
         </html>
     );
