@@ -14,6 +14,7 @@ export default function PageLoader ({
 
     const renderImage = () => (
         <Image
+            priority
             alt=""
             className={clsx("block h-auto w-full object-cover")}
             height={4760}
