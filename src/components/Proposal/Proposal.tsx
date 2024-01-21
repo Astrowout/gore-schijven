@@ -1,11 +1,8 @@
 "use client";
 
 import clsx from "clsx";
-import formatRelative from "date-fns/formatRelative";
-import nl from "date-fns/locale/nl";
 import {
     memo,
-    useEffect,
     useState,
 } from "react";
 
@@ -45,10 +42,6 @@ export default memo(function Proposal ({
     variant = ProposalVariants.Base,
 }: ProposalProps) {
     const [
-        date,
-        setDate,
-    ] = useState<string>("");
-    const [
         error,
         setError,
     ] = useState<string>("");
@@ -57,10 +50,6 @@ export default memo(function Proposal ({
         setActiveStatus,
     ] = useState(status);
     const { setLoadingState } = LoaderStore();
-
-    useEffect(() => {
-        setDate(formatRelative(new Date(createdTime), new Date(), { locale: nl }));
-    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const sendFeedback = async (status: Status) => {
         try {
@@ -100,9 +89,9 @@ export default memo(function Proposal ({
 
             <div className='mt-3 flex flex-wrap items-start justify-between gap-x-4 gap-y-3'>
                 <div className='flex flex-col items-start'>
-                    {date && (
+                    {createdTime && (
                         <p className='text-sm text-gray-500'>
-                            {date}
+                            {createdTime}
                         </p>
                     )}
 

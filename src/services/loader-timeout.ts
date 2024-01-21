@@ -1,7 +1,5 @@
 export async function loaderTimeout () {
     return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve(null);
-        }, 1000);
+        setTimeout(resolve, 1000);
     });
-}
+};

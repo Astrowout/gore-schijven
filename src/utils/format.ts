@@ -1,3 +1,6 @@
+import { formatRelative } from "date-fns";
+import { nl } from "date-fns/locale";
+
 import {
     Status,
     TProposal,
@@ -44,7 +47,7 @@ export const formatProposal = (proposal: TProposalDto, track: TTrackDto): TPropo
         dislikes: proposal.dislikes || 0,
         email: proposal.email,
         status: proposal.status as Status || Status.TO_BE_REVIEWED,
-        createdTime: proposal.createdAt ? proposal.createdAt.toISOString() : new Date().toISOString(),
+        createdTime: proposal.createdAt ? formatRelative(new Date(proposal.createdAt), new Date(), { locale: nl }) : formatRelative(new Date(), new Date(), { locale: nl }),
         previewUrl: track.preview_url,
     };
 };

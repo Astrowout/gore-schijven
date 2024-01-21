@@ -24,7 +24,7 @@
     "@vercel/speed-insights": "^1.0.5",
     "atropos": "^2.0.2",
     "clsx": "^1.2.1",
-    "date-fns": "^2.30.0",
+    "date-fns": "^3.3.0",
     "drizzle-orm": "^0.29.3",
     "eslint": "8.27.0",
     "eslint-config-next": "^13.2.4",

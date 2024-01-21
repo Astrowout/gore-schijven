@@ -70,7 +70,7 @@ export default function RootLayout ({
 
     return (
         <html
-            className={`${kanitFont.variable} bg-black`}
+            className={`${kanitFont.variable} scroll-smooth bg-black`}
             lang="nl"
         >
             <body className="flex min-h-screen !max-w-none flex-col bg-gray-950/50 2xl:container selection:bg-purple-900 selection:text-white">

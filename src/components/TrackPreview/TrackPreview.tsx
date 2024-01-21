@@ -27,6 +27,7 @@ export default memo(function TrackPreview ({
         <Atropos
             activeOffset={16}
             duration={500}
+            highlight={false}
             innerClassName="cursor-pointer rounded-[20px] relative z-20"
             rotateTouch={false}
             rotateXMax={8}
