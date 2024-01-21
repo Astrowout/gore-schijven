@@ -38,7 +38,7 @@ export default function PageLoader ({
                 {renderImage()}
             </div>
 
-            <p className="fixed bottom-12 left-10 text-xl text-gray-300 sm:left-16">
+            <p className="fixed bottom-12 left-12 text-xl text-gray-300 sm:left-16">
                 {text}
 
                 {renderDot()}
