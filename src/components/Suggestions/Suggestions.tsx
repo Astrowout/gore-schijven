@@ -9,12 +9,15 @@ import {
 } from "react";
 
 import { EmptyState } from "@/components/EmptyState";
-import { Player } from "@/components/Player";
 import { Track } from "@/components/Track";
 import { useSpotify } from "@/hooks";
 import { SearchStore } from "@/store";
 import { TTrackDto } from "@/types";
 
+import {
+    PlaySize,
+    TrackSound,
+} from "../TrackSound";
 import { SuggestionsProps } from "./Suggestions.types";
 
 export default function Suggestions ({
@@ -64,9 +67,10 @@ export default function Suggestions ({
                                 role="button"
                                 onClick={() => handleSelectTrack(track)}
                             >
-                                <Player
+                                <TrackSound
                                     id={track.id}
                                     preview={track.preview_url}
+                                    size={PlaySize.Sm}
                                 />
 
                                 <Track {...track} />

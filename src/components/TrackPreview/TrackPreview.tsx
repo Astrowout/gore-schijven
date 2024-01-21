@@ -3,21 +3,16 @@
 import Atropos from "atropos/react";
 import clsx from "clsx";
 import Image from "next/image";
-import {
-    MouseEvent,
-    useEffect,
-} from "react";
+import { memo } from "react";
 
-import { Progress } from "@/components/Progress";
-import { PlayerStore } from "@/store";
+import { getIsPlaying } from "@/store/player";
 
 import { AlbumCover } from "../AlbumCover";
 import { PlayingDecoration } from "../PlayingDecoration";
+import { TrackSound } from "../TrackSound";
 import { TrackPreviewProps } from "./TrackPreview.types";
 
-let sound: any = null;
-
-export default function TrackPreview ({
+export default memo(function TrackPreview ({
     id = "",
     preview = "",
     name = "",
@@ -26,51 +21,7 @@ export default function TrackPreview ({
     albumCoverPreviewUrl = "",
     spotifyUrl = "",
 }: TrackPreviewProps) {
-    const playingId = PlayerStore((state) => state.playingId);
-    const setPlayingId = PlayerStore((state) => state.setPlayingId);
-    const isPlaying = playingId === id;
-
-    const handleSound = (e: MouseEvent) => {
-        e.stopPropagation();
-
-        if (sound && isPlaying) {
-            handlePause();
-        } else {
-            handlePlay();
-        }
-    };
-
-    const handlePlay = () => {
-        if (sound) {
-            handlePause();
-        }
-
-        sound = new Audio(preview);
-
-        initSoundEvents();
-
-        sound.play();
-        setPlayingId(id);
-    };
-
-    const handlePause = () => {
-        sound.pause();
-        sound = null;
-        setPlayingId("");
-    };
-
-    const initSoundEvents = () => {
-        sound.addEventListener("ended", handlePause);
-    };
-
-    useEffect(() => {
-        return () => {
-            if (sound) {
-                sound.removeEventListener("ended", handlePause);
-                handlePause();
-            }
-        };
-    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    const isPlaying = getIsPlaying(id);
 
     return (
         <Atropos
@@ -134,57 +85,13 @@ export default function TrackPreview ({
                         </p>
                     </span>
 
-                    <span
-                        className="relative block h-14 w-14 shrink-0 self-end"
-                        data-atropos-offset="20"
-                    >
-                        <Progress
-                            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-                            isPlaying={isPlaying}
-                            size={72}
-                            stroke={4}
-                        />
-
-                        {preview && (
-                            <button
-                                className={clsx("relative flex h-full w-full items-center justify-center text-gray-400 transition duration-200 hover:text-gray-200 active:scale-90", {
-                                    "hover:scale-110": !isPlaying,
-                                })}
-                                type="button"
-                                onClick={handleSound}
-                            >
-                                {isPlaying ? (
-                                    <svg
-                                        className="h-full w-full"
-                                        fill="currentColor"
-                                        viewBox="0 0 20 20"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <path
-                                            clipRule="evenodd"
-                                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z"
-                                            fillRule="evenodd"
-                                        />
-                                    </svg>
-                                ) : (
-                                    <svg
-                                        className="h-full w-full"
-                                        fill="currentColor"
-                                        viewBox="0 0 20 20"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <path
-                                            clipRule="evenodd"
-                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
-                                            fillRule="evenodd"
-                                        />
-                                    </svg>
-                                )}
-                            </button>
-                        )}
-                    </span>
+                    <TrackSound
+                        className="self-end"
+                        id={id}
+                        preview={preview}
+                    />
                 </span>
             </span>
         </Atropos>
     );
-};
+});

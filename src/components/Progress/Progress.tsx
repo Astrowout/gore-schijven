@@ -1,5 +1,6 @@
 "use client";
 
+import clsx from "clsx";
 import {
     useEffect,
     useState,
@@ -65,7 +66,7 @@ export default function Progress ({
 
     return (
         <svg
-            className={`${className} -rotate-90`}
+            className={clsx("absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -rotate-90", className)}
             height={size}
             width={size}
         >

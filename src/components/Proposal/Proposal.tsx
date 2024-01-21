@@ -4,6 +4,7 @@ import clsx from "clsx";
 import formatRelative from "date-fns/formatRelative";
 import nl from "date-fns/locale/nl";
 import {
+    memo,
     useEffect,
     useState,
 } from "react";
@@ -29,7 +30,7 @@ import { Tooltip } from "../Tooltip";
 import { TrackPreview } from "../TrackPreview";
 import { ProposalProps } from "./Proposal.types";
 
-export default function Proposal ({
+export default memo(function Proposal ({
     id = "",
     likes = 0,
     dislikes = 0,
@@ -153,4 +154,4 @@ export default function Proposal ({
             </div>
         </article>
     );
-};
+});

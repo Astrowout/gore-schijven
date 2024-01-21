@@ -1,8 +1,9 @@
 import clsx from "clsx";
+import { memo } from "react";
 
 import { TProposalCountProps } from "./ProposalCount.types";
 
-export default function ProposalCount ({
+export default memo(function ProposalCount ({
     className = "",
     count = 0,
     totalCount = 0,
@@ -26,4 +27,4 @@ export default function ProposalCount ({
             {totalCount === 1 ? "resultaat" : "resultaten"}
         </p>
     );
-};
+});
