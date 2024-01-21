@@ -107,20 +107,15 @@
     }
 
     30% {
-        opacity: 1;
-    }
-
-    70% {
-        opacity: 1;
+        opacity: 0.8;
     }
 
     80% {
-        opacity: 0;
-        transform: translateX(-40%) rotateX(-45deg) rotateZ(-45deg) translateY(-60%);
+        opacity: 0.8;
     }
-    
+
     100% {
         opacity: 0;
         transform: translateX(-40%) rotateX(-45deg) rotateZ(-45deg) translateY(-60%);
     }
-  }
+}

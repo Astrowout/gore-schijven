@@ -33,7 +33,7 @@ module.exports = {
             animation: {
                 marquee: "marquee 20s linear infinite",
                 marquee2: "marquee2 20s linear infinite",
-                loader: "loader 3s cubic-bezier(0.45, 0, 0.55, 1) infinite",
+                loader: "loader 2000ms cubic-bezier(0.45, 0, 0.55, 1) forwards",
             },
             keyframes: {
                 marquee: {

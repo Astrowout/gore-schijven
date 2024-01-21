@@ -4,8 +4,10 @@ import { ContributionForm } from "@/components/ContributionForm";
 import { Hero } from "@/components/Hero";
 import { Proposals } from "@/components/Proposals";
 import { INITIAL_PAGE } from "@/config";
-import { TPageProps } from "@/types";
-import { getSpotifyAccessToken } from "@/utils";
+import {
+    Routes,
+    TPageProps,
+} from "@/types";
 
 export const metadata = {
     title: "Proposals | GORE SCHIJVEN™️",
@@ -16,17 +18,15 @@ export const metadata = {
     },
 };
 
-export default async function ProposalsPage ({
+export default function ProposalsPage ({
     searchParams: {
         page = `${INITIAL_PAGE}`,
     },
 }: TPageProps) {
-    const accessToken = await getSpotifyAccessToken();
-
     return (
         <main>
-            <Hero title="GORE SCHIJVEN™">
-                <Button url="/">
+            <Hero>
+                <Button url={Routes.Home}>
                     Terug naar home
                 </Button>
             </Hero>
@@ -40,7 +40,7 @@ export default async function ProposalsPage ({
                 description="Stel jouw degoutantste lied voor en misschien kom je wel in de vuilste lijst van het land."
                 title="Ken je zelf een vieze drop?"
             >
-                <ContributionForm accessToken={accessToken} />
+                <ContributionForm />
             </Contribution>
         </main>
     );

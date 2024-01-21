@@ -1,7 +1,5 @@
 import { Status } from "@/types";
 
-export const runtime = "edge";
-
 export type TEmailMetadata = {
     songTitle: string;
 	songArtist: string;

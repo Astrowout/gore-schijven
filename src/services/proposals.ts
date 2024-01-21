@@ -10,14 +10,12 @@ import {
     TProposal,
     TTrackDto,
 } from "@/types";
-import {
-    formatProposal,
-    getSpotifyAccessToken,
-} from "@/utils";
+import { formatProposal } from "@/utils";
 import { proposals as dbProposals } from "~/db/schema";
 import { TProposalDto } from "~/db/schema/proposals";
 
 import db from "./db";
+import { getSpotifyAccessToken } from "./spotify";
 
 export const getProposals = async (page = INITIAL_PAGE): Promise<{ tracks: TProposal[], totalCount: number }> => {
     const promises = [

@@ -3,7 +3,11 @@
 import clsx from "clsx";
 import { useInView } from "framer-motion";
 import Link from "next/link";
-import { useRef } from "react";
+import {
+    useEffect,
+    useRef,
+    useState,
+} from "react";
 
 import { THeadingBannerProps } from "./HeadingBanner.types";
 
@@ -11,14 +15,21 @@ export default function HeadingBanner ({
     title = "",
 }: THeadingBannerProps) {
     const triggerRef = useRef(null);
+    const [
+        isVisible,
+        setIsVisible,
+    ] = useState(false);
     const isInView = useInView(triggerRef);
+
+    useEffect(() => {
+        setIsVisible(!isInView);
+    }, [isInView]); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <>
             <div
-                className={clsx("fixed left-1/2 top-0 z-40 duration-500 ease-expoOut", {
-                    "translate-y-0": !isInView,
-                    "-translate-y-full": isInView,
+                className={clsx("fixed left-1/2 top-0 z-40 -translate-y-full duration-500 ease-expoOut", {
+                    "!translate-y-0": isVisible,
                 })}
             >
                 <Link
@@ -33,7 +44,7 @@ export default function HeadingBanner ({
 
             <span
                 ref={triggerRef}
-                className="absolute top-48 h-px w-px"
+                className="absolute top-32 h-px w-px sm:top-48"
             />
         </>
     );

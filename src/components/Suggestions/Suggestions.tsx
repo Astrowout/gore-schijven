@@ -6,11 +6,12 @@ import debounce from "lodash/debounce";
 import {
     useCallback,
     useEffect,
+    useState,
 } from "react";
 
 import { EmptyState } from "@/components/EmptyState";
 import { Track } from "@/components/Track";
-import { useSpotify } from "@/hooks";
+import { getTracks } from "@/services/spotify";
 import { SearchStore } from "@/store";
 import { TTrackDto } from "@/types";
 
@@ -18,27 +19,31 @@ import {
     PlaySize,
     TrackSound,
 } from "../TrackSound";
-import { SuggestionsProps } from "./Suggestions.types";
+import { TSuggestionsProps } from "./Suggestions.types";
 
-export default function Suggestions ({
-    accessToken = "",
-}: SuggestionsProps) {
-    const query = SearchStore((state) => state.query);
-    const setQuery = SearchStore((state) => state.setQuery);
-    const setSelectedTrack = SearchStore((state) => state.setSelectedTrack);
+export default function Suggestions ({}: TSuggestionsProps) {
     const {
+        query,
+        setQuery,
+        setSelectedTrack,
+    } = SearchStore();
+    const [
         tracks,
-        getTracks,
-    } = useSpotify(accessToken);
+        setTracks,
+    ] = useState<TTrackDto[]>([]);
 
-    const fetchTracks = useCallback(debounce((value) => { // eslint-disable-line react-hooks/exhaustive-deps
-        if (!!value) {
-            getTracks(value);
-        }
-    }, 300), []);
+    const fetchTracks = async (value: string) => {
+        const newTracks = await getTracks(value);
+
+        setTracks(newTracks);
+    };
+
+    const debouncedFetchTracks = useCallback(debounce(fetchTracks, 300), []); // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
-        fetchTracks(query);
+        if (query) {
+            debouncedFetchTracks(query);
+        }
     }, [query]); // eslint-disable-line react-hooks/exhaustive-deps
 
     const handleSelectTrack = (track: TTrackDto) => {

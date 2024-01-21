@@ -21,14 +21,12 @@ import {
     validateEmail,
 } from "@/utils";
 
-import { ContributionFormProps } from "./ContributionForm.types";
+import { TContributionFormProps } from "./ContributionForm.types";
 
-export default function ContributionForm ({
-    accessToken = "",
-}: ContributionFormProps) {
-    const { query } = SearchStore();
+export default function ContributionForm ({}: TContributionFormProps) {
     const router = useRouter();
     const {
+        query,
         selectedTrack,
         setSelectedTrack,
     } = SearchStore();
@@ -131,7 +129,7 @@ export default function ContributionForm ({
             <Popover.Root open={!!query && !selectedTrack}>
                 <SearchInput />
 
-                <Suggestions accessToken={accessToken} />
+                <Suggestions />
             </Popover.Root>
 
             <Input

@@ -1,5 +1,5 @@
-export async function loaderTimeout () {
+export const loaderTimeout = () => {
     return new Promise((resolve) => {
-        setTimeout(resolve, 1000);
+        setTimeout(resolve, 1200);
     });
 };

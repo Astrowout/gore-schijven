@@ -1,7 +1,5 @@
-import { ReactNode } from "react";
+import { TComponent } from "@/types";
 
-export type HeroProps = {
-    children?: ReactNode;
-    title: string;
+export type THeroProps = TComponent & {
     description?: string;
 }

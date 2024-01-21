@@ -26,7 +26,7 @@ export default function Heading ({
     );
 
     return (
-        <header>
+        <header className="l-section--sm self-center !pb-0">
             <Link
                 className="relative flex -rotate-1 items-center justify-center overflow-hidden rounded bg-purple-800 px-4 pt-2 text-center font-display text-3xl tracking-wide shadow-xl transition-colors hover:bg-purple-700 sm:pt-3.5 sm:text-5xl md:text-6xl"
                 href="/"

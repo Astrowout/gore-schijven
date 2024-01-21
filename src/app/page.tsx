@@ -3,7 +3,7 @@ import { Contribution } from "@/components/Contribution";
 import { ContributionForm } from "@/components/ContributionForm";
 import { Hero } from "@/components/Hero";
 import { Playlist } from "@/components/Playlist";
-import { getSpotifyAccessToken } from "@/utils";
+import { Routes } from "@/types";
 
 export const metadata = {
     title: "Welcome | GORE SCHIJVEN™️",
@@ -14,17 +14,12 @@ export const metadata = {
     },
 };
 
-export default async function Home () {
-    const accessToken = await getSpotifyAccessToken();
-
+export default function Home () {
     return (
         <main>
-            <Hero
-                description="Een ongewassen klets vieze build-ups, een wansmakelijke homp vadsig meeslepende drops en een allegaartje aan ander degoutant kabaal. Kortom: een open source playlist vol knallers die voldoen aan het Gore Schijven™ kwaliteitslabel."
-                title="GORE SCHIJVEN™"
-            >
+            <Hero description="Een ongewassen klets vieze build-ups, een wansmakelijke homp vadsig meeslepende drops en een allegaartje aan ander degoutant kabaal. Kortom: een open source playlist vol knallers die voldoen aan het Gore Schijven™ kwaliteitslabel.">
                 <Button
-                    url="/proposals"
+                    url={Routes.Proposals}
                     variant="highlight"
                 >
                     Bekijk proposals
@@ -41,7 +36,7 @@ export default async function Home () {
                 description="Stel jouw degoutantste lied voor en misschien kom je wel in de vuilste lijst van het land."
                 title="Ken je zelf een vieze drop?"
             >
-                <ContributionForm accessToken={accessToken} />
+                <ContributionForm />
             </Contribution>
         </main>
     );

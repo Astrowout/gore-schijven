@@ -6,10 +6,9 @@ import { Kanit } from "next/font/google";
 import { ReactNode } from "react";
 
 import { Footer } from "@/components/Footer";
+import { Heading } from "@/components/Heading";
 import { HeadingBanner } from "@/components/HeadingBanner";
 import { TITLE } from "@/config";
-
-export const runtime = "edge";
 
 export const metadata = {
     metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || `http://localhost:${process.env.PORT || 3000}`),
@@ -75,6 +74,8 @@ export default function RootLayout ({
         >
             <body className="flex min-h-screen !max-w-none flex-col bg-gray-950/50 2xl:container selection:bg-purple-900 selection:text-white">
                 <HeadingBanner title={TITLE} />
+
+                <Heading title={TITLE} />
 
                 {children}
 

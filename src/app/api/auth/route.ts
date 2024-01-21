@@ -7,8 +7,6 @@ import {
 
 import { USER_TOKEN_KEY } from "@/config";
 
-export const runtime = "edge";
-
 export async function POST (request: NextRequest) {
     const body = await request.json();
 

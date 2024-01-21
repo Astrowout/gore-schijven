@@ -4,6 +4,7 @@ import {
     DB_LIMIT,
     INITIAL_PAGE,
 } from "@/config";
+import { loaderTimeout } from "@/services/loader-timeout";
 import { getProposals } from "@/services/proposals";
 import { ProposalVariants } from "@/types";
 
@@ -15,15 +16,22 @@ export default async function Proposals ({
     page = INITIAL_PAGE,
     variant = ProposalVariants.Base,
 }: ProposalsProps) {
-    const {
-        tracks,
-        totalCount,
-    } = await getProposals();
+    const promises: [ReturnType<typeof getProposals>, ReturnType<typeof loaderTimeout>] = [
+        getProposals(),
+        loaderTimeout(),
+    ];
+
+    const [
+        {
+            tracks,
+            totalCount,
+        },
+    ] = await Promise.all(promises);
 
     const count = (page + 1) * DB_LIMIT;
 
     return (
-        <section className="my-4 flex flex-col items-center gap-y-3 sm:gap-y-6 lg:my-0">
+        <section className="my-4 flex flex-col items-center gap-y-5 sm:gap-y-8 lg:my-0">
             <header className="flex max-w-prose flex-col items-center text-center">
                 <h1 className="text-2xl font-semibold text-white sm:text-3xl md:text-4xl">
                     {title}
