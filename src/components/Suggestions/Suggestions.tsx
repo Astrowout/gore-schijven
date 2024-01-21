@@ -57,23 +57,19 @@ export default function Suggestions ({
 
             {!!tracks.length && (
                 <ul className="divide-y divide-gray-800">
-                    {tracks.map((item: TTrackDto) => (
-                        <li key={item.id}>
+                    {tracks.map((track: TTrackDto) => (
+                        <li key={track.id}>
                             <div
                                 className={clsx("flex w-full cursor-pointer items-center gap-x-3 p-3 hover:bg-gray-800 focus:bg-purple-500/10")}
                                 role="button"
-                                onClick={() => handleSelectTrack(item)}
+                                onClick={() => handleSelectTrack(track)}
                             >
                                 <Player
-                                    id={item.id}
-                                    preview={item.preview_url}
+                                    id={track.id}
+                                    preview={track.preview_url}
                                 />
 
-                                <Track
-                                    album={item.album}
-                                    artists={item.artists}
-                                    name={item.name}
-                                />
+                                <Track {...track} />
                             </div>
                         </li>
                     ))}

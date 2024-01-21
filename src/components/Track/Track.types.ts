@@ -1,11 +1,8 @@
 import {
-    IAlbum,
-    IArtist,
+    TComponent,
+    TTrackDto,
 } from "@/types";
 
-export type TrackProps = {
-    name: string;
-    album?: IAlbum;
-    artists?: IArtist[];
+export type TTrackProps = TComponent & Partial<TTrackDto> & {
     coverSize?: string;
-}
+};

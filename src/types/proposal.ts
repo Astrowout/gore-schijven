@@ -1,4 +1,4 @@
-import { TAlbumCover } from "./album";
+import { TAlbumCover } from "./spotify";
 import { Status } from "./status";
 
 export type TProposal = {

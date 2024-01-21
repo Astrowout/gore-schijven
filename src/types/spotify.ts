@@ -1,8 +1,17 @@
-import { TAlbum } from "./album";
-
 type TArtist = {
     name: string;
 }
+
+export type TAlbumCover = {
+    url: string;
+    width: number;
+    height: number;
+};
+
+export type TAlbum = {
+    name: string;
+    images: TAlbumCover[];
+};
 
 type TExternalUrls = {
     spotify: string;

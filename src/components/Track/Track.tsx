@@ -2,14 +2,14 @@ import Image from "next/image";
 
 import { getArtistsLine } from "@/utils";
 
-import { TrackProps } from "./Track.types";
+import { TTrackProps } from "./Track.types";
 
 export default function Track ({
     album,
     name = "",
     artists = [],
     coverSize = "w-12 h-12",
-}: TrackProps) {
+}: TTrackProps) {
     const artistsLine = getArtistsLine(artists);
 
     return (
