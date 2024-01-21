@@ -19,13 +19,13 @@ export default function PageLoader ({
             <Image
                 alt=""
                 className={clsx("absolute block h-auto w-auto max-w-3xl animate-loader rounded-3xl object-cover object-top shadow-2xl shadow-ui-dark/50")}
-                height={8154}
+                height={4905}
                 src={imageSrc}
                 style={{
                     transformStyle: "preserve-3d",
                     transformOrigin: "top",
                 }}
-                width={1596}
+                width={960}
             />
 
             <p className="fixed bottom-12 left-10 text-xl text-gray-500 sm:left-16">

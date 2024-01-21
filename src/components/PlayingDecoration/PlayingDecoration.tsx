@@ -18,7 +18,7 @@ export default function PlayingDecoration ({
                 loop
                 muted
                 playsInline
-                className="pointer-events-none h-full w-full object-cover opacity-30"
+                className="pointer-events-none h-full w-full object-cover opacity-50"
                 src="/bg-decoration.mp4"
             />
         </div>

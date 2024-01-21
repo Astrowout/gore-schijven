@@ -58,7 +58,7 @@ export default memo(function TrackPreview ({
                     data-atropos-opacity={isPlaying ? null : "1;0.8"}
                 />
 
-                <span className="group relative flex gap-x-4 p-4 sm:gap-x-6">
+                <span className="flex gap-x-4 p-4 sm:gap-x-6">
                     <AlbumCover
                         albumCoverPreviewUrl={albumCoverPreviewUrl}
                         alt="name"
@@ -67,12 +67,12 @@ export default memo(function TrackPreview ({
                     />
 
                     <span
-                        className="flex grow flex-col"
+                        className="group relative flex grow flex-col"
                         data-atropos-offset="4"
                     >
-                        <p className="text-lg text-white lg:text-xl">
+                        <p className="text-lg text-white md:text-xl lg:text-2xl">
                             <a
-                                className="u-clickable decoration-1 underline-offset-2 group-hover:underline"
+                                className="u-clickable underline decoration-transparent decoration-1 underline-offset-2 transition-colors group-hover:decoration-white"
                                 href={spotifyUrl}
                                 rel="noopener noreferrer"
                                 target="_blank"
@@ -81,7 +81,7 @@ export default memo(function TrackPreview ({
                             </a>
                         </p>
 
-                        <p className="text-gray-400 lg:text-lg">
+                        <p className="text-gray-400 md:text-lg lg:text-xl">
                             {artistsLine}
                         </p>
                     </span>
