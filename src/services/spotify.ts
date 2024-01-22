@@ -16,9 +16,7 @@ export const getSpotifyAccessToken = async () => {
                 "Content-Type": "application/x-www-form-urlencoded",
                 "Authorization": `Basic ${encodedData}`,
             },
-            next: {
-                revalidate: 1800,
-            },
+            cache: "no-store",
         });
 
         const { access_token } = await res.json();

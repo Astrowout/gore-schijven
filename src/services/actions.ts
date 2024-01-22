@@ -74,13 +74,14 @@ export async function updateProposalStatus (id: string, status: Status): Promise
 
 export async function saveReactions (id: string, likes: number, dislikes: number) {
     try {
-        const oldCount = await db.query.proposals.findFirst({
-            columns: {
-                likes: true,
-                dislikes: true,
-            },
-            where: eq(proposals.spotifyId, id),
-        });
+        const oldCount = await db.query.proposals
+            .findFirst({
+                columns: {
+                    likes: true,
+                    dislikes: true,
+                },
+                where: eq(proposals.spotifyId, id),
+            });
         const oldLikesCount = oldCount?.likes || 0;
         const oldDislikesCount = oldCount?.dislikes || 0;
 
