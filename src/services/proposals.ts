@@ -28,11 +28,14 @@ export const getProposals = async (page = INITIAL_PAGE): Promise<{ tracks: TProp
         }),
     ];
 
+    console.log("page", page);
+
     const [
         accessToken,
         countData,
         proposals = [],
     ] = await Promise.all(promises);
+    console.log("proposals", proposals);
     const spotifyIds = proposals.map((proposal: TProposalDto) => proposal.spotifyId);
     const res = await fetch(`${process.env.NEXT_PUBLIC_SPOTIFY_API_URL}/tracks?ids=${spotifyIds.join(",")}`, {
         cache: "no-store",
