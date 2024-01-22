@@ -24,14 +24,14 @@ export const getProposals = async (page = INITIAL_PAGE): Promise<{ tracks: TProp
         db.query.proposals.findMany({
             orderBy: (proposal, { desc }) => desc(proposal.createdAt),
             limit: DB_LIMIT,
-            offset: page * DB_LIMIT,
+            offset: (page || 0) * DB_LIMIT,
         }),
     ];
 
     const [
         accessToken,
         countData,
-        proposals,
+        proposals = [],
     ] = await Promise.all(promises);
     const spotifyIds = proposals.map((proposal: TProposalDto) => proposal.spotifyId);
     const res = await fetch(`${process.env.NEXT_PUBLIC_SPOTIFY_API_URL}/tracks?ids=${spotifyIds.join(",")}`, {
@@ -40,7 +40,7 @@ export const getProposals = async (page = INITIAL_PAGE): Promise<{ tracks: TProp
             authorization: `Bearer ${accessToken}`,
         },
     });
-    const { tracks }: { tracks: TTrackDto[] } = await res.json();
+    const { tracks = [] }: { tracks: TTrackDto[] } = await res.json();
 
     return {
         tracks: tracks.map((track, index) => formatProposal(proposals[index], track)),
