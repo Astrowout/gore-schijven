@@ -1,6 +1,6 @@
 {
-  "id": "c88a8ade-05d5-4863-ab15-2ca4bb58b6ec",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "57e762f1-ba6a-43a1-afdc-21e7b523da25",
+  "prevId": "ea56eb5b-648b-4c32-bf82-14221e50efec",
   "version": "5",
   "dialect": "pg",
   "tables": {
@@ -68,7 +68,16 @@
       "uniqueConstraints": {}
     }
   },
-  "enums": {},
+  "enums": {
+    "status": {
+      "name": "status",
+      "values": {
+        "To be reviewed": "To be reviewed",
+        "Approved": "Approved",
+        "Rejected": "Rejected"
+      }
+    }
+  },
   "schemas": {},
   "_meta": {
     "columns": {},

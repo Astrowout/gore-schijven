@@ -1,12 +1,10 @@
-import { connect } from "@planetscale/database";
-import { drizzle } from "drizzle-orm/planetscale-serverless";
+import { neon } from "@neondatabase/serverless";
+import { drizzle } from "drizzle-orm/neon-http";
 
 import * as schema from "~/db/schema";
 
 // Database connection
-const connection = connect({
-    url: process.env.PLANETSCALE_DATABASE_URL,
-});
+const connection = neon(process.env.DATABASE_URL!);
 
 // Drizzle ORM instance
 const db = drizzle(connection, { schema });

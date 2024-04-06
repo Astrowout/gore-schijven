@@ -1,12 +1,26 @@
 {
   "version": "5",
-  "dialect": "mysql",
+  "dialect": "pg",
   "entries": [
     {
       "idx": 0,
       "version": "5",
-      "when": 1705441563466,
-      "tag": "0000_young_vance_astro",
+      "when": 1712395644558,
+      "tag": "0000_spotty_logan",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1712409887700,
+      "tag": "0001_military_mole_man",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1712409935710,
+      "tag": "0002_goofy_captain_marvel",
       "breakpoints": true
     }
   ]

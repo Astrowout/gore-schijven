@@ -4,9 +4,11 @@ import {
     and,
     eq,
 } from "drizzle-orm";
-import { MySqlInsert } from "drizzle-orm/mysql-core";
 
-import { Status } from "@/types";
+import {
+    Status,
+    TProposal,
+} from "@/types";
 import { proposals } from "~/db/schema";
 
 import db from "./db";
@@ -14,22 +16,27 @@ import { sendEmail } from "./email";
 import { generateFeedback } from "./openai";
 import { getProposal } from "./proposals";
 
-export async function createProposal (trackId: string, email: string): Promise<MySqlInsert> {
+export async function createProposal (trackId: string, email: string): Promise<string> {
     try {
-        return db
+        const result = await db
             .insert(proposals)
             .values({
                 spotifyId: trackId,
                 email,
-            });
+            })
+            .returning({ id: proposals.spotifyId });
+
+        return result[0].id;
     } catch (error) {
         if (error instanceof Error) {
             throw error;
         }
+
+        throw new Error("An unknown error occured while creating your proposal. Please try again later.");
     }
 };
 
-export async function updateProposalStatus (id: string, status: Status): Promise<MySqlInsert> {
+export async function updateProposalStatus (id: string, status: Status): Promise<TProposal | undefined> {
     try {
         const data = await db
             .update(proposals)
@@ -41,7 +48,8 @@ export async function updateProposalStatus (id: string, status: Status): Promise
                     eq(proposals.spotifyId, id),
                     eq(proposals.reviewSent, false),
                 )
-            );
+            )
+            .returning({ id: proposals.spotifyId });
 
         if (data) {
             const feedback = await generateFeedback(status);
@@ -56,19 +64,23 @@ export async function updateProposalStatus (id: string, status: Status): Promise
                     eq(proposals.spotifyId, id),
                 );
 
-            const data = await getProposal(id);
+            const proposalData = await getProposal(id);
 
             await sendEmail(status, {
-                songTitle: data.title,
-                songArtist: data.artist,
-                feedback: data.feedback,
-                user_email: data.email,
+                songTitle: proposalData.title,
+                songArtist: proposalData.artist,
+                feedback: proposalData.feedback,
+                user_email: proposalData.email,
             });
+
+            return proposalData;
         }
     } catch (error) {
         if (error instanceof Error) {
             throw error;
         }
+
+        throw new Error("An unknown error ocurred while updating the proposal status. Please try again later.");
     }
 };
 

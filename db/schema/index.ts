@@ -1,1 +1,4 @@
-export { proposals } from "./proposals";
+export {
+    proposals,
+    statusEnum,
+} from "./proposals";

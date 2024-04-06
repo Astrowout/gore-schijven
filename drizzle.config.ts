@@ -5,15 +5,15 @@ import type { Config } from "drizzle-kit";
 
 loadEnvConfig(cwd());
 
-if (!process.env.PLANETSCALE_DATABASE_URL) {
-    throw new Error("PLANETSCALE_DATABASE_URL is missing");
+if (!process.env.DATABASE_URL) {
+    throw new Error("DATABASE_URL is missing");
 }
 
 export default {
     schema: "./db/schema/index.ts",
     out: "./db/drizzle",
-    driver: "mysql2",
+    driver: "pg",
     dbCredentials: {
-        uri: process.env.PLANETSCALE_DATABASE_URL!,
+        connectionString: process.env.DATABASE_URL!,
     },
 } satisfies Config;

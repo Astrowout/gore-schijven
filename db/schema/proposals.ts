@@ -1,25 +1,27 @@
 import {
     boolean,
-    int,
-    mysqlEnum,
-    mysqlTable,
+    integer,
+    pgEnum,
+    pgTable,
     text,
     timestamp,
     varchar,
-} from "drizzle-orm/mysql-core";
+} from "drizzle-orm/pg-core";
 
-export const proposals = mysqlTable("contributions", {
+export const statusEnum = pgEnum("status", [
+    "To be reviewed",
+    "Approved",
+    "Rejected",
+]);
+
+export const proposals = pgTable("contributions", {
     spotifyId: varchar("spotify_id", { length: 62 }).primaryKey(),
     email: varchar("email", { length: 256 }).notNull(),
     reviewSent: boolean("review_sent").default(false),
-    status: mysqlEnum("status", [
-        "To be reviewed",
-        "Approved",
-        "Rejected",
-    ]).default("To be reviewed"),
+    status: statusEnum("status").default("To be reviewed"),
     feedback: text("feedback"),
-    likes: int("likes").default(0),
-    dislikes: int("dislikes").default(0),
+    likes: integer("likes").default(0),
+    dislikes: integer("dislikes").default(0),
     createdAt: timestamp("created_at").defaultNow(),
 });
 
