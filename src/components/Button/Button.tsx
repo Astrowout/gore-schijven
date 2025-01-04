@@ -14,7 +14,7 @@ export default function Button ({
             variant={variant}
         >
             <span
-                className={clsx("absolute inset-0 h-full w-full rounded-full border shadow-lg transition duration-500 sm:group-hover:scale-105 sm:group-hover:shadow-xl sm:group-hover:shadow-purple-500/20", {
+                className={clsx("absolute inset-0 size-full rounded-full border shadow-lg transition duration-500 sm:group-hover:scale-105 sm:group-hover:shadow-xl sm:group-hover:shadow-purple-500/20", {
                     "border-neutral-700 bg-gray-900 sm:group-hover:border-brand-light": variant === "default",
                     "border-brand-light bg-brand sm:group-hover:border-brand": variant === "highlight",
                 })}
@@ -25,7 +25,7 @@ export default function Button ({
 
                 {props.isLoading && (
                     <svg
-                        className="h-4 w-4 animate-spin text-gray-500"
+                        className="size-4 animate-spin text-gray-500"
                         fill="none"
                         viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg"

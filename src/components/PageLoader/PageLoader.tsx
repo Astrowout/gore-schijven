@@ -9,7 +9,7 @@ export default function PageLoader ({
     text = "Loading",
 }: TPageLoaderProps) {
     const renderDot = (delayClassName?: string) => (
-        <span className={clsx("mx-[3px] inline-block h-[3px] w-[3px] animate-ping rounded-full bg-gray-300", delayClassName)} />
+        <span className={clsx("mx-[3px] inline-block size-[3px] animate-ping rounded-full bg-gray-300", delayClassName)} />
     );
 
     const renderImage = () => (

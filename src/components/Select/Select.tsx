@@ -21,7 +21,7 @@ export default function Select ({
 
                 <RadixSelect.Icon>
                     <svg
-                        className="h-5 w-5"
+                        className="size-5"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                         xmlns="http://www.w3.org/2000/svg"
@@ -52,7 +52,7 @@ export default function Select ({
 
                             <RadixSelect.ItemIndicator className="absolute left-0 inline-flex w-8 items-center justify-center">
                                 <svg
-                                    className="h-5 w-5"
+                                    className="size-5"
                                     fill="currentColor"
                                     viewBox="0 0 20 20"
                                     xmlns="http://www.w3.org/2000/svg"

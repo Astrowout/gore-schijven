@@ -74,7 +74,7 @@ export default memo(function TrackSound ({
 
             {preview && (
                 <button
-                    className={clsx("relative flex h-full w-full items-center justify-center rounded-full text-gray-400 transition duration-200 hover:text-gray-200 active:scale-90", {
+                    className={clsx("relative flex size-full items-center justify-center rounded-full text-gray-400 transition duration-200 hover:text-gray-200 active:scale-90", {
                         "hover:scale-110": !isPlaying,
                     })}
                     type="button"
@@ -82,7 +82,7 @@ export default memo(function TrackSound ({
                 >
                     {isPlaying ? (
                         <svg
-                            className="h-full w-full"
+                            className="size-full"
                             fill="currentColor"
                             viewBox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg"
@@ -95,7 +95,7 @@ export default memo(function TrackSound ({
                         </svg>
                     ) : (
                         <svg
-                            className="h-full w-full"
+                            className="size-full"
                             fill="currentColor"
                             viewBox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg"

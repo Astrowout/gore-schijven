@@ -43,7 +43,7 @@ export default memo(function TrackPreview ({
                     fill
                     alt=""
                     blurDataURL={albumCoverPreviewUrl}
-                    className="absolute inset-0 z-0 flex h-full w-full object-cover blur"
+                    className="absolute inset-0 z-0 flex size-full object-cover blur"
                     placeholder="blur"
                     sizes="20vw"
                     src={albumCover.url}

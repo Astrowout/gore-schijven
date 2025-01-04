@@ -23,7 +23,7 @@ export default function AlbumCover ({
                 fill
                 alt=""
                 blurDataURL={albumCoverPreviewUrl}
-                className={clsx("absolute inset-0 z-0 h-full w-full -translate-x-1 translate-y-1 overflow-hidden rounded-2xl object-cover opacity-60 blur-md", {
+                className={clsx("absolute inset-0 z-0 size-full -translate-x-1 translate-y-1 overflow-hidden rounded-2xl object-cover opacity-60 blur-md", {
                     "animate-pulse": isPlaying,
                 })}
                 placeholder="blur"

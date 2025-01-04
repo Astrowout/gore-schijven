@@ -13,7 +13,7 @@ export default function Loader ({
     const isLoading = LoaderStore((state) => state.isLoading);
 
     const renderDot = (delayClassName?: string) => (
-        <span className={clsx("mx-[2px] inline-block h-[2px] w-[2px] animate-ping rounded-full bg-gray-400", delayClassName)} />
+        <span className={clsx("mx-[2px] inline-block size-[2px] animate-ping rounded-full bg-gray-400", delayClassName)} />
     );
 
     return (
@@ -23,7 +23,7 @@ export default function Loader ({
 
                 <Dialog.Content className='fixed left-1/2 top-1/2 z-50 flex max-w-[90vw] -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center focus:outline-none'>
                     <svg
-                        className="h-6 w-6 animate-spin text-purple-500"
+                        className="size-6 animate-spin text-purple-500"
                         fill="none"
                         viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg"

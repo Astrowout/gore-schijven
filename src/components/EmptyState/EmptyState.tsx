@@ -10,7 +10,7 @@ export default function EmptyState ({
                 icon
             ) : (
                 <svg
-                    className="h-12 w-12 text-gray-600"
+                    className="size-12 text-gray-600"
                     fill="none"
                     stroke="currentColor"
                     strokeWidth={1.5}

@@ -7,7 +7,7 @@ export default function Success ({
     return (
         <div className="flex max-w-md flex-col items-center py-4 text-center">
             <svg
-                className="h-16 w-16 text-emerald-400"
+                className="size-16 text-emerald-400"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth={1.5}

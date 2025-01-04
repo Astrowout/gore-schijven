@@ -35,7 +35,7 @@ export default async function Proposals ({
                 <EmptyState
                     icon={
                         <svg
-                            className="h-16 w-16 text-gray-600"
+                            className="size-16 text-gray-600"
                             fill="none"
                             stroke="currentColor"
                             strokeWidth="1.5"

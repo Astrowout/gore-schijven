@@ -44,7 +44,7 @@ export default function HeadingBanner ({
 
             <span
                 ref={triggerRef}
-                className="absolute top-32 h-px w-px sm:top-48"
+                className="absolute top-32 size-px sm:top-48"
             />
         </>
     );

@@ -47,12 +47,12 @@ export default function SearchInput () {
                         />
 
                         <button
-                            className="flex h-6 w-6 shrink-0 items-center justify-center text-gray-600 transition hover:scale-110 hover:text-gray-500"
+                            className="flex size-6 shrink-0 items-center justify-center text-gray-600 transition hover:scale-110 hover:text-gray-500"
                             type="button"
                             onClick={handleRemoveSong}
                         >
                             <svg
-                                className="h-6 w-6"
+                                className="size-6"
                                 fill="none"
                                 stroke="currentColor"
                                 strokeWidth={1.5}
