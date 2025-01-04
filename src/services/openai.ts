@@ -18,7 +18,6 @@ export async function generateFeedback (status: Status) {
                     content: status === Status.APPROVED ? PROMPTS.APPROVED : PROMPTS.REJECTED,
                 },
             ],
-            "max_tokens": 64,
         }),
     });
     const data = await res.json();
@@ -26,6 +25,6 @@ export async function generateFeedback (status: Status) {
     if (data.choices) {
         return data.choices[0].message.content;
     } else if (data.error) {
-        return new Error (data.error.message);
+        throw new Error (data.error.message);
     }
 }
